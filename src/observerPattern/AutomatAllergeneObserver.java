@@ -5,7 +5,6 @@ import domainLogic.automat.Allergen;
 import java.util.HashSet;
 
 public class AutomatAllergeneObserver implements Observer {
-
     private ObservableAutomat observableAutomat;
     private HashSet<Allergen> allergene;
 
@@ -15,14 +14,6 @@ public class AutomatAllergeneObserver implements Observer {
         this.observableAutomat.addObserver(this);
     }
 
-    public ObservableAutomat getObservableAutomat() {
-        return observableAutomat;
-    }
-
-    public HashSet<Allergen> getAllergene() {
-        return allergene;
-    }
-
     @Override
     public void update(){
         if(!allergene.equals(observableAutomat.getAllergene(true))){
@@ -30,5 +21,13 @@ public class AutomatAllergeneObserver implements Observer {
                     "\n Allergene im neuen Automat: "+observableAutomat.getAllergene(true).toString());
             allergene=observableAutomat.getAllergene(true);
         }
+    }
+
+    public ObservableAutomat getObservableAutomat() {
+        return observableAutomat;
+    }
+
+    public HashSet<Allergen> getAllergene() {
+        return allergene;
     }
 }

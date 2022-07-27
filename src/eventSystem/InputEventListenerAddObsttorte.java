@@ -14,7 +14,6 @@ import java.util.regex.Pattern;
 public class InputEventListenerAddObsttorte implements InputEventListener {
     @Override
     public void onInputEvent(InputEvent event) {
-
         if (null != event.getText()) {
             String userInput = event.getText();
             String modus = userInput.substring(0, 2);

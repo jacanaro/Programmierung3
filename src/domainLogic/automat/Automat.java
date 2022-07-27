@@ -91,6 +91,41 @@ public class Automat implements Serializable {
         return herstellerWithCakeCount;
     }
 
+    public static void serialize(String filename, Automat serializableAutomat) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
+            serialize(oos, serializableAutomat);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void serialize(ObjectOutput objectOutput, Automat serializableAutomat) throws IOException {
+        objectOutput.writeObject(serializableAutomat);
+    }
+
+    public static Automat deserialize(String filename) {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))) {
+            return deserialize(ois);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Automat deserialize(ObjectInput objectInput) throws IOException, ClassNotFoundException {
+        return (Automat) objectInput.readObject();
+    }
+
+    public int getCAPACITY() {
+        return CAPACITY;
+    }
+
     public ArrayList<domainLogic.automat.KuchenImplementierung> getVerkaufsobjekte() {
         return new ArrayList<>(verkaufsobjektListe);
     }
@@ -105,10 +140,6 @@ public class Automat implements Serializable {
 
     public HashSet<domainLogic.automat.HerstellerImplementierung> getHerstellerSet() {
         return herstellerSet;
-    }
-
-    public int getCAPACITY() {
-        return CAPACITY;
     }
 
     public HashSet<domainLogic.automat.Allergen> getAllergene(boolean existInAutomat) {
@@ -142,40 +173,5 @@ public class Automat implements Serializable {
                 ", herstellerSet=" + herstellerSet +
                 ", capacity=" + CAPACITY +
                 '}';
-    }
-
-
-
-
-
-    public static void serialize(String filename, Automat serializableAutomat) {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
-            serialize(oos, serializableAutomat);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void serialize(ObjectOutput objectOutput, Automat serializableAutomat) throws IOException {
-        objectOutput.writeObject(serializableAutomat);
-    }
-
-    public static Automat deserialize(String filename) {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))) {
-            return deserialize(ois);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public static Automat deserialize(ObjectInput objectInput) throws IOException, ClassNotFoundException {
-        return (Automat) objectInput.readObject();
     }
 }

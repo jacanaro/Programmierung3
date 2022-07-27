@@ -18,22 +18,9 @@ public class AutomatSimulation2 extends AutomatSimulation1 {
     private final Condition filled = this.lock.newCondition();
     private final Condition oneDeleted = this.lock.newCondition();
 
-    public Lock getLock() {
-        return lock;
-    }
-
-    public Condition getFilled() {
-        return filled;
-    }
-
-    public Condition getOneDeleted() {
-        return oneDeleted;
-    }
-
     public AutomatSimulation2(int capacity) {
         super(capacity);
     }
-
 
     private boolean isFull() {
         return getCAPACITY() == this.getVerkaufsobjekte().size();
@@ -57,8 +44,6 @@ public class AutomatSimulation2 extends AutomatSimulation1 {
             this.lock.unlock();
         }
     }
-
-
 
     public boolean deleteVerkaufsobjektWithOldestDate() {
         this.lock.lock();
@@ -116,5 +101,16 @@ public class AutomatSimulation2 extends AutomatSimulation1 {
         return inspectedItem;
     }
 
+    public Lock getLock() {
+        return lock;
+    }
+
+    public Condition getFilled() {
+        return filled;
+    }
+
+    public Condition getOneDeleted() {
+        return oneDeleted;
+    }
 }
 

@@ -33,52 +33,21 @@ public class ViewModel {
         this.automatHerstellerProperty.set("Hersteller im Automat:\n");
     }
 
-    public void setLogger(String loggingLanguage) throws IOException {
-        this.my_log = Log.getInstance("log.txt");
-        this.my_log.setLanguage(loggingLanguage);
-    }
-
-    public void setAutomat(Automat automat) {
-        this.automat = automat;
-        this.updateProperties();
-    }
-
     public StringProperty inputProperty() {
         return this.inputProperty;
-    }
-
-    public void setInput(String value) {
-        this.inputProperty.set(value);
-    }
-
-    public String getInput() {
-        return this.inputProperty.get();
     }
 
     public StringProperty automatKuchenProperty() {
         return this.automatKuchenProperty;
     }
 
-    public String getAutomatKuchen() {
-        return this.automatKuchenProperty.get();
-    }
-
     public StringProperty automatHerstellerProperty() {
         return this.automatHerstellerProperty;
-    }
-
-    public String getAutomatHersteller() {
-        return this.automatHerstellerProperty.get();
     }
 
     public StringProperty automatInfoProperty() {
         return this.automatInfoProperty;
     }
-
-    public String getAutomatInfo() {
-        return this.automatInfoProperty.get();
-    }
-
 
     public void buttonClickHerstellerHinzufuegen(ActionEvent actionEvent) {
         String userInputStr = this.inputProperty.get();
@@ -299,6 +268,35 @@ public class ViewModel {
         }
         this.automatKuchenProperty.set("Kuchen im Automat:\n" + kuchenliste);
         this.automatHerstellerProperty.set("Hersteller im Automat:\n" + this.automat.listHerstellerWithCakeCount());
+    }
+
+    public String getInput() {
+        return this.inputProperty.get();
+    }
+
+    public String getAutomatKuchen() {
+        return this.automatKuchenProperty.get();
+    }
+
+    public String getAutomatHersteller() {
+        return this.automatHerstellerProperty.get();
+    }
+
+    public String getAutomatInfo() {
+        return this.automatInfoProperty.get();
+    }
+    public void setLogger(String loggingLanguage) throws IOException {
+        this.my_log = Log.getInstance("log.txt");
+        this.my_log.setLanguage(loggingLanguage);
+    }
+
+    public void setAutomat(Automat automat) {
+        this.automat = automat;
+        this.updateProperties();
+    }
+
+    public void setInput(String value) {
+        this.inputProperty.set(value);
     }
 
     @FXML

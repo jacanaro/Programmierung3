@@ -7,7 +7,7 @@ import observerPattern.ObservableAutomat;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class AutomatSimulation1 extends ObservableAutomat {//nicht ableiten, geht besser siehe über-/nächste vorlesung
+public class AutomatSimulation1 extends ObservableAutomat {
 
     public AutomatSimulation1(int capacity) {
         super(capacity);

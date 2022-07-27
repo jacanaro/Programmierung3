@@ -51,6 +51,14 @@ public class KuchenImplementierungPojo {
         return kuchentyp;
     }
 
+    public int getFachnummer() {
+        return fachnummer;
+    }
+
+    public Date getInspektionsdatum() {
+        return inspektionsdatum;
+    }
+
     public void setKremsorte(String kremsorte) {
         this.kremsorte = kremsorte;
     }
@@ -105,13 +113,5 @@ public class KuchenImplementierungPojo {
                 ", fachnummer=" + fachnummer +
                 ", kuchentyp='" + kuchentyp + '\'' +
                 '}';
-    }
-
-    public int getFachnummer() {
-        return fachnummer;
-    }
-
-    public Date getInspektionsdatum() {
-        return inspektionsdatum;
     }
 }

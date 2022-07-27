@@ -1,6 +1,5 @@
 package eventSystem;
 
-
 import CLI.ConsoleReader;
 import domainLogic.automat.HerstellerImplementierung;
 

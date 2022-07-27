@@ -15,10 +15,6 @@ public class ObservableAutomat extends Automat implements Observable {
         super(capacity);
     }
 
-    public ArrayList<Observer> getBeobachterList() {
-        return beobachterList;
-    }
-
     @Override public boolean addObserver(Observer observer){
         return this.beobachterList.add(observer);
     }
@@ -52,5 +48,9 @@ public class ObservableAutomat extends Automat implements Observable {
         KuchenImplementierung k=super.doInspection(fachnummer);
         notifyObservers();
         return k;
+    }
+
+    public ArrayList<Observer> getBeobachterList() {
+        return beobachterList;
     }
 }

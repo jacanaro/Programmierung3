@@ -56,6 +56,7 @@ public class KuchenImplementierung implements Obsttorte, Serializable {
     public String getKuchentyp() {
         return kuchentyp;
     }
+
     @Override
     public String getKremsorte() {
         return kremsorte;
@@ -108,7 +109,6 @@ public class KuchenImplementierung implements Obsttorte, Serializable {
     public void setFachnummer(int fachnummer){
         this.fachnummer=fachnummer;
     }
-
 
     @Override
     public String toString() {

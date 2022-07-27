@@ -32,6 +32,5 @@ public class MVVM extends Application {
         primaryStage.show();
     }
 
-
     public static void main(String[] args) {launch(args);}
 }

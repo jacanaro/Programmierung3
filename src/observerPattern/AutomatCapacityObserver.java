@@ -14,19 +14,19 @@ public class AutomatCapacityObserver implements Observer {
         this.observableAutomat.addObserver(this);
     }
 
-    public ObservableAutomat getObservableAutomat() {
-        return observableAutomat;
-    }
-
-    public ArrayList<KuchenImplementierung> getVerkaufsobjektListe() {
-        return verkaufsobjektListe;
-    }
-
     @Override
     public void update(){
         verkaufsobjektListe=observableAutomat.getVerkaufsobjekte();
         if(verkaufsobjektListe.size()>observableAutomat.getCAPACITY()*0.9) {
             System.out.println(verkaufsobjektListe.size()+" von "+observableAutomat.getCAPACITY()+" Fächern sind belegt!");
         }
+    }
+
+    public ObservableAutomat getObservableAutomat() {
+        return observableAutomat;
+    }
+
+    public ArrayList<KuchenImplementierung> getVerkaufsobjektListe() {
+        return verkaufsobjektListe;
     }
 }

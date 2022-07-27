@@ -7,8 +7,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
-// Internetquelle: Java logging explained in 3 min. https://www.youtube.com/watch?v=4Bpg5i4tUFg&list=PLGNCbZkJtqa7W3LR101bjoYSI0ignYKCl&index=3
-            //aufgerufen am 07.10.2021
 public class Log {
     private static Log log_instance=null;
     public Logger logger;
@@ -33,14 +31,14 @@ public class Log {
         fh.setFormatter(formatter);
     }
 
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
     public static Log getInstance(String file_name) throws IOException {
         if (log_instance == null)
             log_instance = new Log(file_name);
 
         return log_instance;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
     }
 }
