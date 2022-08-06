@@ -1,0 +1,2 @@
+2022-08-01 14:01:11 INFORMATION eventSystem.InputEventListenerAddHersteller onInputEvent es wird versucht einen Hersteller zu erzeugen
+2022-08-01 14:01:12 INFORMATION eventSystem.InputEventListenerAddHersteller onInputEvent Hersteller wurde hinzugefügt
