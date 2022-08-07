@@ -42,7 +42,7 @@ public class ObservableAutomat extends Automat implements Observable {
         notifyObservers();
         return success;
     }
-//todo mvc: log ist view -> erstelle observer die loggen
+
     @Override
     public KuchenImplementierung doInspection(int fachnummer) {
         KuchenImplementierung k=super.doInspection(fachnummer);

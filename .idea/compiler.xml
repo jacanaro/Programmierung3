@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="Abschlussbeleg_Aaron_Jacob_570648" target="${maven.compiler.release}" />
+      <module name="Abschlussbeleg_Aaron_Jacob_570648" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>
