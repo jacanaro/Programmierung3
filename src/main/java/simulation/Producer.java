@@ -1,11 +1,11 @@
 package simulation;
 
-import domainLogic.automat.HerstellerImplementierung;
+import domain_logic.ManufacturerImpl;
 
 public class Producer extends Thread {
-    private AutomatSimulation1 automat;
+    private VendingMachineSimulation1 automat;
 
-    public Producer(AutomatSimulation1 automat) {
+    public Producer(VendingMachineSimulation1 automat) {
         this.automat = automat;
     }
 
@@ -13,8 +13,8 @@ public class Producer extends Thread {
         while (true) {
             synchronized (this.automat) {
                 if (this.automat.getVerkaufsobjekte().size() != this.automat.getCAPACITY()) {
-                    RandomValues r = new RandomValues(new HerstellerImplementierung("Blueberryland"),
-                            new HerstellerImplementierung("Gooseberryland"));
+                    RandomProductGenerator r = new RandomProductGenerator(new ManufacturerImpl("Blueberryland"),
+                            new ManufacturerImpl("Gooseberryland"));
                     System.out.println(this.getName() + " will kuchen hinzufuegen");
                     this.automat.addVerkaufsobjekt(r.getRandomKuchen());
                 }

@@ -1,6 +1,6 @@
 package simulation;
-import domainLogic.automat.HerstellerImplementierung;
-import domainLogic.automat.KuchenImplementierung;
+import domain_logic.ManufacturerImpl;
+import domain_logic.CakeImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,32 +11,32 @@ import java.util.HashSet;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AutomatSimulation3Test {
-    AutomatSimulation3 automatSimulation3;
-    RandomValues randomValues;
+    VendingMachineSimulation3 automatSimulation3;
+    RandomProductGenerator randomProductGenerator;
 
     @BeforeEach
     void setUp(){
-        automatSimulation3= new AutomatSimulation3(5);
-        automatSimulation3.addHersteller(new HerstellerImplementierung("Blueberryland"));
-        automatSimulation3.addHersteller(new HerstellerImplementierung("Gooseberryland"));
-        randomValues= new RandomValues(new HerstellerImplementierung("Blueberryland"),
-                new HerstellerImplementierung("Gooseberryland"));
+        automatSimulation3= new VendingMachineSimulation3(5);
+        automatSimulation3.addHersteller(new ManufacturerImpl("Blueberryland"));
+        automatSimulation3.addHersteller(new ManufacturerImpl("Gooseberryland"));
+        randomProductGenerator = new RandomProductGenerator(new ManufacturerImpl("Blueberryland"),
+                new ManufacturerImpl("Gooseberryland"));
     }
 
     @Test
     void testConstructor(){
-        AutomatSimulation3 automatSimulation3= new AutomatSimulation3(2);
+        VendingMachineSimulation3 automatSimulation3= new VendingMachineSimulation3(2);
         assertEquals(2, automatSimulation3.getCAPACITY());
     }
 
     @Test
     void testConstructorWithNegativeCapacity(){
         assertThrows(IllegalArgumentException.class, ()
-                -> {new AutomatSimulation3(-1);} );
+                -> {new VendingMachineSimulation3(-1);} );
     }
     @Test
     void deleteAtLeastOneWithOneItemInAutomat() {
-        KuchenImplementierung alterKuchen=new KuchenImplementierung(new HerstellerImplementierung("Gooseberryland"), new HashSet<>(),
+        CakeImpl alterKuchen=new CakeImpl(new ManufacturerImpl("Gooseberryland"), new HashSet<>(),
                 1270, Duration.ofHours(230), "Himihbeere", new BigDecimal("3.27"));
         automatSimulation3.addVerkaufsobjekt(alterKuchen);
         automatSimulation3.deleteVerkaufsobjekteWithOldestDateXTimes();
@@ -45,9 +45,9 @@ class AutomatSimulation3Test {
 
     @Test
     void deleteAtLeastOneWithTwoItemsInAutomat() {
-        KuchenImplementierung alterKuchen=new KuchenImplementierung(new HerstellerImplementierung("Gooseberryland"), new HashSet<>(),
+        CakeImpl alterKuchen=new CakeImpl(new ManufacturerImpl("Gooseberryland"), new HashSet<>(),
                 1270, Duration.ofHours(230), "Himihbeere", new BigDecimal("3.27"));
-        KuchenImplementierung jungerKuchen=new KuchenImplementierung(new HerstellerImplementierung("Gooseberryland"), new HashSet<>(),
+        CakeImpl jungerKuchen=new CakeImpl(new ManufacturerImpl("Gooseberryland"), new HashSet<>(),
                 1270, Duration.ofHours(230), "Himihbeere", new BigDecimal("3.27"));
         automatSimulation3.addVerkaufsobjekt(alterKuchen);
         automatSimulation3.addVerkaufsobjekt(jungerKuchen);
@@ -57,9 +57,9 @@ class AutomatSimulation3Test {
 
     @Test
     void deleteAtLeastTheOldestItemWithTwoItemsInAutomat() {
-        KuchenImplementierung alterKuchen=new KuchenImplementierung(new HerstellerImplementierung("Gooseberryland"), new HashSet<>(),
+        CakeImpl alterKuchen=new CakeImpl(new ManufacturerImpl("Gooseberryland"), new HashSet<>(),
                 1270, Duration.ofHours(230), "Himihbeere", new BigDecimal("3.27"));
-        KuchenImplementierung jungerKuchen=new KuchenImplementierung(new HerstellerImplementierung("Gooseberryland"), new HashSet<>(),
+        CakeImpl jungerKuchen=new CakeImpl(new ManufacturerImpl("Gooseberryland"), new HashSet<>(),
                 1270, Duration.ofHours(230), "Himihbeere", new BigDecimal("3.27"));
         automatSimulation3.addVerkaufsobjekt(alterKuchen);
         automatSimulation3.addVerkaufsobjekt(jungerKuchen);
@@ -69,11 +69,11 @@ class AutomatSimulation3Test {
 
     @Test
     void deleteAtLeastOneWithThreeItemsInAutomat() {
-        KuchenImplementierung alterKuchen=new KuchenImplementierung(new HerstellerImplementierung("Gooseberryland"), new HashSet<>(),
+        CakeImpl alterKuchen=new CakeImpl(new ManufacturerImpl("Gooseberryland"), new HashSet<>(),
                 1270, Duration.ofHours(230), "Himihbeere", new BigDecimal("3.27"));
-        KuchenImplementierung jungerKuchen=new KuchenImplementierung(new HerstellerImplementierung("Gooseberryland"), new HashSet<>(),
+        CakeImpl jungerKuchen=new CakeImpl(new ManufacturerImpl("Gooseberryland"), new HashSet<>(),
                 1270, Duration.ofHours(230), "Himihbeere", new BigDecimal("3.27"));
-        KuchenImplementierung juengsterKuchen=new KuchenImplementierung(new HerstellerImplementierung("Gooseberryland"), new HashSet<>(),
+        CakeImpl juengsterKuchen=new CakeImpl(new ManufacturerImpl("Gooseberryland"), new HashSet<>(),
                 1270, Duration.ofHours(230), "Himihbeere", new BigDecimal("3.27"));
         automatSimulation3.addVerkaufsobjekt(alterKuchen);
         automatSimulation3.addVerkaufsobjekt(jungerKuchen);
@@ -84,9 +84,9 @@ class AutomatSimulation3Test {
 
     @Test
     void deleteAtLeastTheOldestItemWithThreeItemsInAutomat() {
-        KuchenImplementierung alterKuchen=new KuchenImplementierung(new HerstellerImplementierung("Gooseberryland"), new HashSet<>(),
+        CakeImpl alterKuchen=new CakeImpl(new ManufacturerImpl("Gooseberryland"), new HashSet<>(),
                 1270, Duration.ofHours(230), "Himihbeere", new BigDecimal("3.27"));
-        KuchenImplementierung jungerKuchen=new KuchenImplementierung(new HerstellerImplementierung("Gooseberryland"), new HashSet<>(),
+        CakeImpl jungerKuchen=new CakeImpl(new ManufacturerImpl("Gooseberryland"), new HashSet<>(),
                 1270, Duration.ofHours(230), "Himihbeere", new BigDecimal("3.27"));
         automatSimulation3.addVerkaufsobjekt(alterKuchen);
         automatSimulation3.addVerkaufsobjekt(jungerKuchen);
@@ -96,7 +96,7 @@ class AutomatSimulation3Test {
 
     @Test
     void testIfLockGetsUnlockedAfterDeleteVerkaufsobjektWithOldestDateXTimes(){
-        automatSimulation3.addVerkaufsobjekt(randomValues.getRandomKuchen());
+        automatSimulation3.addVerkaufsobjekt(randomProductGenerator.getRandomKuchen());
         automatSimulation3.deleteVerkaufsobjekteWithOldestDateXTimes();
         assertTrue(automatSimulation3.getLock().tryLock());
     }

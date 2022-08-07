@@ -1,6 +1,6 @@
 package GUI;
 
-import domainLogic.automat.Automat;
+import domain_logic.VendingMachine;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,10 +18,10 @@ public class MVVM extends Application {
 
         ViewModel controller = loader.getController();
         if(parameters.getUnnamed().size()==2){
-            controller.setAutomat(new Automat(Integer.parseInt(parameters.getUnnamed().get(0))));
+            controller.setAutomat(new VendingMachine(Integer.parseInt(parameters.getUnnamed().get(0))));
             controller.setLogger(parameters.getUnnamed().get(1));
         }else if(parameters.getUnnamed().size()==1){
-            controller.setAutomat(new Automat(Integer.parseInt(parameters.getUnnamed().get(0))));
+            controller.setAutomat(new VendingMachine(Integer.parseInt(parameters.getUnnamed().get(0))));
         }else{
             System.out.println("Kommandozeilenparameter: Automat-Capacity angeben!");
             System.exit(1);

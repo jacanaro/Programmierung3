@@ -1,9 +1,9 @@
 package simulation;
 
 public class Consumer2 extends Thread {
-    private AutomatSimulation2 automat;
+    private VendingMachineSimulation2 automat;
 
-    public Consumer2(AutomatSimulation2 automat) {
+    public Consumer2(VendingMachineSimulation2 automat) {
         this.automat = automat;
     }
 

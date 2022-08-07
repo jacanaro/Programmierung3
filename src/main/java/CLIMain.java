@@ -1,31 +1,31 @@
-import CLI.ConsoleReader;
-import eventSystem.*;
-import observerPattern.AutomatAllergeneObserver;
-import observerPattern.AutomatCapacityObserver;
-import observerPattern.ObservableAutomat;
+import CLI.CLI;
+import event_system.*;
+import observer_pattern.VendingMachineAllergensObserver;
+import observer_pattern.VendingMachineCapacityObserver;
+import observer_pattern.ObservableVendingMachine;
 import java.util.Scanner;
 
 public class CLIMain {
     public static void main(String[] args){
         try{
-            ObservableAutomat a = new ObservableAutomat(Integer.parseInt(args[0]));
-            ConsoleReader r;
+            ObservableVendingMachine a = new ObservableVendingMachine(Integer.parseInt(args[0]));
+            CLI r;
             if (args.length == 2) {
-                r = new ConsoleReader(a, new AutomatAllergeneObserver(a), new AutomatCapacityObserver(a), new Scanner(System.in), args[1]);
+                r = new CLI(a, new VendingMachineAllergensObserver(a), new VendingMachineCapacityObserver(a), new Scanner(System.in), args[1]);
             } else{
-                r = new ConsoleReader(a, new AutomatAllergeneObserver(a), new AutomatCapacityObserver(a), new Scanner(System.in));
+                r = new CLI(a, new VendingMachineAllergensObserver(a), new VendingMachineCapacityObserver(a), new Scanner(System.in));
             }
             InputEventHandler handler = new InputEventHandler();
             InputEventListener lPrint = new InputEventListenerPrint();
-            InputEventListener lAddHersteller = new InputEventListenerAddHersteller();
-            InputEventListener lAddObsttorte = new InputEventListenerAddObsttorte();
-            InputEventListener lAddObstkuchen = new InputEventListenerAddObstkuchen();
-            InputEventListener lAddKremkuchen = new InputEventListenerAddKremkuchen();
-            InputEventListener lListHersteller = new InputEventListenerListHersteller();
+            InputEventListener lAddHersteller = new InputEventListenerAddManufacturer();
+            InputEventListener lAddObsttorte = new InputEventListenerAddFruitFlan();
+            InputEventListener lAddObstkuchen = new InputEventListenerAddFruitCake();
+            InputEventListener lAddKremkuchen = new InputEventListenerAddCreamCake();
+            InputEventListener lListHersteller = new InputEventListenerListManufacturer();
             InputEventListener lListProducts = new InputEventListenerListProducts();
-            InputEventListener lListAllergene = new InputEventListenerListAllergene();
+            InputEventListener lListAllergene = new InputEventListenerListAllergens();
             InputEventListener lDeleteProduct = new InputEventListenerDeleteProduct();
-            InputEventListener lDeleteHersteller = new InputEventListenerDeleteHersteller();
+            InputEventListener lDeleteHersteller = new InputEventListenerDeleteManufacturer();
             InputEventListener lDoInspection = new InputEventListenerDoInspection();
             InputEventListener lSafeAndLoad = new InputEventListenerSafeAndLoad();
             handler.add(lSafeAndLoad);
@@ -40,7 +40,7 @@ public class CLIMain {
             handler.add(lAddObsttorte);
             handler.add(lAddObstkuchen);
             handler.add(lAddKremkuchen);
-            r.setHandler(handler);
+            r.setInputEventHandler(handler);
             r.start();
         }catch (Exception e){
             System.out.println(e+" Kommandozeilenparameter: Automat-Capacity angeben!");

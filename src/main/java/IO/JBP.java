@@ -1,14 +1,14 @@
 package IO;
 
-import domainLogic.automat.Allergen;
+import domain_logic.Allergen;
 
-import domainLogic.automat.Automat;
+import domain_logic.VendingMachine;
 
-import domainLogic.automat.HerstellerImplementierung;
+import domain_logic.ManufacturerImpl;
 
-import domainLogic.automat.KuchenImplementierung;
+import domain_logic.CakeImpl;
 
-import observerPattern.ObservableAutomat;
+import observer_pattern.ObservableVendingMachine;
 
 import java.beans.ExceptionListener;
 import java.beans.XMLDecoder;
@@ -19,31 +19,31 @@ import java.time.Duration;
 import java.util.*;
 
 public class JBP {
-    public boolean JBPSave(Automat automat) {
-        IO.AutomatPOJO automatPOJO = new IO.AutomatPOJO();
-        automatPOJO.setCapacity(automat.getCAPACITY());
-        for (HerstellerImplementierung h : automat.getHerstellerSet()) {
+    public boolean JBPSave(VendingMachine automat) {
+        VendingMachinePOJO vendingMachinePOJO = new VendingMachinePOJO();
+        vendingMachinePOJO.setCapacity(automat.getCAPACITY());
+        for (ManufacturerImpl h : automat.getHerstellerSet()) {
             if (h != null) {
-                IO.HerstellerImplementierungPojo herstellerPojo = new IO.HerstellerImplementierungPojo();
+                ManufacturerPojo herstellerPojo = new ManufacturerPojo();
                 herstellerPojo.setHerstellerName(h.getName());
-                automatPOJO.herstellerSet.add(herstellerPojo);
+                vendingMachinePOJO.herstellerSet.add(herstellerPojo);
             }
         }
-        for (KuchenImplementierung k : automat.getVerkaufsobjekte()) {
+        for (CakeImpl k : automat.getVerkaufsobjekte()) {
             if (k != null) {
-                IO.KuchenImplementierungPojo kuchenImplementierungPojo = new IO.KuchenImplementierungPojo();
-                if (k.getAllergene() != null) kuchenImplementierungPojo.setAllergene(k.getAllergene());
-                kuchenImplementierungPojo.setFachnummer(k.getFachnummer());
-                if (k.getKuchentyp() != null) kuchenImplementierungPojo.setKuchentyp(k.getKuchentyp());
-                if (k.getHaltbarkeit() != null) kuchenImplementierungPojo.setHaltbarkeit(k.getHaltbarkeit().toString());
-                if (k.getHersteller() != null) kuchenImplementierungPojo.setHersteller(k.getHersteller().getName());
+                CakePojo cakePojo = new CakePojo();
+                if (k.getAllergene() != null) cakePojo.setAllergene(k.getAllergene());
+                cakePojo.setFachnummer(k.getFachnummer());
+                if (k.getKuchentyp() != null) cakePojo.setKuchentyp(k.getKuchentyp());
+                if (k.getHaltbarkeit() != null) cakePojo.setHaltbarkeit(k.getHaltbarkeit().toString());
+                if (k.getHersteller() != null) cakePojo.setHersteller(k.getHersteller().getName());
                 if (k.getInspektionsdatum() != null)
-                    kuchenImplementierungPojo.setInspektionsdatum(k.getInspektionsdatum());
-                if (k.getKremsorte() != null) kuchenImplementierungPojo.setKremsorte(k.getKremsorte());
-                if (k.getObstsorte() != null) kuchenImplementierungPojo.setObstsorte(k.getObstsorte());
-                if (k.getNaehrwert() != 0) kuchenImplementierungPojo.setNaehrwert(k.getNaehrwert());
-                if (k.getPreis() != null) kuchenImplementierungPojo.setPreis(k.getPreis().toString());
-                automatPOJO.verkaufsobjektListe.add(kuchenImplementierungPojo);
+                    cakePojo.setInspektionsdatum(k.getInspektionsdatum());
+                if (k.getKremsorte() != null) cakePojo.setKremsorte(k.getKremsorte());
+                if (k.getObstsorte() != null) cakePojo.setObstsorte(k.getObstsorte());
+                if (k.getNaehrwert() != 0) cakePojo.setNaehrwert(k.getNaehrwert());
+                if (k.getPreis() != null) cakePojo.setPreis(k.getPreis().toString());
+                vendingMachinePOJO.verkaufsobjektListe.add(cakePojo);
             }
         }
 
@@ -56,7 +56,7 @@ public class JBP {
                     e.printStackTrace();
                 }
             });
-            encoder.writeObject(automatPOJO);
+            encoder.writeObject(vendingMachinePOJO);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -64,7 +64,7 @@ public class JBP {
         }
     }
 
-    public Automat JBPLoad() {
+    public VendingMachine JBPLoad() {
         try (XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream("beanItems.xml")));) {
             decoder.setExceptionListener(new ExceptionListener() {
                 @Override
@@ -74,20 +74,20 @@ public class JBP {
                 }
             });
 
-            IO.AutomatPOJO loadedAutomatPojo = (IO.AutomatPOJO) decoder.readObject();
+            VendingMachinePOJO loadedVendingMachinePojo = (VendingMachinePOJO) decoder.readObject();
 
             //reconstruct original automat
-            Automat automatReloaded = new ObservableAutomat(loadedAutomatPojo.getCapacity());
-            for (IO.HerstellerImplementierungPojo hPojo : loadedAutomatPojo.getHerstellerSet()) {
-                automatReloaded.addHersteller(new HerstellerImplementierung(hPojo.getHerstellerName()));
+            VendingMachine automatReloaded = new ObservableVendingMachine(loadedVendingMachinePojo.getCapacity());
+            for (ManufacturerPojo hPojo : loadedVendingMachinePojo.getHerstellerSet()) {
+                automatReloaded.addHersteller(new ManufacturerImpl(hPojo.getHerstellerName()));
             }
-            List<IO.KuchenImplementierungPojo> kuchenpojoList = (List<IO.KuchenImplementierungPojo>) loadedAutomatPojo.getVerkaufsobjektListe();
-            Collections.sort(kuchenpojoList, new IO.SortKuchen());
-            ArrayList<KuchenImplementierung> reconstructedVerkaufsobjektliste = new ArrayList<>();
-            for (IO.KuchenImplementierungPojo k : kuchenpojoList) {
+            List<CakePojo> kuchenpojoList = (List<CakePojo>) loadedVendingMachinePojo.getVerkaufsobjektListe();
+            Collections.sort(kuchenpojoList, new ProductsIdComparator());
+            ArrayList<CakeImpl> reconstructedVerkaufsobjektliste = new ArrayList<>();
+            for (CakePojo k : kuchenpojoList) {
                 if (k != null) {
                     String kremsorte = null;
-                    HerstellerImplementierung hersteller = null;
+                    ManufacturerImpl hersteller = null;
                     HashSet<Allergen> allergene = null;
                     int naehrwert = 0;
                     Duration haltbarkeit = null;
@@ -96,7 +96,7 @@ public class JBP {
                     String kuchentyp = null;
 
                     kuchentyp = k.getKuchentyp();
-                    hersteller = new HerstellerImplementierung(k.getHerstellerName());
+                    hersteller = new ManufacturerImpl(k.getHerstellerName());
                     preis = new BigDecimal(k.getPreis());
                     if (k.getNaehrwert() != 0) naehrwert = k.getNaehrwert();
                     if (k.getKremsorte() != null) kremsorte = k.getKremsorte();
@@ -106,19 +106,19 @@ public class JBP {
 
                     switch (kuchentyp) {
                         case "Kremkuchen":
-                            KuchenImplementierung kremKuchen = new KuchenImplementierung(hersteller, allergene, kremsorte, naehrwert, haltbarkeit, preis);
+                            CakeImpl kremKuchen = new CakeImpl(hersteller, allergene, kremsorte, naehrwert, haltbarkeit, preis);
                             kremKuchen.setFachnummer(k.getFachnummer());
                             kremKuchen.setInspektionsdatum(k.getInspektionsdatum());
                             reconstructedVerkaufsobjektliste.add(kremKuchen);
                             break;
                         case "Obstkuchen":
-                            KuchenImplementierung obstKuchen = new KuchenImplementierung(hersteller, allergene, naehrwert, haltbarkeit, obstsorte, preis);
+                            CakeImpl obstKuchen = new CakeImpl(hersteller, allergene, naehrwert, haltbarkeit, obstsorte, preis);
                             obstKuchen.setFachnummer(k.getFachnummer());
                             obstKuchen.setInspektionsdatum(k.getInspektionsdatum());
                             reconstructedVerkaufsobjektliste.add(obstKuchen);
                             break;
                         case "Obsttorte":
-                            KuchenImplementierung obstTorte = new KuchenImplementierung(kremsorte, hersteller, allergene, naehrwert, haltbarkeit, obstsorte, preis);
+                            CakeImpl obstTorte = new CakeImpl(kremsorte, hersteller, allergene, naehrwert, haltbarkeit, obstsorte, preis);
                             obstTorte.setFachnummer(k.getFachnummer());
                             obstTorte.setInspektionsdatum(k.getInspektionsdatum());
                             reconstructedVerkaufsobjektliste.add(obstTorte);

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <java version="1.8.0_261" class="java.beans.XMLDecoder">
- <object class="IO.AutomatPOJO" id="AutomatPOJO0">
-  <void class="IO.AutomatPOJO" method="getField">
+ <object class="IO.VendingMachinePOJO" id="AutomatPOJO0">
+  <void class="IO.VendingMachinePOJO" method="getField">
    <string>capacity</string>
    <void method="set">
     <object idref="AutomatPOJO0"/>
@@ -9,46 +9,46 @@
    </void>
   </void>
  </object>
-<void class="IO.KuchenImplementierungPojo" id="Field0" method="getField">
+<void class="IO.CakePojo" id="Field0" method="getField">
  <string>allergene</string>
  <void id="HashSet0" method="get">
-  <object class="IO.KuchenImplementierungPojo" id="KuchenImplementierungPojo0">
-   <void class="IO.KuchenImplementierungPojo" method="getField">
+  <object class="IO.CakePojo" id="KuchenImplementierungPojo0">
+   <void class="IO.CakePojo" method="getField">
     <string>kremsorte</string>
     <void method="set">
      <object idref="KuchenImplementierungPojo0"/>
      <string>Butter</string>
     </void>
    </void>
-   <void class="IO.KuchenImplementierungPojo" method="getField">
+   <void class="IO.CakePojo" method="getField">
     <string>herstellerName</string>
     <void method="set">
      <object idref="KuchenImplementierungPojo0"/>
      <string>Hersteller1</string>
     </void>
    </void>
-   <void class="IO.KuchenImplementierungPojo" method="getField">
+   <void class="IO.CakePojo" method="getField">
     <string>naehrwert</string>
     <void method="set">
      <object idref="KuchenImplementierungPojo0"/>
      <int>386</int>
     </void>
    </void>
-   <void class="IO.KuchenImplementierungPojo" method="getField">
+   <void class="IO.CakePojo" method="getField">
     <string>haltbarkeit</string>
     <void method="set">
      <object idref="KuchenImplementierungPojo0"/>
      <string>PT36H</string>
     </void>
    </void>
-   <void class="IO.KuchenImplementierungPojo" method="getField">
+   <void class="IO.CakePojo" method="getField">
     <string>preis</string>
     <void method="set">
      <object idref="KuchenImplementierungPojo0"/>
      <string>4.50</string>
     </void>
    </void>
-   <void class="IO.KuchenImplementierungPojo" method="getField">
+   <void class="IO.CakePojo" method="getField">
     <string>inspektionsdatum</string>
     <void method="set">
      <object idref="KuchenImplementierungPojo0"/>
@@ -57,14 +57,14 @@
      </object>
     </void>
    </void>
-   <void class="IO.KuchenImplementierungPojo" method="getField">
+   <void class="IO.CakePojo" method="getField">
     <string>fachnummer</string>
     <void method="set">
      <object idref="KuchenImplementierungPojo0"/>
      <int>1</int>
     </void>
    </void>
-   <void class="IO.KuchenImplementierungPojo" method="getField">
+   <void class="IO.CakePojo" method="getField">
     <string>kuchentyp</string>
     <void method="set">
      <object idref="KuchenImplementierungPojo0"/>
@@ -74,27 +74,27 @@
   </object>
   <void method="add">
    <object class="java.lang.Enum" id="Allergen0" method="valueOf">
-    <class>domainLogic.automat.Allergen</class>
+    <class>domain_logic.Allergen</class>
     <string>Gluten</string>
    </object>
   </void>
   <void method="add">
    <object class="java.lang.Enum" method="valueOf">
-    <class>domainLogic.automat.Allergen</class>
+    <class>domain_logic.Allergen</class>
     <string>Erdnuss</string>
    </object>
   </void>
  </void>
 </void>
 <void idref="HashSet0"/>
-<void class="IO.HerstellerImplementierungPojo" method="getField">
+<void class="IO.ManufacturerPojo" method="getField">
  <string>herstellerName</string>
  <void method="set">
-  <object class="IO.HerstellerImplementierungPojo" id="HerstellerImplementierungPojo0"/>
+  <object class="IO.ManufacturerPojo" id="HerstellerImplementierungPojo0"/>
   <string>Hersteller1</string>
  </void>
 </void>
-<void class="IO.AutomatPOJO" id="Field1" method="getField">
+<void class="IO.VendingMachinePOJO" id="Field1" method="getField">
  <string>herstellerSet</string>
  <void id="HashSet1" method="get">
   <object idref="AutomatPOJO0"/>
@@ -104,7 +104,7 @@
  </void>
 </void>
 <void idref="HashSet1"/>
-<void class="IO.AutomatPOJO" id="Field2" method="getField">
+<void class="IO.VendingMachinePOJO" id="Field2" method="getField">
  <string>verkaufsobjektListe</string>
  <void id="ArrayList0" method="get">
   <object idref="AutomatPOJO0"/>
@@ -112,50 +112,50 @@
    <object idref="KuchenImplementierungPojo0"/>
   </void>
   <void method="add">
-   <object class="IO.KuchenImplementierungPojo" id="KuchenImplementierungPojo1">
-    <void class="IO.KuchenImplementierungPojo" method="getField">
+   <object class="IO.CakePojo" id="KuchenImplementierungPojo1">
+    <void class="IO.CakePojo" method="getField">
      <string>kremsorte</string>
      <void method="set">
       <object idref="KuchenImplementierungPojo1"/>
       <string>Sahne</string>
      </void>
     </void>
-    <void class="IO.KuchenImplementierungPojo" method="getField">
+    <void class="IO.CakePojo" method="getField">
      <string>herstellerName</string>
      <void method="set">
       <object idref="KuchenImplementierungPojo1"/>
       <string>Hersteller1</string>
      </void>
     </void>
-    <void class="IO.KuchenImplementierungPojo" method="getField">
+    <void class="IO.CakePojo" method="getField">
      <string>naehrwert</string>
      <void method="set">
       <object idref="KuchenImplementierungPojo1"/>
       <int>632</int>
      </void>
     </void>
-    <void class="IO.KuchenImplementierungPojo" method="getField">
+    <void class="IO.CakePojo" method="getField">
      <string>haltbarkeit</string>
      <void method="set">
       <object idref="KuchenImplementierungPojo1"/>
       <string>PT24H</string>
      </void>
     </void>
-    <void class="IO.KuchenImplementierungPojo" method="getField">
+    <void class="IO.CakePojo" method="getField">
      <string>obstsorte</string>
      <void method="set">
       <object idref="KuchenImplementierungPojo1"/>
       <string>Apfel</string>
      </void>
     </void>
-    <void class="IO.KuchenImplementierungPojo" method="getField">
+    <void class="IO.CakePojo" method="getField">
      <string>preis</string>
      <void method="set">
       <object idref="KuchenImplementierungPojo1"/>
       <string>7.50</string>
      </void>
     </void>
-    <void class="IO.KuchenImplementierungPojo" method="getField">
+    <void class="IO.CakePojo" method="getField">
      <string>inspektionsdatum</string>
      <void method="set">
       <object idref="KuchenImplementierungPojo1"/>
@@ -164,7 +164,7 @@
       </object>
      </void>
     </void>
-    <void class="IO.KuchenImplementierungPojo" method="getField">
+    <void class="IO.CakePojo" method="getField">
      <string>kuchentyp</string>
      <void method="set">
       <object idref="KuchenImplementierungPojo1"/>
@@ -176,7 +176,7 @@
  </void>
 </void>
 <void idref="ArrayList0"/>
-<void class="IO.KuchenImplementierungPojo" id="Field3" method="getField">
+<void class="IO.CakePojo" id="Field3" method="getField">
  <string>allergene</string>
  <void id="HashSet2" method="get">
   <object idref="KuchenImplementierungPojo1"/>

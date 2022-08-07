@@ -1,8 +1,8 @@
 package JOS;
 
-import domainLogic.automat.Automat;
-import domainLogic.automat.HerstellerImplementierung;
-import domainLogic.automat.KuchenImplementierung;
+import domain_logic.VendingMachine;
+import domain_logic.ManufacturerImpl;
+import domain_logic.CakeImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,16 +15,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class JOSTest {
 
-    HerstellerImplementierung testHersteller;
-    Automat automat;
-    KuchenImplementierung testVerkaufsobjekt;
+    ManufacturerImpl testHersteller;
+    VendingMachine automat;
+    CakeImpl testVerkaufsobjekt;
 
     @BeforeEach
     void setUp(){
-        testHersteller=new HerstellerImplementierung("Blueberryland");
-        testVerkaufsobjekt= new KuchenImplementierung(testHersteller, new HashSet<>(),
+        testHersteller=new ManufacturerImpl("Blueberryland");
+        testVerkaufsobjekt= new CakeImpl(testHersteller, new HashSet<>(),
                 1270, Duration.ofHours(230), "Himihbeere", new BigDecimal("3.27"));
-        automat= new Automat(10);
+        automat= new VendingMachine(10);
     }
 
     @Test
@@ -32,10 +32,10 @@ class JOSTest {
 
         automat.addHersteller(testHersteller);
         automat.addVerkaufsobjekt(testVerkaufsobjekt);
-        Automat.serialize("automatSerialisation1.ser", automat);
-        Automat.serialize("automatSerialisation2.ser", automat);
-        Automat deserializedAutomat1= Automat.deserialize("automatSerialisation1.ser");
-        Automat deserializedAutomat2= Automat.deserialize("automatSerialisation2.ser");
+        VendingMachine.serialize("automatSerialisation1.ser", automat);
+        VendingMachine.serialize("automatSerialisation2.ser", automat);
+        VendingMachine deserializedAutomat1= VendingMachine.deserialize("automatSerialisation1.ser");
+        VendingMachine deserializedAutomat2= VendingMachine.deserialize("automatSerialisation2.ser");
         assertEquals(deserializedAutomat1.toString(), deserializedAutomat2.toString());
         assertEquals(automat.toString(), deserializedAutomat1.toString());
         assertEquals(automat.toString(), deserializedAutomat2.toString());
@@ -45,9 +45,9 @@ class JOSTest {
     void testIfDeserializeReturnsAutomat(){
         automat.addHersteller(testHersteller);
         automat.addVerkaufsobjekt(testVerkaufsobjekt);
-        Automat.serialize("automatSerialisation.ser", automat);
-        Object deserializedAutomat= Automat.deserialize("automatSerialisation.ser");
-        assertTrue(deserializedAutomat instanceof Automat);
+        VendingMachine.serialize("automatSerialisation.ser", automat);
+        Object deserializedAutomat= VendingMachine.deserialize("automatSerialisation.ser");
+        assertTrue(deserializedAutomat instanceof VendingMachine);
         assertEquals(automat.toString(), deserializedAutomat.toString());
     }
 
@@ -56,14 +56,14 @@ class JOSTest {
         automat.addHersteller(testHersteller);
         automat.addVerkaufsobjekt(testVerkaufsobjekt);
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("1"))) {
-            Automat.serialize(oos, automat);
+            VendingMachine.serialize(oos, automat);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("1"))) {
-            Automat deserialized= Automat.deserialize(ois);
+            VendingMachine deserialized= VendingMachine.deserialize(ois);
 
             assertEquals(automat.toString(), deserialized.toString());
 
