@@ -58,11 +58,11 @@ class ObservableVendingMachineTest {
     void addVerkaufsobjekt() {
         ManufacturerImpl drOetker = new ManufacturerImpl("Dr. Oetker");
         HashSet<Allergen> allergens = new HashSet<>();
-        automat.addHersteller(drOetker);
+        automat.addManufacturer(drOetker);
         allergens.add(Allergen.Haselnuss);
 
         //if null, no error(code) occured
-        assertNull(automat.addVerkaufsobjekt(new CakeImpl("Schokocreme", drOetker, allergens, 1000,
+        assertNull(automat.addProduct(new CakeImpl("Schokocreme", drOetker, allergens, 1000,
                 Duration.ofHours(220), "Erdbeere", new BigDecimal("3.00"))));
     }
 
@@ -71,10 +71,10 @@ class ObservableVendingMachineTest {
         VendingMachineAllergensObserver observerMock = mock(VendingMachineAllergensObserver.class);
         ManufacturerImpl drOetker = new ManufacturerImpl("Dr. Oetker");
         HashSet<Allergen> allergens = new HashSet<>();
-        automat.addHersteller(drOetker);
+        automat.addManufacturer(drOetker);
         allergens.add(Allergen.Haselnuss);
         automat.addObserver(observerMock);
-        automat.addVerkaufsobjekt(new CakeImpl("Schokocreme", drOetker, allergens, 1000,
+        automat.addProduct(new CakeImpl("Schokocreme", drOetker, allergens, 1000,
                 Duration.ofHours(220), "Erdbeere", new BigDecimal("3.00")));
         verify(observerMock, times(1)).update();
     }
@@ -83,24 +83,24 @@ class ObservableVendingMachineTest {
     void deleteVerkaufsobjekt() {
         ManufacturerImpl drOetker = new ManufacturerImpl("Dr. Oetker");
         HashSet<Allergen> allergens = new HashSet<>();
-        automat.addHersteller(drOetker);
+        automat.addManufacturer(drOetker);
         allergens.add(Allergen.Haselnuss);
-        automat.addVerkaufsobjekt(new CakeImpl("Schokocreme", drOetker, allergens, 1000,
+        automat.addProduct(new CakeImpl("Schokocreme", drOetker, allergens, 1000,
                 Duration.ofHours(220), "Erdbeere", new BigDecimal("3.00")));
 
-        assertTrue(automat.deleteVerkaufsobjekt(0));
+        assertTrue(automat.deleteProduct(0));
     }
     @Test
     void testIfDeleteVerkaufsobjektNotifiesObserver(){
         ManufacturerImpl drOetker = new ManufacturerImpl("Dr. Oetker");
         HashSet<Allergen> allergens = new HashSet<>();
-        automat.addHersteller(drOetker);
+        automat.addManufacturer(drOetker);
         allergens.add(Allergen.Haselnuss);
-        automat.addVerkaufsobjekt(new CakeImpl("Schokocreme", drOetker, allergens, 1000,
+        automat.addProduct(new CakeImpl("Schokocreme", drOetker, allergens, 1000,
                 Duration.ofHours(220), "Erdbeere", new BigDecimal("3.00")));
         VendingMachineAllergensObserver observerMock = mock(VendingMachineAllergensObserver.class);
         automat.addObserver(observerMock);
-        automat.deleteVerkaufsobjekt(0);
+        automat.deleteProduct(0);
 
         verify(observerMock, times(1)).update();
     }
@@ -108,22 +108,22 @@ class ObservableVendingMachineTest {
     void doInspection() {
         ManufacturerImpl drOetker = new ManufacturerImpl("Dr. Oetker");
         HashSet<Allergen> allergens = new HashSet<>();
-        automat.addHersteller(drOetker);
+        automat.addManufacturer(drOetker);
         allergens.add(Allergen.Haselnuss);
-        automat.addVerkaufsobjekt(new CakeImpl("Schokocreme", drOetker, allergens, 1000,
+        automat.addProduct(new CakeImpl("Schokocreme", drOetker, allergens, 1000,
                 Duration.ofHours(220), "Erdbeere", new BigDecimal("3.00")));
-        Date oldDate= automat.getVerkaufsobjekte().get(0).getInspektionsdatum();
+        Date oldDate= automat.getProducts().get(0).getDateOfInspection();
         automat.doInspection(0);
-        Date newDate= automat.getVerkaufsobjekte().get(0).getInspektionsdatum();
+        Date newDate= automat.getProducts().get(0).getDateOfInspection();
         assertTrue(oldDate!=newDate);
     }
     @Test
     void testIfDoInspectionNotifiesObserver(){
         ManufacturerImpl drOetker = new ManufacturerImpl("Dr. Oetker");
         HashSet<Allergen> allergens = new HashSet<>();
-        automat.addHersteller(drOetker);
+        automat.addManufacturer(drOetker);
         allergens.add(Allergen.Haselnuss);
-        automat.addVerkaufsobjekt(new CakeImpl("Schokocreme", drOetker, allergens, 1000,
+        automat.addProduct(new CakeImpl("Schokocreme", drOetker, allergens, 1000,
                 Duration.ofHours(220), "Erdbeere", new BigDecimal("3.00")));
         VendingMachineAllergensObserver observerMock = mock(VendingMachineAllergensObserver.class);
         automat.addObserver(observerMock);

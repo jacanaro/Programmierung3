@@ -30,22 +30,22 @@ public class ObservableVendingMachine extends VendingMachine implements Observab
     }
 
     @Override
-    public VendingMachineErrorCodes addVerkaufsobjekt(CakeImpl kuchen) {
-        VendingMachineErrorCodes a=super.addVerkaufsobjekt(kuchen);
+    public VendingMachineErrorCodes addProduct(CakeImpl cake) {
+        VendingMachineErrorCodes a=super.addProduct(cake);
         notifyObservers();
         return a;
     }
 
     @Override
-    public boolean deleteVerkaufsobjekt(int fachnummer) {
-        boolean success=super.deleteVerkaufsobjekt(fachnummer);
+    public boolean deleteProduct(int vendingMachineSlot) {
+        boolean success=super.deleteProduct(vendingMachineSlot);
         notifyObservers();
         return success;
     }
 
     @Override
-    public CakeImpl doInspection(int fachnummer) {
-        CakeImpl k=super.doInspection(fachnummer);
+    public CakeImpl doInspection(int vendingMachineSlot) {
+        CakeImpl k=super.doInspection(vendingMachineSlot);
         notifyObservers();
         return k;
     }

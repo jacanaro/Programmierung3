@@ -7,8 +7,8 @@ public class Simulation3Main {
         try{
         VendingMachineSimulation3 automat = new VendingMachineSimulation3(Integer.parseInt(args[0]));
         new AutomatSimulationObserver(automat);
-        automat.addHersteller(new ManufacturerImpl("Blueberryland"));
-        automat.addHersteller(new ManufacturerImpl("Gooseberryland"));
+        automat.addManufacturer(new ManufacturerImpl("Blueberryland"));
+        automat.addManufacturer(new ManufacturerImpl("Gooseberryland"));
         new Consumer3(automat).start();
         new Producer3(automat).start();
         new Consumer3(automat).start();

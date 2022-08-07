@@ -1,7 +1,7 @@
 package domain_logic;
 
 public enum VendingMachineErrorCodes {
-    HERSTELLER_ERROR(500), CAPACITY_ERROR(1000);
+    MANUFACTURER_ERROR(500), CAPACITY_ERROR(1000);
 
     private int errorCode;
 

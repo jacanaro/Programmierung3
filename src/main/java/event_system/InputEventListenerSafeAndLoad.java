@@ -24,11 +24,11 @@ public class InputEventListenerSafeAndLoad implements InputEventListener {
                             oAutomat.removeObserver(c.getAllergensObserver());
                             oAutomat.removeObserver(c.getCapacityObserver());
                             VendingMachine automat=oAutomat;
-                            automat.serialize("automaten.ser", automat);
+                            automat.serializeVendingMachine("automaten.ser", automat);
                             if(c.getLog()!=null)c.getLog().logger.info("Der Zustand des Automaten wurde mittels JOS gespeichert");
                             break;
                         case "loadJOS":
-                            VendingMachine loadedAutomat = VendingMachine.deserialize("automaten.ser");
+                            VendingMachine loadedAutomat = VendingMachine.deserializeVendingMachine("automaten.ser");
                             System.out.println("Deserialisiert: " + loadedAutomat);
                             CLI c2 = (CLI) event.getSource();
                             ObservableVendingMachine o = (ObservableVendingMachine) loadedAutomat;

@@ -16,7 +16,7 @@ public class InputEventListenerListManufacturer implements InputEventListener {
                             CLI c = (CLI) event.getSource();
                             if (c.getLog() != null)
                                 c.getLog().logger.info("es werden alle Hersteller, die im Automat vertreten sind, mit Anzahl der Kuchen ausgegeben");
-                            System.out.println(c.getObservableVendingMachine().listHerstellerWithCakeCount().toString());
+                            System.out.println(c.getObservableVendingMachine().listManufacturersWithProductsCounted().toString());
                         }
                 }catch (Exception e){
                     System.out.println(e);

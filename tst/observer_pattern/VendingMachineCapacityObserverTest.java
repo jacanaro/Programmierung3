@@ -26,24 +26,24 @@ class VendingMachineCapacityObserverTest {
         System.setOut(new PrintStream(outContent));
 
         automat = new ObservableVendingMachine(10);
-        automat.addHersteller(drOetker);
+        automat.addManufacturer(drOetker);
         allergens.add(Allergen.Haselnuss);
 
-        automat.addVerkaufsobjekt(new CakeImpl("Schokocreme",drOetker, allergens, 1000,
+        automat.addProduct(new CakeImpl("Schokocreme",drOetker, allergens, 1000,
                 Duration.ofHours(220),"Erdbeere", new BigDecimal("3.00")));
-        automat.addVerkaufsobjekt(new CakeImpl("Schokocreme",drOetker, new HashSet<>(), 1000,
+        automat.addProduct(new CakeImpl("Schokocreme",drOetker, new HashSet<>(), 1000,
                 Duration.ofHours(220),"Erdbeere", new BigDecimal("3.00")));
-        automat.addVerkaufsobjekt(new CakeImpl("Schokocreme",drOetker, allergens, 1000,
+        automat.addProduct(new CakeImpl("Schokocreme",drOetker, allergens, 1000,
                 Duration.ofHours(220),"Erdbeere", new BigDecimal("3.00")));
-        automat.addVerkaufsobjekt(new CakeImpl("Schokocreme",drOetker, new HashSet<>(), 1000,
+        automat.addProduct(new CakeImpl("Schokocreme",drOetker, new HashSet<>(), 1000,
                 Duration.ofHours(220),"Erdbeere", new BigDecimal("3.00")));
-        automat.addVerkaufsobjekt(new CakeImpl("Schokocreme",drOetker, allergens, 1000,
+        automat.addProduct(new CakeImpl("Schokocreme",drOetker, allergens, 1000,
                 Duration.ofHours(220),"Erdbeere", new BigDecimal("3.00")));
-        automat.addVerkaufsobjekt(new CakeImpl("Schokocreme",drOetker, new HashSet<>(), 1000,
+        automat.addProduct(new CakeImpl("Schokocreme",drOetker, new HashSet<>(), 1000,
                 Duration.ofHours(220),"Erdbeere", new BigDecimal("3.00")));
-        automat.addVerkaufsobjekt(new CakeImpl("Schokocreme",drOetker, allergens, 1000,
+        automat.addProduct(new CakeImpl("Schokocreme",drOetker, allergens, 1000,
                 Duration.ofHours(220),"Erdbeere", new BigDecimal("3.00")));
-        automat.addVerkaufsobjekt(new CakeImpl("Schokocreme",drOetker, new HashSet<>(), 1000,
+        automat.addProduct(new CakeImpl("Schokocreme",drOetker, new HashSet<>(), 1000,
                 Duration.ofHours(220),"Erdbeere", new BigDecimal("3.00")));
         new VendingMachineCapacityObserver(automat);
     }
@@ -57,13 +57,13 @@ class VendingMachineCapacityObserverTest {
     void testConstructor(){
         VendingMachineCapacityObserver capacityObserver= new VendingMachineCapacityObserver(automat);
         assertEquals(automat, capacityObserver.getObservableAutomat());
-        assertEquals(automat.getVerkaufsobjekte(), capacityObserver.getVerkaufsobjektListe());
+        assertEquals(automat.getProducts(), capacityObserver.getVerkaufsobjektListe());
         assertTrue(automat.getBeobachterList().contains(capacityObserver));
     }
 
     @Test
     void checkForUpdateMsgWhenAutomatReaches90PercentOfItsCapacity(){
-        automat.addVerkaufsobjekt(new CakeImpl("Schokocreme",drOetker, new HashSet<>(), 1000,
+        automat.addProduct(new CakeImpl("Schokocreme",drOetker, new HashSet<>(), 1000,
                 Duration.ofHours(220),"Erdbeere", new BigDecimal("3.00")));
 
         String emptyString="";
@@ -73,7 +73,7 @@ class VendingMachineCapacityObserverTest {
 
     @Test
     void checkForUpdateMsgWhenAutomatRemainsUnder90PercentOfItsCapacity(){
-        automat.deleteVerkaufsobjekt(0);
+        automat.deleteProduct(0);
 
         String emptyString="";
 
@@ -82,9 +82,9 @@ class VendingMachineCapacityObserverTest {
 
     @Test
     void checkForUpdateMsgWhenAutomatExceeds90PercentOfItsCapacity(){
-        automat.addVerkaufsobjekt(new CakeImpl("Schokocreme",drOetker, new HashSet<>(), 1000,
+        automat.addProduct(new CakeImpl("Schokocreme",drOetker, new HashSet<>(), 1000,
                 Duration.ofHours(220),"Erdbeere", new BigDecimal("3.00")));
-        automat.addVerkaufsobjekt(new CakeImpl("Schokocreme",drOetker, new HashSet<>(), 1000,
+        automat.addProduct(new CakeImpl("Schokocreme",drOetker, new HashSet<>(), 1000,
                 Duration.ofHours(220),"Erdbeere", new BigDecimal("3.00")));
 
         String emptyString="";

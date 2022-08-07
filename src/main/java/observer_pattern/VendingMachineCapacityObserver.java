@@ -10,13 +10,13 @@ public class VendingMachineCapacityObserver implements Observer {
 
     public VendingMachineCapacityObserver(ObservableVendingMachine automat) {
         this.observableVendingMachine = automat;
-        this.verkaufsobjektListe= new ArrayList<>(automat.getVerkaufsobjekte());
+        this.verkaufsobjektListe= new ArrayList<>(automat.getProducts());
         this.observableVendingMachine.addObserver(this);
     }
 
     @Override
     public void update(){
-        verkaufsobjektListe= observableVendingMachine.getVerkaufsobjekte();
+        verkaufsobjektListe= observableVendingMachine.getProducts();
         if(verkaufsobjektListe.size()> observableVendingMachine.getCAPACITY()*0.9) {
             System.out.println(verkaufsobjektListe.size()+" von "+ observableVendingMachine.getCAPACITY()+" Fächern sind belegt!");
         }

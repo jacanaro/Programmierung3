@@ -69,16 +69,16 @@ public class TestCLIAbläufe {
         CLI.handleValidUserInputCommands();
         CLI.handleValidUserInputCommands();
 
-        assertEquals(2, automat.getVerkaufsobjekte().size());
+        assertEquals(2, automat.getProducts().size());
 
         CLI.printCLIMenuAndValidateFirstUserInputString();
         CLI.handleValidUserInputCommands();
 
-        assertEquals(1, automat.getVerkaufsobjekte().size());
+        assertEquals(1, automat.getProducts().size());
 
         CLI.handleValidUserInputCommands();
 
-        assertEquals(0, automat.getVerkaufsobjekte().size());
+        assertEquals(0, automat.getProducts().size());
     }
 
     @Test
@@ -108,32 +108,32 @@ public class TestCLIAbläufe {
         String expectedCommandHandled2="user command handled: :r hersteller";
         assertEquals(expectedCommandHandled2, actualCommandHandled2);
 
-        ArrayList<ManufacturerImpl> herstellerListe = new ArrayList<>(automat.getHerstellerSet());
+        ArrayList<ManufacturerImpl> herstellerListe = new ArrayList<>(automat.getManufacturers());
         assertEquals("hersteller1", herstellerListe.get(0).getName());
 
-        ArrayList<CakeImpl> kuchenListe = new ArrayList<>(automat.getVerkaufsobjekte());
+        ArrayList<CakeImpl> kuchenListe = new ArrayList<>(automat.getProducts());
         CakeImpl actualObstTorte=kuchenListe.get(0);
         HashSet<Allergen>allergens= new HashSet<>();
         allergens.add(Allergen.Gluten);
         CakeImpl expectedObstTorte=new CakeImpl("Sahne", herstellerListe.get(0), allergens, 632,
                 Duration.ofHours(24), "Apfel", new BigDecimal("7.50"));
-        assertEquals(expectedObstTorte.getKuchentyp(), actualObstTorte.getKuchentyp());
-        assertEquals(expectedObstTorte.getHersteller().getName(), actualObstTorte.getHersteller().getName());
-        assertEquals(expectedObstTorte.getHaltbarkeit(), actualObstTorte.getHaltbarkeit());
-        assertEquals(expectedObstTorte.getAllergene(), actualObstTorte.getAllergene());
-        assertEquals(expectedObstTorte.getPreis(), actualObstTorte.getPreis());
-        assertEquals(expectedObstTorte.getKremsorte(), actualObstTorte.getKremsorte());
-        assertEquals(expectedObstTorte.getObstsorte(), actualObstTorte.getObstsorte());
+        assertEquals(expectedObstTorte.getTypeOfProduct(), actualObstTorte.getTypeOfProduct());
+        assertEquals(expectedObstTorte.getManufacturer().getName(), actualObstTorte.getManufacturer().getName());
+        assertEquals(expectedObstTorte.getShelfLive(), actualObstTorte.getShelfLive());
+        assertEquals(expectedObstTorte.getAllergens(), actualObstTorte.getAllergens());
+        assertEquals(expectedObstTorte.getPrice(), actualObstTorte.getPrice());
+        assertEquals(expectedObstTorte.getCreamFlavor(), actualObstTorte.getCreamFlavor());
+        assertEquals(expectedObstTorte.getTypeOfFruit(), actualObstTorte.getTypeOfFruit());
 
         CakeImpl actualObstKuchen=kuchenListe.get(1);
         CakeImpl expectedObstKuchen=new CakeImpl(herstellerListe.get(0), new HashSet<>(), 200,
                 Duration.ofHours(20), "Erdbeere", new BigDecimal("2.50"));
-        assertEquals(expectedObstKuchen.getKuchentyp(), actualObstKuchen.getKuchentyp());
-        assertEquals(expectedObstKuchen.getHersteller().getName(), actualObstKuchen.getHersteller().getName());
-        assertEquals(expectedObstKuchen.getHaltbarkeit(), actualObstKuchen.getHaltbarkeit());
-        assertEquals(expectedObstKuchen.getAllergene(), actualObstKuchen.getAllergene());
-        assertEquals(expectedObstKuchen.getPreis(), actualObstKuchen.getPreis());
-        assertEquals(expectedObstKuchen.getObstsorte(), actualObstKuchen.getObstsorte());
+        assertEquals(expectedObstKuchen.getTypeOfProduct(), actualObstKuchen.getTypeOfProduct());
+        assertEquals(expectedObstKuchen.getManufacturer().getName(), actualObstKuchen.getManufacturer().getName());
+        assertEquals(expectedObstKuchen.getShelfLive(), actualObstKuchen.getShelfLive());
+        assertEquals(expectedObstKuchen.getAllergens(), actualObstKuchen.getAllergens());
+        assertEquals(expectedObstKuchen.getPrice(), actualObstKuchen.getPrice());
+        assertEquals(expectedObstKuchen.getTypeOfFruit(), actualObstKuchen.getTypeOfFruit());
     }
 
     @Test
@@ -147,7 +147,7 @@ public class TestCLIAbläufe {
         CLI.printCLIMenuAndValidateFirstUserInputString();
         CLI.handleValidUserInputCommands();
 
-        ArrayList<ManufacturerImpl> herstellerListe = new ArrayList<>(automat.getHerstellerSet());
+        ArrayList<ManufacturerImpl> herstellerListe = new ArrayList<>(automat.getManufacturers());
 
         assertTrue(herstellerListe.isEmpty());
     }
@@ -163,7 +163,7 @@ public class TestCLIAbläufe {
         CLI.printCLIMenuAndValidateFirstUserInputString();
         CLI.handleValidUserInputCommands();
 
-        ArrayList<ManufacturerImpl> herstellerListe = new ArrayList<>(automat.getHerstellerSet());
+        ArrayList<ManufacturerImpl> herstellerListe = new ArrayList<>(automat.getManufacturers());
         assertEquals("hersteller1", herstellerListe.get(0).getName());
     }
 
@@ -171,7 +171,7 @@ public class TestCLIAbläufe {
     void testListHerstellerWithValidCommand(){
         System.setOut(new PrintStream(outContent));
 
-        automat.addHersteller(new ManufacturerImpl("h1"));
+        automat.addManufacturer(new ManufacturerImpl("h1"));
 
         String userInput = ":r\nhersteller";
         Scanner scanner = new Scanner(userInput);
@@ -180,7 +180,7 @@ public class TestCLIAbläufe {
         CLI.setInputEventHandler(inputEventHandler);
 
         String expected= CLI.createStringOfCLIMenu().trim();
-        expected=expected+automat.listHerstellerWithCakeCount().toString().trim();
+        expected=expected+automat.listManufacturersWithProductsCounted().toString().trim();
 
         CLI.printCLIMenuAndValidateFirstUserInputString();
         String actual=outContent.toString().trim();

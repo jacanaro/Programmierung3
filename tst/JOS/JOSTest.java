@@ -30,12 +30,12 @@ class JOSTest {
     @Test
     void testConsistencyOfSerialisation() {
 
-        automat.addHersteller(testHersteller);
-        automat.addVerkaufsobjekt(testVerkaufsobjekt);
-        VendingMachine.serialize("automatSerialisation1.ser", automat);
-        VendingMachine.serialize("automatSerialisation2.ser", automat);
-        VendingMachine deserializedAutomat1= VendingMachine.deserialize("automatSerialisation1.ser");
-        VendingMachine deserializedAutomat2= VendingMachine.deserialize("automatSerialisation2.ser");
+        automat.addManufacturer(testHersteller);
+        automat.addProduct(testVerkaufsobjekt);
+        VendingMachine.serializeVendingMachine("automatSerialisation1.ser", automat);
+        VendingMachine.serializeVendingMachine("automatSerialisation2.ser", automat);
+        VendingMachine deserializedAutomat1= VendingMachine.deserializeVendingMachine("automatSerialisation1.ser");
+        VendingMachine deserializedAutomat2= VendingMachine.deserializeVendingMachine("automatSerialisation2.ser");
         assertEquals(deserializedAutomat1.toString(), deserializedAutomat2.toString());
         assertEquals(automat.toString(), deserializedAutomat1.toString());
         assertEquals(automat.toString(), deserializedAutomat2.toString());
@@ -43,27 +43,27 @@ class JOSTest {
 
     @Test
     void testIfDeserializeReturnsAutomat(){
-        automat.addHersteller(testHersteller);
-        automat.addVerkaufsobjekt(testVerkaufsobjekt);
-        VendingMachine.serialize("automatSerialisation.ser", automat);
-        Object deserializedAutomat= VendingMachine.deserialize("automatSerialisation.ser");
+        automat.addManufacturer(testHersteller);
+        automat.addProduct(testVerkaufsobjekt);
+        VendingMachine.serializeVendingMachine("automatSerialisation.ser", automat);
+        Object deserializedAutomat= VendingMachine.deserializeVendingMachine("automatSerialisation.ser");
         assertTrue(deserializedAutomat instanceof VendingMachine);
         assertEquals(automat.toString(), deserializedAutomat.toString());
     }
 
     @Test
     void testSerializeObjectInputOutput(){
-        automat.addHersteller(testHersteller);
-        automat.addVerkaufsobjekt(testVerkaufsobjekt);
+        automat.addManufacturer(testHersteller);
+        automat.addProduct(testVerkaufsobjekt);
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("1"))) {
-            VendingMachine.serialize(oos, automat);
+            VendingMachine.serializeVendingMachine(oos, automat);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("1"))) {
-            VendingMachine deserialized= VendingMachine.deserialize(ois);
+            VendingMachine deserialized= VendingMachine.deserializeVendingMachine(ois);
 
             assertEquals(automat.toString(), deserialized.toString());
 

@@ -10,7 +10,7 @@ public class Consumer extends Thread {
     public void run() {
         while (true) {
             synchronized (this.automat) {
-                if (this.automat.getVerkaufsobjekte().size() != 0) {
+                if (this.automat.getProducts().size() != 0) {
                     System.out.println(this.getName() + " versucht Kuchen zu loeschen");
                     this.automat.deleteVerkaufsobjektRandom();
                 }

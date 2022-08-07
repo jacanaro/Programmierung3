@@ -14,7 +14,7 @@ public class Producer2 extends Thread {
             RandomProductGenerator r = new RandomProductGenerator(new ManufacturerImpl("Blueberryland"),
                     new ManufacturerImpl("Gooseberryland"));
             System.out.println(this.getName() + " will kuchen hinzufuegen");
-            this.automat.addVerkaufsobjekt(r.getRandomKuchen());
+            this.automat.addProduct(r.getRandomKuchen());
         }
     }
 }

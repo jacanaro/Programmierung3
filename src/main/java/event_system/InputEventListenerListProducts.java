@@ -14,10 +14,10 @@ public class InputEventListenerListProducts implements InputEventListener{
                     if(userInputStrArr[i].equals("kuchen")){
                         CLI c = (CLI) event.getSource();
                         if(i==userInputStrArr.length-1){
-                            System.out.println(c.getObservableVendingMachine().getVerkaufsobjekte().toString());
+                            System.out.println(c.getObservableVendingMachine().getProducts().toString());
                             if(c.getLog()!=null)c.getLog().logger.info("es werden alle Kuchen die im Automat existieren ausgegeben");
                         }else {
-                            System.out.println(c.getObservableVendingMachine().getVerkaufsobjekteOfType(userInputStrArr[i+1]).toString());
+                            System.out.println(c.getObservableVendingMachine().getProductsByType(userInputStrArr[i+1]).toString());
                             if(c.getLog()!=null)c.getLog().logger.info("es werden alle Kuchen vom Typ"+userInputStrArr[i+1]+", die im Automat existieren ausgegeben");
                         }
                     }

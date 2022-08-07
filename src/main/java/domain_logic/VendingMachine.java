@@ -4,8 +4,8 @@ import java.io.*;
 import java.util.*;
 
 public class VendingMachine implements Serializable {
-    private ArrayList<CakeImpl> verkaufsobjektListe = new ArrayList<>();
-    private HashSet<ManufacturerImpl> herstellerSet = new HashSet<>();
+    private ArrayList<CakeImpl> products = new ArrayList<>();
+    private HashSet<ManufacturerImpl> manufacturers = new HashSet<>();
     private final int CAPACITY;
     static final long serialVersionUID = 1L;
 
@@ -17,83 +17,83 @@ public class VendingMachine implements Serializable {
         }
     }
 
-    public boolean addHersteller(ManufacturerImpl hersteller) {
-        for (ManufacturerImpl h : herstellerSet) {
-            if (h.getName().equals(hersteller.getName())) {
+    public boolean addManufacturer(ManufacturerImpl manufacturer) {
+        for (ManufacturerImpl h : manufacturers) {
+            if (h.getName().equals(manufacturer.getName())) {
                 return false;
             }
         }
-        herstellerSet.add(hersteller);
+        manufacturers.add(manufacturer);
         return true;
     }
 
-    public boolean deleteHersteller(String herstellerName) {
-        for (ManufacturerImpl h : herstellerSet) {
-            if (h.getName().equals(herstellerName)) {
-                herstellerSet.remove(h);
+    public boolean deleteManufacturer(String manufacturerName) {
+        for (ManufacturerImpl h : manufacturers) {
+            if (h.getName().equals(manufacturerName)) {
+                manufacturers.remove(h);
                 return true;
             }
         }
         return false;
     }
 
-    public VendingMachineErrorCodes addVerkaufsobjekt(CakeImpl kuchen) {
-        if (herstellerSet.size() == 0) return VendingMachineErrorCodes.HERSTELLER_ERROR;
-        if (verkaufsobjektListe.size() == CAPACITY) return VendingMachineErrorCodes.CAPACITY_ERROR;
+    public VendingMachineErrorCodes addProduct(CakeImpl cake) {
+        if (manufacturers.size() == 0) return VendingMachineErrorCodes.MANUFACTURER_ERROR;
+        if (products.size() == CAPACITY) return VendingMachineErrorCodes.CAPACITY_ERROR;
 
-        for (ManufacturerImpl h : herstellerSet) {
-            if (h.getName().equals(kuchen.getHersteller().getName())) {
+        for (ManufacturerImpl h : manufacturers) {
+            if (h.getName().equals(cake.getManufacturer().getName())) {
 
-                for (int i = 0; i < verkaufsobjektListe.size(); i++) {
-                    if (verkaufsobjektListe.get(i).getFachnummer() != i) verkaufsobjektListe.get(i).setFachnummer(i);
+                for (int i = 0; i < products.size(); i++) {
+                    if (products.get(i).getVendingMachineSlot() != i) products.get(i).setVendingMachineSlot(i);
                 }
-                kuchen.setFachnummer(verkaufsobjektListe.size());
+                cake.setVendingMachineSlot(products.size());
 
                 Date now = new Date();
-                kuchen.setInspektionsdatum(now);
-                verkaufsobjektListe.add(kuchen);
+                cake.setDateOfInspection(now);
+                products.add(cake);
                 return null;
             }
         }
-        return VendingMachineErrorCodes.HERSTELLER_ERROR;
+        return VendingMachineErrorCodes.MANUFACTURER_ERROR;
     }
 
-    public boolean deleteVerkaufsobjekt(int fachnummer) {
-        for (int i = 0; i < verkaufsobjektListe.size(); i++) {
-            if (fachnummer == verkaufsobjektListe.get(i).getFachnummer()) {
-                verkaufsobjektListe.remove(i);
+    public boolean deleteProduct(int vendingMachineSlot) {
+        for (int i = 0; i < products.size(); i++) {
+            if (vendingMachineSlot == products.get(i).getVendingMachineSlot()) {
+                products.remove(i);
                 return true;
             }
         }
         return false;
     }
 
-    public CakeImpl doInspection(int fachnummer) {
-        for (int i = 0; i < verkaufsobjektListe.size(); i++) {
-            if (fachnummer == verkaufsobjektListe.get(i).getFachnummer()) {
+    public CakeImpl doInspection(int vendingMachineSlot) {
+        for (int i = 0; i < products.size(); i++) {
+            if (vendingMachineSlot == products.get(i).getVendingMachineSlot()) {
                 Date now = new Date();
-                verkaufsobjektListe.get(i).setInspektionsdatum(now);
-                return verkaufsobjektListe.get(i);
+                products.get(i).setDateOfInspection(now);
+                return products.get(i);
             }
         }
         return null;
     }
 
-    public Map<String, Integer> listHerstellerWithCakeCount() {
-        Map<String, Integer> herstellerWithCakeCount = new HashMap<>();
-        for (ManufacturerImpl h : herstellerSet) {
-            herstellerWithCakeCount.put(h.getName(), 0);
+    public Map<String, Integer> listManufacturersWithProductsCounted() {
+        Map<String, Integer> manufacturersWithProductsCounted = new HashMap<>();
+        for (ManufacturerImpl h : manufacturers) {
+            manufacturersWithProductsCounted.put(h.getName(), 0);
         }
-        for (CakeImpl k : verkaufsobjektListe) {
-            int oldValue = herstellerWithCakeCount.get(k.getHersteller().getName());
-            herstellerWithCakeCount.replace(k.getHersteller().getName(), oldValue + 1);
+        for (CakeImpl k : products) {
+            int oldValue = manufacturersWithProductsCounted.get(k.getManufacturer().getName());
+            manufacturersWithProductsCounted.replace(k.getManufacturer().getName(), oldValue + 1);
         }
-        return herstellerWithCakeCount;
+        return manufacturersWithProductsCounted;
     }
 
-    public static void serialize(String filename, VendingMachine serializableAutomat) {
+    public static void serializeVendingMachine(String filename, VendingMachine serializableVendingMachine) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
-            serialize(oos, serializableAutomat);
+            serializeVendingMachine(oos, serializableVendingMachine);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -101,13 +101,13 @@ public class VendingMachine implements Serializable {
         }
     }
 
-    public static void serialize(ObjectOutput objectOutput, VendingMachine serializableAutomat) throws IOException {
-        objectOutput.writeObject(serializableAutomat);
+    public static void serializeVendingMachine(ObjectOutput objectOutput, VendingMachine serializableVendingMachine) throws IOException {
+        objectOutput.writeObject(serializableVendingMachine);
     }
 
-    public static VendingMachine deserialize(String filename) {
+    public static VendingMachine deserializeVendingMachine(String filename) {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))) {
-            return deserialize(ois);
+            return deserializeVendingMachine(ois);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -118,7 +118,7 @@ public class VendingMachine implements Serializable {
         return null;
     }
 
-    public static VendingMachine deserialize(ObjectInput objectInput) throws IOException, ClassNotFoundException {
+    public static VendingMachine deserializeVendingMachine(ObjectInput objectInput) throws IOException, ClassNotFoundException {
         return (VendingMachine) objectInput.readObject();
     }
 
@@ -126,51 +126,51 @@ public class VendingMachine implements Serializable {
         return CAPACITY;
     }
 
-    public ArrayList<CakeImpl> getVerkaufsobjekte() {
-        return new ArrayList<>(verkaufsobjektListe);
+    public ArrayList<CakeImpl> getProducts() {
+        return new ArrayList<>(products);
     }
 
-    public ArrayList<CakeImpl> getVerkaufsobjekteOfType(String kuchentyp) {
-        ArrayList<CakeImpl> verkaufsobjektlisteOfType = new ArrayList<>();
-        for (CakeImpl k : verkaufsobjektListe) {
-            if (k.getKuchentyp().equals(kuchentyp)) verkaufsobjektlisteOfType.add(k);
+    public ArrayList<CakeImpl> getProductsByType(String typeOfProduct) {
+        ArrayList<CakeImpl> productsOfSpecifiedType = new ArrayList<>();
+        for (CakeImpl k : products) {
+            if (k.getTypeOfProduct().equals(typeOfProduct)) productsOfSpecifiedType.add(k);
         }
-        return verkaufsobjektlisteOfType;
+        return productsOfSpecifiedType;
     }
 
-    public HashSet<ManufacturerImpl> getHerstellerSet() {
-        return herstellerSet;
+    public HashSet<ManufacturerImpl> getManufacturers() {
+        return manufacturers;
     }
 
-    public HashSet<Allergen> getAllergene(boolean existInAutomat) {
-        HashSet<Allergen> allergensInAutomat = new HashSet<>();
-        HashSet<Allergen> allergensNotInAutomat = new HashSet<>();
-        Allergen arr[] = Allergen.values();
+    public HashSet<Allergen> getAllergens(boolean existInVendingMachine) {
+        HashSet<Allergen> allergensInVendingMachine = new HashSet<>();
+        HashSet<Allergen> allergensNotInVendingMachine = new HashSet<>();
+        Allergen listOfAllPossibleAllergens[] = Allergen.values();
 
-        for (CakeImpl k : verkaufsobjektListe) {
-            if (k.getAllergene() != null) {
-                for (Allergen allergen : k.getAllergene()) {
-                    if (!allergensInAutomat.contains(allergen)) allergensInAutomat.add(allergen);
+        for (CakeImpl cake : products) {
+            if (cake.getAllergens() != null) {
+                for (Allergen allergenOfCake : cake.getAllergens()) {
+                    if (!allergensInVendingMachine.contains(allergenOfCake)) allergensInVendingMachine.add(allergenOfCake);
                 }
             }
         }
 
-        for (int i = 0; i < arr.length; i++) {
-            if (!allergensInAutomat.contains(arr[i])) allergensNotInAutomat.add(arr[i]);
+        for (int i = 0; i < listOfAllPossibleAllergens.length; i++) {
+            if (!allergensInVendingMachine.contains(listOfAllPossibleAllergens[i])) allergensNotInVendingMachine.add(listOfAllPossibleAllergens[i]);
         }
 
-        if (existInAutomat) {
-            return allergensInAutomat;
+        if (existInVendingMachine) {
+            return allergensInVendingMachine;
         } else {
-            return allergensNotInAutomat;
+            return allergensNotInVendingMachine;
         }
     }
 
     @Override
     public String toString() {
         return "Automat{" +
-                "verkaufsobjektListe=" + verkaufsobjektListe +
-                ", herstellerSet=" + herstellerSet +
+                "verkaufsobjektListe=" + products +
+                ", herstellerSet=" + manufacturers +
                 ", capacity=" + CAPACITY +
                 '}';
     }

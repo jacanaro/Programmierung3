@@ -7,122 +7,122 @@ import java.util.Date;
 import java.util.HashSet;
 
 public class CakeImpl implements FruitFlan, Serializable {
-    private String kremsorte;
-    private ManufacturerImpl hersteller;
-    private HashSet<Allergen> allergene;
-    private int naehrwert;
-    private Duration haltbarkeit;
-    private String obstsorte;
-    private BigDecimal preis;
-    private Date inspektionsdatum;
-    private int fachnummer;
-    private String kuchentyp;
+    private String creamFlavor;
+    private ManufacturerImpl manufacturer;
+    private HashSet<Allergen> allergens;
+    private int nutritionalScore;
+    private Duration shelfLive;
+    private String typeOfFruit;
+    private BigDecimal price;
+    private Date dateOfInspection;
+    private int vendingMachineSlot;
+    private String typeOfProduct;
 
-    public CakeImpl(String kremsorte, ManufacturerImpl hersteller, HashSet<Allergen> allergene, int naehrwert, Duration haltbarkeit,
-                    String obstsorte, BigDecimal preis){
-        this.kuchentyp="Obsttorte";
-        this.kremsorte = kremsorte;
-        this.hersteller = hersteller;
-        this.allergene = allergene;
-        this.naehrwert = naehrwert;
-        this.haltbarkeit = haltbarkeit;
-        this.obstsorte = obstsorte;
-        this.preis = preis;
+    public CakeImpl(String creamFlavor, ManufacturerImpl manufacturer, HashSet<Allergen> allergens, int nutritionalScore, Duration shelfLive,
+                    String typeOfFruit, BigDecimal price){
+        this.typeOfProduct ="Obsttorte";
+        this.creamFlavor = creamFlavor;
+        this.manufacturer = manufacturer;
+        this.allergens = allergens;
+        this.nutritionalScore = nutritionalScore;
+        this.shelfLive = shelfLive;
+        this.typeOfFruit = typeOfFruit;
+        this.price = price;
     }
 
-    public CakeImpl(ManufacturerImpl hersteller, HashSet<Allergen> allergene, int naehrwert, Duration haltbarkeit,
-                    String obstsorte, BigDecimal preis){
-        this.kuchentyp="Obstkuchen";
-        this.hersteller = hersteller;
-        this.allergene = allergene;
-        this.naehrwert = naehrwert;
-        this.haltbarkeit = haltbarkeit;
-        this.obstsorte = obstsorte;
-        this.preis = preis;
+    public CakeImpl(ManufacturerImpl manufacturer, HashSet<Allergen> allergens, int nutritionalScore, Duration shelfLive,
+                    String typeOfFruit, BigDecimal price){
+        this.typeOfProduct ="Obstkuchen";
+        this.manufacturer = manufacturer;
+        this.allergens = allergens;
+        this.nutritionalScore = nutritionalScore;
+        this.shelfLive = shelfLive;
+        this.typeOfFruit = typeOfFruit;
+        this.price = price;
     }
 
-    public CakeImpl(ManufacturerImpl hersteller, HashSet<Allergen> allergene,
-                    String kremsorte, int naehrwert, Duration haltbarkeit,
-                    BigDecimal preis){
-        this.kuchentyp="Kremkuchen";
-        this.hersteller = hersteller;
-        this.allergene = allergene;
-        this.naehrwert = naehrwert;
-        this.haltbarkeit = haltbarkeit;
-        this.kremsorte = kremsorte;
-        this.preis = preis;
+    public CakeImpl(ManufacturerImpl manufacturer, HashSet<Allergen> allergens,
+                    String creamFlavor, int nutritionalScore, Duration shelfLive,
+                    BigDecimal price){
+        this.typeOfProduct ="Kremkuchen";
+        this.manufacturer = manufacturer;
+        this.allergens = allergens;
+        this.nutritionalScore = nutritionalScore;
+        this.shelfLive = shelfLive;
+        this.creamFlavor = creamFlavor;
+        this.price = price;
     }
 
-    public String getKuchentyp() {
-        return kuchentyp;
-    }
-
-    @Override
-    public String getKremsorte() {
-        return kremsorte;
+    public String getTypeOfProduct() {
+        return typeOfProduct;
     }
 
     @Override
-    public ManufacturerImpl getHersteller() {
-        return hersteller;
+    public String getCreamFlavor() {
+        return creamFlavor;
     }
 
     @Override
-    public HashSet<Allergen> getAllergene() {
-        return allergene;
+    public ManufacturerImpl getManufacturer() {
+        return manufacturer;
     }
 
     @Override
-    public int getNaehrwert() {
-        return naehrwert;
+    public HashSet<Allergen> getAllergens() {
+        return allergens;
     }
 
     @Override
-    public Duration getHaltbarkeit() {
-        return haltbarkeit;
+    public int getNutritionalScore() {
+        return nutritionalScore;
     }
 
     @Override
-    public String getObstsorte() {
-        return obstsorte;
+    public Duration getShelfLive() {
+        return shelfLive;
     }
 
     @Override
-    public BigDecimal getPreis() {
-        return preis;
+    public String getTypeOfFruit() {
+        return typeOfFruit;
     }
 
     @Override
-    public Date getInspektionsdatum(){
-        return inspektionsdatum;
+    public BigDecimal getPrice() {
+        return price;
     }
 
     @Override
-    public int getFachnummer() {
-        return fachnummer;
+    public Date getDateOfInspection(){
+        return dateOfInspection;
     }
 
-    public void setInspektionsdatum(Date currentDate){
-        this.inspektionsdatum = currentDate;
+    @Override
+    public int getVendingMachineSlot() {
+        return vendingMachineSlot;
     }
 
-    public void setFachnummer(int fachnummer){
-        this.fachnummer=fachnummer;
+    public void setDateOfInspection(Date currentDate){
+        this.dateOfInspection = currentDate;
+    }
+
+    public void setVendingMachineSlot(int vendingMachineSlot){
+        this.vendingMachineSlot = vendingMachineSlot;
     }
 
     @Override
     public String toString() {
         return "KuchenImplementierung{" +
-                "kuchentyp="+kuchentyp+'\'' +
-                "kremsorte=" + kremsorte + '\'' +
-                ", hersteller=" + getHersteller().getName() +
-                ", allergen=" + allergene +'\'' +
-                ", naehrwert=" + naehrwert +'\'' +
-                ", haltbarkeit=" + haltbarkeit +'\'' +
-                ", obstsorte='" + obstsorte + '\'' +
-                ", preis=" + preis +'\'' +
-                ", inspektionsdatum=" + inspektionsdatum +'\'' +
-                ", fachnummer=" + fachnummer +
+                "kuchentyp="+ typeOfProduct +'\'' +
+                "kremsorte=" + creamFlavor + '\'' +
+                ", hersteller=" + getManufacturer().getName() +
+                ", allergen=" + allergens +'\'' +
+                ", naehrwert=" + nutritionalScore +'\'' +
+                ", haltbarkeit=" + shelfLive +'\'' +
+                ", obstsorte='" + typeOfFruit + '\'' +
+                ", preis=" + price +'\'' +
+                ", inspektionsdatum=" + dateOfInspection +'\'' +
+                ", fachnummer=" + vendingMachineSlot +
                 '}';
     }
 }

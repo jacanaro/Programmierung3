@@ -34,8 +34,8 @@ class InputEventListenerListManufacturerTest {
     void testInputEventListenerListHerstellerHappyPath() throws ParseException, InterruptedException {
         System.setOut(new PrintStream(outContent));
 
-        automat.addHersteller(new ManufacturerImpl("h1"));
-        String expected=automat.listHerstellerWithCakeCount().toString();
+        automat.addManufacturer(new ManufacturerImpl("h1"));
+        String expected=automat.listManufacturersWithProductsCounted().toString();
 
         CLI CLI = mock(CLI.class);
         when(CLI.getObservableVendingMachine()).thenReturn(automat);
@@ -53,7 +53,7 @@ class InputEventListenerListManufacturerTest {
     void listHerstellerWithEmptyList() throws ParseException, InterruptedException {
         System.setOut(new PrintStream(outContent));
 
-        String expected=automat.listHerstellerWithCakeCount().toString();
+        String expected=automat.listManufacturersWithProductsCounted().toString();
 
         CLI CLI = mock(CLI.class);
         when(CLI.getObservableVendingMachine()).thenReturn(automat);

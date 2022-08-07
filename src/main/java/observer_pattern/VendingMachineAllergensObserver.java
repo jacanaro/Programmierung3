@@ -10,16 +10,16 @@ public class VendingMachineAllergensObserver implements Observer {
 
     public VendingMachineAllergensObserver(ObservableVendingMachine automat) {
         this.observableVendingMachine = automat;
-        this.allergene = new HashSet<>(automat.getAllergene(true));
+        this.allergene = new HashSet<>(automat.getAllergens(true));
         this.observableVendingMachine.addObserver(this);
     }
 
     @Override
     public void update(){
-        if(!allergene.equals(observableVendingMachine.getAllergene(true))){
+        if(!allergene.equals(observableVendingMachine.getAllergens(true))){
             System.out.println("Allergene im alten Automat: "+ allergene.toString()+
-                    "\n Allergene im neuen Automat: "+ observableVendingMachine.getAllergene(true).toString());
-            allergene= observableVendingMachine.getAllergene(true);
+                    "\n Allergene im neuen Automat: "+ observableVendingMachine.getAllergens(true).toString());
+            allergene= observableVendingMachine.getAllergens(true);
         }
     }
 

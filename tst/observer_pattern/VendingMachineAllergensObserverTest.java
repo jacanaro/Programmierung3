@@ -27,11 +27,11 @@ class VendingMachineAllergensObserverTest {
         System.setOut(new PrintStream(outContent));
 
         automat = new ObservableVendingMachine(20);
-        automat.addHersteller(drOetker);
+        automat.addManufacturer(drOetker);
         allergens.add(Allergen.Haselnuss);
-        automat.addVerkaufsobjekt(new CakeImpl("Schokocreme",drOetker, allergens, 1000,
+        automat.addProduct(new CakeImpl("Schokocreme",drOetker, allergens, 1000,
                 Duration.ofHours(220),"Erdbeere", new BigDecimal("3.00")));
-        automat.addVerkaufsobjekt(new CakeImpl("Schokocreme",drOetker, new HashSet<>(), 1000,
+        automat.addProduct(new CakeImpl("Schokocreme",drOetker, new HashSet<>(), 1000,
                 Duration.ofHours(220),"Erdbeere", new BigDecimal("3.00")));
 
         new VendingMachineAllergensObserver(automat);
@@ -46,14 +46,14 @@ class VendingMachineAllergensObserverTest {
     void testConstructor(){
         VendingMachineAllergensObserver allergeneObserver= new VendingMachineAllergensObserver(automat);
         assertEquals(automat, allergeneObserver.getObservableAutomat());
-        assertEquals(automat.getAllergene(true), allergeneObserver.getAllergene());
+        assertEquals(automat.getAllergens(true), allergeneObserver.getAllergene());
         assertTrue(automat.getBeobachterList().contains(allergeneObserver));
     }
 
     @Test
     void checkForUpdateMsgWhenCakeWithNewAllergensIsAdded() {
         allergens.add(Allergen.Sesamsamen);
-        automat.addVerkaufsobjekt(new CakeImpl("Schokocreme",drOetker, allergens, 1000,
+        automat.addProduct(new CakeImpl("Schokocreme",drOetker, allergens, 1000,
                 Duration.ofHours(220),"Erdbeere", new BigDecimal("3.00")));
 
         String emptyString="";
@@ -63,7 +63,7 @@ class VendingMachineAllergensObserverTest {
 
     @Test
     void checkForUpdateMsgWhenCakeWithoutNewAllergensIsAdded() {
-        automat.addVerkaufsobjekt(new CakeImpl("Sahne",drOetker, allergens, 123,
+        automat.addProduct(new CakeImpl("Sahne",drOetker, allergens, 123,
                 Duration.ofHours(123),"afg", new BigDecimal("1.00")));
 
         String emptyString="";
@@ -73,7 +73,7 @@ class VendingMachineAllergensObserverTest {
 
     @Test
     void checkForUpdateMsgWhenCakeWithAllergensIsRemoved(){
-        automat.deleteVerkaufsobjekt(0);
+        automat.deleteProduct(0);
 
         String emptyString="";
 
@@ -82,7 +82,7 @@ class VendingMachineAllergensObserverTest {
 
     @Test
     void checkForUpdateMsgWhenCakeWithoutAllergensIsRemoved(){
-        automat.deleteVerkaufsobjekt(1);
+        automat.deleteProduct(1);
 
         String emptyString="";
 

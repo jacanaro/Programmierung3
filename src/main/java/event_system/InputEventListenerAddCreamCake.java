@@ -72,7 +72,7 @@ public class InputEventListenerAddCreamCake implements InputEventListener {
                             kremsorte = userInputStrArr[i + 6];
                             CLI c = (CLI) event.getSource();
                             if(c.getLog()!=null)c.getLog().logger.info("es wird versucht, dem Automat einen Kremkuchen hinzuzufügen");
-                            VendingMachineErrorCodes vendingMachineErrorCodes =c.getObservableVendingMachine().addVerkaufsobjekt(new CakeImpl
+                            VendingMachineErrorCodes vendingMachineErrorCodes =c.getObservableVendingMachine().addProduct(new CakeImpl
                                     (hersteller, allergene, kremsorte, naehrwert, haltbarkeit, preis));
                             if(vendingMachineErrorCodes ==null && c.getLog()!=null)c.getLog().logger.info("Kremkuchen wurde hinzugefügt");
                         }

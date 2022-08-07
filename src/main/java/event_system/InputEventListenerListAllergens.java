@@ -15,10 +15,10 @@ public class InputEventListenerListAllergens implements InputEventListener {
                         CLI c = (CLI) event.getSource();
                         if (userInputStrArr[i+1].equals("i")) {
                             if(c.getLog()!=null)c.getLog().logger.info("es werden alle Allergene die im Automat existieren ausgegeben");
-                            System.out.println(c.getObservableVendingMachine().getAllergene(true));
+                            System.out.println(c.getObservableVendingMachine().getAllergens(true));
                         } else if(userInputStrArr[i+1].equals("e")){
                             if(c.getLog()!=null)c.getLog().logger.info("es werden alle Allergene die nicht im Automat existieren ausgegeben");
-                            System.out.println(c.getObservableVendingMachine().getAllergene(false));
+                            System.out.println(c.getObservableVendingMachine().getAllergens(false));
                         }
                     }
                 }

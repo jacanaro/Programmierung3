@@ -13,8 +13,8 @@ class AutomatSimulation1Test {
     @BeforeEach
     void setUp(){
         automatSimulation1=new VendingMachineSimulation1(3);
-        automatSimulation1.addHersteller(new ManufacturerImpl("Blueberryland"));
-        automatSimulation1.addHersteller(new ManufacturerImpl("Gooseberryland"));
+        automatSimulation1.addManufacturer(new ManufacturerImpl("Blueberryland"));
+        automatSimulation1.addManufacturer(new ManufacturerImpl("Gooseberryland"));
         randomProductGenerator =new RandomProductGenerator(new ManufacturerImpl("Blueberryland"),
                 new ManufacturerImpl("Gooseberryland"));
     }
@@ -33,21 +33,21 @@ class AutomatSimulation1Test {
 
     @Test
     void addVerkaufsobjektWithAutomatHavingEnoughCapacity() {
-        assertNull(automatSimulation1.addVerkaufsobjekt(randomProductGenerator.getRandomKuchen()));
+        assertNull(automatSimulation1.addProduct(randomProductGenerator.getRandomKuchen()));
     }
 
     @Test
     void testAddVerkaufsobjektNoCapacityAutomat(){
-        automatSimulation1.addVerkaufsobjekt(randomProductGenerator.getRandomKuchen());
-        automatSimulation1.addVerkaufsobjekt(randomProductGenerator.getRandomKuchen());
-        automatSimulation1.addVerkaufsobjekt(randomProductGenerator.getRandomKuchen());
+        automatSimulation1.addProduct(randomProductGenerator.getRandomKuchen());
+        automatSimulation1.addProduct(randomProductGenerator.getRandomKuchen());
+        automatSimulation1.addProduct(randomProductGenerator.getRandomKuchen());
         assertThrows(IllegalStateException.class, ()
-                -> {automatSimulation1.addVerkaufsobjekt(randomProductGenerator.getRandomKuchen());} );
+                -> {automatSimulation1.addProduct(randomProductGenerator.getRandomKuchen());} );
     }
 
     @Test
     void deleteVerkaufsobjektRandom() {
-        automatSimulation1.addVerkaufsobjekt(randomProductGenerator.getRandomKuchen());
+        automatSimulation1.addProduct(randomProductGenerator.getRandomKuchen());
         assertTrue(automatSimulation1.deleteVerkaufsobjektRandom());
     }
 

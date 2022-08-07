@@ -69,7 +69,7 @@ public class InputEventListenerAddFruitFlan implements InputEventListener {
 
                             CLI c = (CLI) event.getSource();
                             if(c.getLog()!=null)c.getLog().logger.info("es wird versucht, dem Automat eine Obsttorte hinzuzufügen");
-                            VendingMachineErrorCodes vendingMachineErrorCodes =c.getObservableVendingMachine().addVerkaufsobjekt(new CakeImpl(kremsorte, hersteller, allergene, naehrwert, haltbarkeit, obstsorte, preis));
+                            VendingMachineErrorCodes vendingMachineErrorCodes =c.getObservableVendingMachine().addProduct(new CakeImpl(kremsorte, hersteller, allergene, naehrwert, haltbarkeit, obstsorte, preis));
                             if(vendingMachineErrorCodes ==null && c.getLog()!=null)c.getLog().logger.info("Obsttorte wurde hinzugefügt");
                         }
                     }

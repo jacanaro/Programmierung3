@@ -19,8 +19,8 @@ class AutomatSimulation2Test {
     @BeforeEach
     void setUp(){
         automatSimulation2=new VendingMachineSimulation2(3);
-        automatSimulation2.addHersteller(new ManufacturerImpl("Blueberryland"));
-        automatSimulation2.addHersteller(new ManufacturerImpl("Gooseberryland"));
+        automatSimulation2.addManufacturer(new ManufacturerImpl("Blueberryland"));
+        automatSimulation2.addManufacturer(new ManufacturerImpl("Gooseberryland"));
         randomProductGenerator =new RandomProductGenerator(new ManufacturerImpl("Blueberryland"),
                 new ManufacturerImpl("Gooseberryland"));
     }
@@ -39,12 +39,12 @@ class AutomatSimulation2Test {
 
     @Test
     void addVerkaufsobjektHappyPath() {
-        assertNull(automatSimulation2.addVerkaufsobjekt(randomProductGenerator.getRandomKuchen()));
+        assertNull(automatSimulation2.addProduct(randomProductGenerator.getRandomKuchen()));
     }
 
     @Test
     void testIfLockGetsUnlockedAfterAddVerkaufsobjekt(){
-        automatSimulation2.addVerkaufsobjekt(randomProductGenerator.getRandomKuchen());
+        automatSimulation2.addProduct(randomProductGenerator.getRandomKuchen());
         assertTrue(automatSimulation2.getLock().tryLock());
     }
 
@@ -52,9 +52,9 @@ class AutomatSimulation2Test {
     void deleteVerkaufsobjektWithOldestDateOneItem() {
         CakeImpl alterKuchen=new CakeImpl(new ManufacturerImpl("Gooseberryland"), new HashSet<>(),
                 1270, Duration.ofHours(230), "Himihbeere", new BigDecimal("3.27"));
-        automatSimulation2.addVerkaufsobjekt(alterKuchen);
+        automatSimulation2.addProduct(alterKuchen);
         automatSimulation2.deleteVerkaufsobjektWithOldestDate();
-        assertFalse(automatSimulation2.getVerkaufsobjekte().contains(alterKuchen));
+        assertFalse(automatSimulation2.getProducts().contains(alterKuchen));
     }
 
     @Test
@@ -63,10 +63,10 @@ class AutomatSimulation2Test {
                 1270, Duration.ofHours(230), "Himihbeere", new BigDecimal("3.27"));
         CakeImpl jungerKuchen=new CakeImpl(new ManufacturerImpl("Gooseberryland"), new HashSet<>(),
                 1270, Duration.ofHours(230), "Himihbeere", new BigDecimal("3.27"));
-        automatSimulation2.addVerkaufsobjekt(alterKuchen);
-        automatSimulation2.addVerkaufsobjekt(jungerKuchen);
+        automatSimulation2.addProduct(alterKuchen);
+        automatSimulation2.addProduct(jungerKuchen);
         automatSimulation2.deleteVerkaufsobjektWithOldestDate();
-        assertEquals(jungerKuchen, automatSimulation2.getVerkaufsobjekte().get(0));
+        assertEquals(jungerKuchen, automatSimulation2.getProducts().get(0));
     }
 
     @Test
@@ -77,26 +77,26 @@ class AutomatSimulation2Test {
                 1270, Duration.ofHours(230), "Himihbeere", new BigDecimal("3.27"));
         CakeImpl juengsterKuchen=new CakeImpl(new ManufacturerImpl("Gooseberryland"), new HashSet<>(),
                 1270, Duration.ofHours(230), "Himihbeere", new BigDecimal("3.27"));
-        automatSimulation2.addVerkaufsobjekt(alterKuchen);
-        automatSimulation2.addVerkaufsobjekt(jungerKuchen);
-        automatSimulation2.addVerkaufsobjekt(juengsterKuchen);
+        automatSimulation2.addProduct(alterKuchen);
+        automatSimulation2.addProduct(jungerKuchen);
+        automatSimulation2.addProduct(juengsterKuchen);
         automatSimulation2.deleteVerkaufsobjektWithOldestDate();
-        assertFalse(automatSimulation2.getVerkaufsobjekte().contains(alterKuchen));
+        assertFalse(automatSimulation2.getProducts().contains(alterKuchen));
     }
 
     @Test
     void testIfLockGetsUnlockedAfterDeleteVerkaufsobjektWithOldestDate(){
-        automatSimulation2.addVerkaufsobjekt(randomProductGenerator.getRandomKuchen());
+        automatSimulation2.addProduct(randomProductGenerator.getRandomKuchen());
         automatSimulation2.deleteVerkaufsobjektWithOldestDate();
         assertTrue(automatSimulation2.getLock().tryLock());
     }
 
     @Test
     void doRandomInspectionOneItem() {
-        automatSimulation2.addVerkaufsobjekt(randomProductGenerator.getRandomKuchen());
-        Date oldDate= automatSimulation2.getVerkaufsobjekte().get(0).getInspektionsdatum();
+        automatSimulation2.addProduct(randomProductGenerator.getRandomKuchen());
+        Date oldDate= automatSimulation2.getProducts().get(0).getDateOfInspection();
         automatSimulation2.doRandomInspection();
-        Date newDate= automatSimulation2.getVerkaufsobjekte().get(0).getInspektionsdatum();
+        Date newDate= automatSimulation2.getProducts().get(0).getDateOfInspection();
         assertTrue(oldDate!=newDate);
     }
 
@@ -108,15 +108,15 @@ class AutomatSimulation2Test {
                 1270, Duration.ofHours(230), "Himihbeere", new BigDecimal("3.27"));
         CakeImpl juengsterKuchen=new CakeImpl(new ManufacturerImpl("Gooseberryland"), new HashSet<>(),
                 1270, Duration.ofHours(230), "Himihbeere", new BigDecimal("3.27"));
-        automatSimulation2.addVerkaufsobjekt(alterKuchen);
-        automatSimulation2.addVerkaufsobjekt(jungerKuchen);
-        automatSimulation2.addVerkaufsobjekt(juengsterKuchen);
+        automatSimulation2.addProduct(alterKuchen);
+        automatSimulation2.addProduct(jungerKuchen);
+        automatSimulation2.addProduct(juengsterKuchen);
 
         //Wenn an dieser Stelle eine Inspektion durchgeführt wird,
         //muss der betroffene Kuchen danach das aktuellste/juengste Inspektionsdatum besitzen
 
         CakeImpl betroffenerKuchen = automatSimulation2.doRandomInspection();
-        assertFalse(betroffenerKuchen.getInspektionsdatum().before(juengsterKuchen.getInspektionsdatum()));
+        assertFalse(betroffenerKuchen.getDateOfInspection().before(juengsterKuchen.getDateOfInspection()));
     }
 
 }

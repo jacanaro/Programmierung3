@@ -68,7 +68,7 @@ public class InputEventListenerAddFruitCake implements InputEventListener {
                             obstsorte = userInputStrArr[i + 6];
                             CLI c = (CLI) event.getSource();
                             if(c.getLog()!=null)c.getLog().logger.info("es wird versucht, dem Automat ein Obstkuchen hinzuzufügen");
-                            VendingMachineErrorCodes vendingMachineErrorCodes =c.getObservableVendingMachine().addVerkaufsobjekt(new CakeImpl
+                            VendingMachineErrorCodes vendingMachineErrorCodes =c.getObservableVendingMachine().addProduct(new CakeImpl
                                     (hersteller, allergene, naehrwert, haltbarkeit, obstsorte, preis));
                             if(vendingMachineErrorCodes ==null && c.getLog()!=null)c.getLog().logger.info("Obstkuchen wurde hinzugefügt");
                         }

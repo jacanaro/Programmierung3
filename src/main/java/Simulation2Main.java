@@ -7,8 +7,8 @@ public class Simulation2Main {
         try{
         VendingMachineSimulation2 automat = new VendingMachineSimulation2(Integer.parseInt(args[0]));
         new AutomatSimulationObserver(automat);
-        automat.addHersteller(new ManufacturerImpl("Blueberryland"));
-        automat.addHersteller(new ManufacturerImpl("Gooseberryland"));
+        automat.addManufacturer(new ManufacturerImpl("Blueberryland"));
+        automat.addManufacturer(new ManufacturerImpl("Gooseberryland"));
         new Consumer2(automat).start();
         new Producer2(automat).start();
         new Inspector(automat).start();

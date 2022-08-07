@@ -43,101 +43,101 @@ class VendingMachineTest {
 
     @Test
     void addHerstellerEinfach() {
-        automat.addHersteller(testHersteller);
-        assertTrue(automat.getHerstellerSet().contains(testHersteller));
+        automat.addManufacturer(testHersteller);
+        assertTrue(automat.getManufacturers().contains(testHersteller));
     }
 
     @Test
     void addHerstellerDoppelt(){
-        automat.addHersteller(testHersteller);
-        automat.addHersteller(testHersteller);
+        automat.addManufacturer(testHersteller);
+        automat.addManufacturer(testHersteller);
 
-        ArrayList<ManufacturerImpl> herstellerListe= new ArrayList<>(automat.getHerstellerSet());
+        ArrayList<ManufacturerImpl> herstellerListe= new ArrayList<>(automat.getManufacturers());
 
         assertEquals(1, herstellerListe.size());
     }
 
     @Test
     void addHerstellerMehrereUnterschiedliche(){
-        automat.addHersteller(testHersteller);
-        automat.addHersteller(new ManufacturerImpl("andererHersteller"));
+        automat.addManufacturer(testHersteller);
+        automat.addManufacturer(new ManufacturerImpl("andererHersteller"));
 
-        ArrayList<ManufacturerImpl> herstellerListe= new ArrayList<>(automat.getHerstellerSet());
+        ArrayList<ManufacturerImpl> herstellerListe= new ArrayList<>(automat.getManufacturers());
 
         assertEquals(2, herstellerListe.size());
     }
 
     @Test
     void deleteOneExistingHersteller() {
-        automat.addHersteller(testHersteller);
-        automat.deleteHersteller("TestHersteller");
-        assertFalse(automat.getHerstellerSet().contains(testHersteller));
+        automat.addManufacturer(testHersteller);
+        automat.deleteManufacturer("TestHersteller");
+        assertFalse(automat.getManufacturers().contains(testHersteller));
     }
 
     @Test
     void deleteOneExistingHerstellerDoppelt() {
-        automat.addHersteller(testHersteller);
-        automat.deleteHersteller("TestHersteller");
-        automat.deleteHersteller("TestHersteller");
-        assertFalse(automat.getHerstellerSet().contains(testHersteller));
+        automat.addManufacturer(testHersteller);
+        automat.deleteManufacturer("TestHersteller");
+        automat.deleteManufacturer("TestHersteller");
+        assertFalse(automat.getManufacturers().contains(testHersteller));
     }
 
     @Test
     void deleteOneOutOfThreeHersteller() {
-        automat.addHersteller(testHersteller);
-        automat.addHersteller(new ManufacturerImpl("andererHersteller"));
-        automat.addHersteller(new ManufacturerImpl("andererHersteller2222"));
-        automat.deleteHersteller("TestHersteller");
-        assertFalse(automat.getHerstellerSet().contains(testHersteller));
+        automat.addManufacturer(testHersteller);
+        automat.addManufacturer(new ManufacturerImpl("andererHersteller"));
+        automat.addManufacturer(new ManufacturerImpl("andererHersteller2222"));
+        automat.deleteManufacturer("TestHersteller");
+        assertFalse(automat.getManufacturers().contains(testHersteller));
     }
 
     @Test
     void deleteTheRightOneOutOfTwoHersteller() {
-        automat.addHersteller(testHersteller);
-        automat.addHersteller(new ManufacturerImpl("andererHersteller"));
-        automat.deleteHersteller("andererHersteller");
-        assertTrue(automat.getHerstellerSet().contains(testHersteller));
+        automat.addManufacturer(testHersteller);
+        automat.addManufacturer(new ManufacturerImpl("andererHersteller"));
+        automat.deleteManufacturer("andererHersteller");
+        assertTrue(automat.getManufacturers().contains(testHersteller));
     }
 
 
     @Test
     void deleteNotExistingHersteller() {
-        automat.addHersteller(testHersteller);
-        automat.deleteHersteller("NotExistingHersteller");
-        assertTrue(automat.getHerstellerSet().contains(testHersteller));
+        automat.addManufacturer(testHersteller);
+        automat.deleteManufacturer("NotExistingHersteller");
+        assertTrue(automat.getManufacturers().contains(testHersteller));
     }
 
     @Test
     void addVerkaufsobjektKremkuchen() {
-        automat.addHersteller(testHersteller);
-        automat.addVerkaufsobjekt(testVerkaufsobjekt);
-        assertTrue(automat.getVerkaufsobjekte().contains(testVerkaufsobjekt));
+        automat.addManufacturer(testHersteller);
+        automat.addProduct(testVerkaufsobjekt);
+        assertTrue(automat.getProducts().contains(testVerkaufsobjekt));
     }
 
     @Test
     void addVerkaufsobjektObsttorte(){
-        automat.addHersteller(testHersteller);
+        automat.addManufacturer(testHersteller);
         CakeImpl obstTorte= new CakeImpl("kreme", testHersteller, allergens, 3000, Duration.ofHours(42), "obstsorte", new BigDecimal(2));
-        automat.addVerkaufsobjekt(obstTorte);
-        assertTrue(automat.getVerkaufsobjekte().contains(obstTorte));
+        automat.addProduct(obstTorte);
+        assertTrue(automat.getProducts().contains(obstTorte));
     }
 
     @Test
     void addVerkaufsobjektObstkuchen(){
-        automat.addHersteller(testHersteller);
+        automat.addManufacturer(testHersteller);
         CakeImpl obstKuchen= new CakeImpl(testHersteller, allergens, 2000, Duration.ofHours(42), "obstsorte", new BigDecimal(3));
-        automat.addVerkaufsobjekt(obstKuchen);
-        assertTrue(automat.getVerkaufsobjekte().contains(obstKuchen));
+        automat.addProduct(obstKuchen);
+        assertTrue(automat.getProducts().contains(obstKuchen));
     }
 
     @Test
     void addVerkaufsobjektZweimal(){
-        automat.addHersteller(testHersteller);
+        automat.addManufacturer(testHersteller);
         CakeImpl obstKuchen= new CakeImpl(testHersteller, allergens, 2000, Duration.ofHours(42), "obstsorte", new BigDecimal(3));
-        automat.addVerkaufsobjekt(obstKuchen);
-        automat.addVerkaufsobjekt(testVerkaufsobjekt);
-        assertTrue(automat.getVerkaufsobjekte().contains(testVerkaufsobjekt));
-        assertTrue(automat.getVerkaufsobjekte().contains(obstKuchen));
+        automat.addProduct(obstKuchen);
+        automat.addProduct(testVerkaufsobjekt);
+        assertTrue(automat.getProducts().contains(testVerkaufsobjekt));
+        assertTrue(automat.getProducts().contains(obstKuchen));
     }
 
     @Test
@@ -147,72 +147,72 @@ class VendingMachineTest {
         allergens.add(Allergen.Gluten);
         CakeImpl kuchenMitFalschemHersteller= new CakeImpl(falscherHersteller, allergens, "Kremtest",
                 1, Duration.ofHours(220),  new BigDecimal(1));
-        assertEquals(VendingMachineErrorCodes.HERSTELLER_ERROR, automat.addVerkaufsobjekt(kuchenMitFalschemHersteller));
+        assertEquals(VendingMachineErrorCodes.MANUFACTURER_ERROR, automat.addProduct(kuchenMitFalschemHersteller));
     }
 
     @Test
     void addVerkaufsobjektWennAutomatVoll(){
         VendingMachine vollerAutomat=new VendingMachine(1);
-        vollerAutomat.addHersteller(testHersteller);
-        vollerAutomat.addVerkaufsobjekt(testVerkaufsobjekt);
-        assertEquals(VendingMachineErrorCodes.CAPACITY_ERROR, vollerAutomat.addVerkaufsobjekt(testVerkaufsobjekt));
+        vollerAutomat.addManufacturer(testHersteller);
+        vollerAutomat.addProduct(testVerkaufsobjekt);
+        assertEquals(VendingMachineErrorCodes.CAPACITY_ERROR, vollerAutomat.addProduct(testVerkaufsobjekt));
     }
 
     @Test
     void deleteVerkaufsobjekt() {
-        automat.addHersteller(testHersteller);
-        automat.addVerkaufsobjekt(testVerkaufsobjekt);
-        automat.deleteVerkaufsobjekt(0);
-        assertTrue(!automat.getVerkaufsobjekte().contains(testVerkaufsobjekt));
+        automat.addManufacturer(testHersteller);
+        automat.addProduct(testVerkaufsobjekt);
+        automat.deleteProduct(0);
+        assertTrue(!automat.getProducts().contains(testVerkaufsobjekt));
     }
 
     @Test
     void doInspection() {
-        automat.addHersteller(testHersteller);
-        automat.addVerkaufsobjekt(testVerkaufsobjekt);
-        Date oldDate= automat.getVerkaufsobjekte().get(0).getInspektionsdatum();
+        automat.addManufacturer(testHersteller);
+        automat.addProduct(testVerkaufsobjekt);
+        Date oldDate= automat.getProducts().get(0).getDateOfInspection();
         automat.doInspection(0);
-        Date newDate= automat.getVerkaufsobjekte().get(0).getInspektionsdatum();
+        Date newDate= automat.getProducts().get(0).getDateOfInspection();
         assertTrue(oldDate!=newDate);
     }
 
     @Test
     void listHerstellerWithCakeCount() {
-        automat.addHersteller(testHersteller);
-        automat.addVerkaufsobjekt(testVerkaufsobjekt);
-        Map<String, Integer> herstellerWithCakeCount= automat.listHerstellerWithCakeCount();
+        automat.addManufacturer(testHersteller);
+        automat.addProduct(testVerkaufsobjekt);
+        Map<String, Integer> herstellerWithCakeCount= automat.listManufacturersWithProductsCounted();
         assertTrue(herstellerWithCakeCount.get("TestHersteller").equals(1));
     }
 
     @Test
     void getVerkaufsobjekte() {
-        automat.addHersteller(testHersteller);
-        automat.addVerkaufsobjekt(testVerkaufsobjekt);
-        assertTrue(automat.getVerkaufsobjekte().get(0)==testVerkaufsobjekt);
+        automat.addManufacturer(testHersteller);
+        automat.addProduct(testVerkaufsobjekt);
+        assertTrue(automat.getProducts().get(0)==testVerkaufsobjekt);
     }
 
     @Test
     void getVerkaufsobjekteOfType() {
-        automat.addHersteller(testHersteller);
-        automat.addVerkaufsobjekt(testVerkaufsobjekt);
-        assertTrue(automat.getVerkaufsobjekteOfType("Kremkuchen").get(0).getKuchentyp().equals("Kremkuchen"));
+        automat.addManufacturer(testHersteller);
+        automat.addProduct(testVerkaufsobjekt);
+        assertTrue(automat.getProductsByType("Kremkuchen").get(0).getTypeOfProduct().equals("Kremkuchen"));
     }
 
     @Test
     void getAllergeneThatExistInAutomat() {
-        automat.addHersteller(testHersteller);
-        automat.addVerkaufsobjekt(testVerkaufsobjekt);
-        assertTrue(automat.getAllergene(true).equals(allergens));
+        automat.addManufacturer(testHersteller);
+        automat.addProduct(testVerkaufsobjekt);
+        assertTrue(automat.getAllergens(true).equals(allergens));
     }
 
     @Test
     void getAllergeneThatDontExistInAutomat() {
-        automat.addHersteller(testHersteller);
-        automat.addVerkaufsobjekt(testVerkaufsobjekt);
+        automat.addManufacturer(testHersteller);
+        automat.addProduct(testVerkaufsobjekt);
         HashSet<Allergen> allergensNotInAutomat= new HashSet<>();
         allergensNotInAutomat.add(Allergen.Haselnuss);
         allergensNotInAutomat.add(Allergen.Erdnuss);
         allergensNotInAutomat.add(Allergen.Sesamsamen);
-        assertTrue(automat.getAllergene(false).equals(allergensNotInAutomat));
+        assertTrue(automat.getAllergens(false).equals(allergensNotInAutomat));
     }
 }

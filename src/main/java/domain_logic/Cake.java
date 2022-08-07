@@ -4,8 +4,8 @@ import java.time.Duration;
 import java.util.Collection;
 
 public interface Cake {
-    Manufacturer getHersteller();
-    Collection<Allergen> getAllergene();
-    int getNaehrwert();
-    Duration getHaltbarkeit();
+    Manufacturer getManufacturer();
+    Collection<Allergen> getAllergens();
+    int getNutritionalScore();
+    Duration getShelfLive();
 }

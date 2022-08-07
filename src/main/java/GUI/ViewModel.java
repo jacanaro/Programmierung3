@@ -52,7 +52,7 @@ public class ViewModel {
     public void buttonClickHerstellerHinzufuegen(ActionEvent actionEvent) {
         String userInputStr = this.inputProperty.get();
         if (my_log != null) my_log.logger.info("es wird versucht, dem Automat einen Hersteller hinzuzufügen");
-        boolean herstellerHinzugefügt = this.automat.addHersteller(new ManufacturerImpl(userInputStr));
+        boolean herstellerHinzugefügt = this.automat.addManufacturer(new ManufacturerImpl(userInputStr));
         if (herstellerHinzugefügt && my_log != null) my_log.logger.info("Hersteller wurde hinzugefügt");
         this.updateProperties();
     }
@@ -62,7 +62,7 @@ public class ViewModel {
         try {
             int userInputInt = Integer.parseInt(userInputStr);
             if (my_log != null) my_log.logger.info("es wird versucht, einen Kuchen zu löschen");
-            boolean kuchenGelöscht = this.automat.deleteVerkaufsobjekt(userInputInt);
+            boolean kuchenGelöscht = this.automat.deleteProduct(userInputInt);
             if (kuchenGelöscht && my_log != null) my_log.logger.info("Kuchen wurde gelöscht");
             this.updateProperties();
         } catch (Exception e) {
@@ -73,7 +73,7 @@ public class ViewModel {
     public void buttonClickKuchenSortieren(ActionEvent actionEvent) {
         String userInputStr = this.inputProperty.get();
         if (my_log != null) my_log.logger.info("alle Kuchen werden abgerufen");
-        ArrayList<CakeImpl> kuchenliste = this.automat.getVerkaufsobjekte();
+        ArrayList<CakeImpl> kuchenliste = this.automat.getProducts();
 
         switch (userInputStr) {
             case "Fachnummer":
@@ -90,9 +90,9 @@ public class ViewModel {
                 break;
             case "Inspektionsdatum":
                 Collections.sort(kuchenliste, (o1, o2) -> {
-                    if (o1.getInspektionsdatum() == null || o2.getInspektionsdatum() == null)
+                    if (o1.getDateOfInspection() == null || o2.getDateOfInspection() == null)
                         return 0;
-                    return o1.getInspektionsdatum().compareTo(o2.getInspektionsdatum());
+                    return o1.getDateOfInspection().compareTo(o2.getDateOfInspection());
                 });
                 String kuchenlisteStringInspektionsdatumSorted = "";
                 for (CakeImpl k : kuchenliste)
@@ -101,9 +101,9 @@ public class ViewModel {
                 break;
             case "Haltbarkeit":
                 Collections.sort(kuchenliste, (o1, o2) -> {
-                    if (o1.getHaltbarkeit() == null || o2.getHaltbarkeit() == null)
+                    if (o1.getShelfLive() == null || o2.getShelfLive() == null)
                         return 0;
-                    return o1.getHaltbarkeit().compareTo(o2.getHaltbarkeit());
+                    return o1.getShelfLive().compareTo(o2.getShelfLive());
                 });
                 String kuchenlisteStringHaltbarkeitSorted = "";
                 for (CakeImpl k : kuchenliste)
@@ -166,20 +166,20 @@ public class ViewModel {
             case "Kremkuchen":
                 kremsorte = userInputStrArr[6];
                 if (my_log != null) my_log.logger.info("es wird versucht, dem Automat einen Kremkuchen hinzuzufügen");
-                VendingMachineErrorCodes vendingMachineErrorCodes = this.automat.addVerkaufsobjekt(new CakeImpl(hersteller, allergene, kremsorte, naehrwert, haltbarkeit, preis));
+                VendingMachineErrorCodes vendingMachineErrorCodes = this.automat.addProduct(new CakeImpl(hersteller, allergene, kremsorte, naehrwert, haltbarkeit, preis));
                 if (vendingMachineErrorCodes == null && my_log != null) my_log.logger.info("Kremkuchen wurde hinzugefügt");
                 break;
             case "Obstkuchen":
                 obstsorte = userInputStrArr[6];
                 if (my_log != null) my_log.logger.info("es wird versucht, dem Automat einen Obstkuchen hinzuzufügen");
-                VendingMachineErrorCodes vendingMachineErrorCodes2 = this.automat.addVerkaufsobjekt(new CakeImpl(hersteller, allergene, naehrwert, haltbarkeit, obstsorte, preis));
+                VendingMachineErrorCodes vendingMachineErrorCodes2 = this.automat.addProduct(new CakeImpl(hersteller, allergene, naehrwert, haltbarkeit, obstsorte, preis));
                 if (vendingMachineErrorCodes2 == null && my_log != null) my_log.logger.info("Obstkuchen wurde hinzugefügt");
                 break;
             case "Obsttorte":
                 obstsorte = userInputStrArr[6];
                 kremsorte = userInputStrArr[7];
                 if (my_log != null) my_log.logger.info("es wird versucht, dem Automat eine Obsttorte hinzuzufügen");
-                VendingMachineErrorCodes vendingMachineErrorCodes3 = this.automat.addVerkaufsobjekt(new CakeImpl(kremsorte, hersteller, allergene, naehrwert, haltbarkeit, obstsorte, preis));
+                VendingMachineErrorCodes vendingMachineErrorCodes3 = this.automat.addProduct(new CakeImpl(kremsorte, hersteller, allergene, naehrwert, haltbarkeit, obstsorte, preis));
                 if (vendingMachineErrorCodes3 == null && my_log != null) my_log.logger.info("Obsttorte wurde hinzugefügt");
                 break;
             default:
@@ -208,12 +208,12 @@ public class ViewModel {
         String userInputStr = this.inputProperty.get();
         switch (userInputStr) {
             case "saveJOS":
-                this.automat.serialize("automaten.ser", this.automat);
+                this.automat.serializeVendingMachine("automaten.ser", this.automat);
                 this.automatInfoProperty.set("Der Zustand des Automaten wurde mittels JOS gespeichert");
                 if (my_log != null) my_log.logger.info("Der Zustand des Automaten wurde mittels JOS gespeichert");
                 break;
             case "loadJOS":
-                VendingMachine loadedAutomat = VendingMachine.deserialize("automaten.ser");
+                VendingMachine loadedAutomat = VendingMachine.deserializeVendingMachine("automaten.ser");
                 this.setAutomat(loadedAutomat);
                 this.automatInfoProperty.set("Der Zustand des Automaten wurde mittels JOS geladen");
                 if (my_log != null) my_log.logger.info("Der Zustand des Automaten wurde mittels JOS geladen");
@@ -242,11 +242,11 @@ public class ViewModel {
         if (userInputStrArr[0].equals("allergene")) {
             if (userInputStrArr[1].equals("i")) {
                 if (my_log != null) my_log.logger.info("es werden alle Allergene die im Automat existieren ausgegeben");
-                this.automatInfoProperty.set("Allergene die im Automat vertreten sind: \n" + this.automat.getAllergene(true).toString());
+                this.automatInfoProperty.set("Allergene die im Automat vertreten sind: \n" + this.automat.getAllergens(true).toString());
             } else if (userInputStrArr[1].equals("e")) {
                 if (my_log != null)
                     my_log.logger.info("es werden alle Allergene die nicht im Automat existieren ausgegeben");
-                this.automatInfoProperty.set("Allergene die nicht im Automat vertreten sind: \n" + this.automat.getAllergene(false).toString());
+                this.automatInfoProperty.set("Allergene die nicht im Automat vertreten sind: \n" + this.automat.getAllergens(false).toString());
             }
         }
     }
@@ -254,7 +254,7 @@ public class ViewModel {
     public void buttonClickHerstellerLöschen(ActionEvent actionEvent) {
         String userInputStr = this.inputProperty.get();
         if (my_log != null) my_log.logger.info("es wird versucht, einen Hersteller zu löschen");
-        boolean herstellerGelöscht = this.automat.deleteHersteller(userInputStr);
+        boolean herstellerGelöscht = this.automat.deleteManufacturer(userInputStr);
         if (herstellerGelöscht && my_log != null) my_log.logger.info("Hersteller wurde gelöscht");
         this.updateProperties();
     }
@@ -263,11 +263,11 @@ public class ViewModel {
         this.automatInfoProperty.set("");
         String kuchenliste = "";
         if (my_log != null) my_log.logger.info("alle Kuchen werden abgerufen");
-        for (CakeImpl kuchen : this.automat.getVerkaufsobjekte()) {
+        for (CakeImpl kuchen : this.automat.getProducts()) {
             if (kuchen != null) kuchenliste += kuchen + "\n";
         }
         this.automatKuchenProperty.set("Kuchen im Automat:\n" + kuchenliste);
-        this.automatHerstellerProperty.set("Hersteller im Automat:\n" + this.automat.listHerstellerWithCakeCount());
+        this.automatHerstellerProperty.set("Hersteller im Automat:\n" + this.automat.listManufacturersWithProductsCounted());
     }
 
     public String getInput() {

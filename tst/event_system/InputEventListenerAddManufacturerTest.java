@@ -33,7 +33,7 @@ class InputEventListenerAddManufacturerTest {
         String stringForInputEvent = ":c hersteller1";
         InputEvent e = new InputEvent(CLI, stringForInputEvent);
         lAddHersteller.onInputEvent(e);
-        ArrayList<ManufacturerImpl> herstellerListe = new ArrayList<>(automat.getHerstellerSet());
+        ArrayList<ManufacturerImpl> herstellerListe = new ArrayList<>(automat.getManufacturers());
         assertEquals("hersteller1", herstellerListe.get(0).getName());
     }
 
@@ -45,7 +45,7 @@ class InputEventListenerAddManufacturerTest {
         String stringForInputEvent = "asdöfljhbniujg!";
         InputEvent e = new InputEvent(CLI, stringForInputEvent);
         lAddHersteller.onInputEvent(e);
-        ArrayList<ManufacturerImpl> herstellerListe = new ArrayList<>(automat.getHerstellerSet());
+        ArrayList<ManufacturerImpl> herstellerListe = new ArrayList<>(automat.getManufacturers());
         assertEquals(true, herstellerListe.isEmpty());
     }
 
@@ -57,7 +57,7 @@ class InputEventListenerAddManufacturerTest {
         String stringForInputEvent = ":c hersteller1 hersteller2 hersteller3";
         InputEvent e = new InputEvent(CLI, stringForInputEvent);
         lAddHersteller.onInputEvent(e);
-        ArrayList<ManufacturerImpl> herstellerListe = new ArrayList<>(automat.getHerstellerSet());
+        ArrayList<ManufacturerImpl> herstellerListe = new ArrayList<>(automat.getManufacturers());
         assertEquals(true, herstellerListe.isEmpty());
     }
 
@@ -69,7 +69,7 @@ class InputEventListenerAddManufacturerTest {
         String stringForInputEvent = ":c Dr. Oetker";
         InputEvent e = new InputEvent(CLI, stringForInputEvent);
         lAddHersteller.onInputEvent(e);
-        ArrayList<ManufacturerImpl> herstellerListe = new ArrayList<>(automat.getHerstellerSet());
+        ArrayList<ManufacturerImpl> herstellerListe = new ArrayList<>(automat.getManufacturers());
         assertEquals(true, herstellerListe.isEmpty());
     }
 

@@ -9,8 +9,8 @@ public class Simulation1Main {
         try{
         VendingMachineSimulation1 automat = new VendingMachineSimulation1(Integer.parseInt(args[0]));
         new AutomatSimulationObserver(automat);
-        automat.addHersteller(new ManufacturerImpl("Blueberryland"));
-        automat.addHersteller(new ManufacturerImpl("Gooseberryland"));
+        automat.addManufacturer(new ManufacturerImpl("Blueberryland"));
+        automat.addManufacturer(new ManufacturerImpl("Gooseberryland"));
         new Consumer(automat).start();
         new Producer(automat).start();
         }catch (Exception e){

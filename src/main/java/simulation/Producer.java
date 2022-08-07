@@ -12,11 +12,11 @@ public class Producer extends Thread {
     public void run() {
         while (true) {
             synchronized (this.automat) {
-                if (this.automat.getVerkaufsobjekte().size() != this.automat.getCAPACITY()) {
+                if (this.automat.getProducts().size() != this.automat.getCAPACITY()) {
                     RandomProductGenerator r = new RandomProductGenerator(new ManufacturerImpl("Blueberryland"),
                             new ManufacturerImpl("Gooseberryland"));
                     System.out.println(this.getName() + " will kuchen hinzufuegen");
-                    this.automat.addVerkaufsobjekt(r.getRandomKuchen());
+                    this.automat.addProduct(r.getRandomKuchen());
                 }
             }
         }

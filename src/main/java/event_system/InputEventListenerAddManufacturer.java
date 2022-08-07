@@ -17,7 +17,7 @@ public class InputEventListenerAddManufacturer implements InputEventListener {
                     for (String str : userInputStrArr) if (!str.equals("")) herstellerName = str;
 
                     if(c.getLog()!=null)c.getLog().logger.info("es wird versucht einen Hersteller zu erzeugen");
-                    boolean herstellerAdded=c.getObservableVendingMachine().addHersteller(new ManufacturerImpl(herstellerName));
+                    boolean herstellerAdded=c.getObservableVendingMachine().addManufacturer(new ManufacturerImpl(herstellerName));
                     if(herstellerAdded && c.getLog()!=null)c.getLog().logger.info("Hersteller wurde hinzugefügt");
                 }
             }

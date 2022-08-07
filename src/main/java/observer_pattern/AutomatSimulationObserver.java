@@ -12,6 +12,6 @@ public class AutomatSimulationObserver extends VendingMachineAllergensObserver {
 
     @Override
     public void update() {
-        System.out.println("Aktuelle Kuchenliste: \n"+automat.getVerkaufsobjekte().toString());
+        System.out.println("Aktuelle Kuchenliste: \n"+automat.getProducts().toString());
     }
 }

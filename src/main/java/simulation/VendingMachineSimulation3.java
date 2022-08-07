@@ -16,20 +16,20 @@ public class VendingMachineSimulation3 extends VendingMachineSimulation2 {
     public void deleteVerkaufsobjekteWithOldestDateXTimes() {
         super.getLock().lock();
         try {
-            while (super.getVerkaufsobjekte().size() == 0) super.getFilled().await();
-            if (super.getVerkaufsobjekte().size() == 0)
+            while (super.getProducts().size() == 0) super.getFilled().await();
+            if (super.getProducts().size() == 0)
                 throw new IllegalStateException();
 
             Random random = new Random();
-            int numberOfDeletions = random.nextInt(super.getVerkaufsobjekte().size());
+            int numberOfDeletions = random.nextInt(super.getProducts().size());
             if(numberOfDeletions==0)numberOfDeletions++;
             for (int j = 0; j < numberOfDeletions; j++) {
                 Date oldestDate = new SimpleDateFormat("dd/MM/yyyy").parse("99/99/9999");
                 CakeImpl oldestCake = null;
-                ArrayList<CakeImpl> k = super.getVerkaufsobjekte();
+                ArrayList<CakeImpl> k = super.getProducts();
 
                 for (int i = 0; i < k.size(); i++) {
-                    Date d = k.get(i).getInspektionsdatum();
+                    Date d = k.get(i).getDateOfInspection();
 
                     if (d.compareTo(oldestDate) == 0) {
                         continue;
@@ -40,7 +40,7 @@ public class VendingMachineSimulation3 extends VendingMachineSimulation2 {
                         continue;
                     }
                 }
-                super.deleteVerkaufsobjekt(oldestCake.getFachnummer());
+                super.deleteProduct(oldestCake.getVendingMachineSlot());
             }
 
             super.getOneDeleted().signal();

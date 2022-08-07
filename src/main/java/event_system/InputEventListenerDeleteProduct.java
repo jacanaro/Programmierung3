@@ -16,7 +16,7 @@ public class InputEventListenerDeleteProduct implements InputEventListener{
                         CLI c = (CLI) event.getSource();
                         int fachnummer=Integer.parseInt(str);
                             if(c.getLog()!=null)c.getLog().logger.info("es wird versucht, ein Kuchen zu löschen");
-                            boolean kucheGelöscht=c.getObservableVendingMachine().deleteVerkaufsobjekt(fachnummer);
+                            boolean kucheGelöscht=c.getObservableVendingMachine().deleteProduct(fachnummer);
                             if(kucheGelöscht && c.getLog()!=null)c.getLog().logger.info("Kuchen wurde gelöscht");
                         }catch (IndexOutOfBoundsException e){
                             System.out.println(e);

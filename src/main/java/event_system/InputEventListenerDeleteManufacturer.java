@@ -16,9 +16,9 @@ public class InputEventListenerDeleteManufacturer implements InputEventListener 
                         CLI c = (CLI) event.getSource();
                         if (str.matches("[0-9]+")) {
                             try {
-                                for (ManufacturerImpl hersteller : c.getObservableVendingMachine().getHerstellerSet()) {
+                                for (ManufacturerImpl hersteller : c.getObservableVendingMachine().getManufacturers()) {
                                     if (hersteller.getName().equals(str)) {
-                                        boolean herstellerGelöscht = c.getObservableVendingMachine().deleteHersteller(str);
+                                        boolean herstellerGelöscht = c.getObservableVendingMachine().deleteManufacturer(str);
                                         if (herstellerGelöscht && c.getLog() != null)
                                             c.getLog().logger.info("Hersteller wurde gelöscht");
                                         System.out.println("Hersteller mit dem Namen: " + str + " wurde gelöscht" + "\n"
@@ -27,7 +27,7 @@ public class InputEventListenerDeleteManufacturer implements InputEventListener 
                                 }
                                 if (c.getLog() != null)
                                     c.getLog().logger.info("es wird versucht, ein Hersteller zu löschen");
-                                boolean herstellerGelöscht = c.getObservableVendingMachine().deleteHersteller(str);
+                                boolean herstellerGelöscht = c.getObservableVendingMachine().deleteManufacturer(str);
                                 if (herstellerGelöscht && c.getLog() != null)
                                     c.getLog().logger.info("Hersteller wurde gelöscht");
                             } catch (Exception e) {
