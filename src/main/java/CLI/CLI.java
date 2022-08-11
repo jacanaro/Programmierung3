@@ -2,12 +2,14 @@ package CLI;
 
 import event_system.InputEvent;
 import event_system.InputEventHandler;
+import event_system.UserInputFormatter;
 import log.Log;
 import observer_pattern.VendingMachineAllergensObserver;
 import observer_pattern.VendingMachineCapacityObserver;
 import observer_pattern.ObservableVendingMachine;
 
 import java.io.IOException;
+import java.text.Format;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -22,6 +24,7 @@ public class CLI {
     private String firstUserInputString = "";
     private String secondUserInputString = "";
     private Log log;
+    private UserInputFormatter formatter = new UserInputFormatter();
 
     public CLI(ObservableVendingMachine observableVendingMachine, VendingMachineCapacityObserver vendingMachineCapacityObserver, Scanner scanner) {
         this.observableVendingMachine = observableVendingMachine;
@@ -169,6 +172,8 @@ public class CLI {
     public void setVendingMachineCapacityObserver(VendingMachineCapacityObserver vendingMachineCapacityObserver) {
         this.vendingMachineCapacityObserver = vendingMachineCapacityObserver;
     }
+
+    public UserInputFormatter getFormatter() {return formatter;}
 }
 
 
