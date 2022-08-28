@@ -20,25 +20,25 @@ class RandomProductGeneratorTest {
         ManufacturerImpl bla= new ManufacturerImpl("bla");
         ManufacturerImpl bla2= new ManufacturerImpl("bla2");
         RandomProductGenerator randomProductGenerator = new RandomProductGenerator(bla, bla2);
-        assertEquals(bla, randomProductGenerator.getHersteller1());
-        assertEquals(bla2, randomProductGenerator.getHersteller2());
+        assertEquals(bla, randomProductGenerator.getManufacturer1());
+        assertEquals(bla2, randomProductGenerator.getManufacturer2());
     }
 
     @Test
     void testIfReturnValueEqualsNull() {
-        assertNotNull(randomProductGenerator.getRandomKuchen());
+        assertNotNull(randomProductGenerator.getRandomProduct());
     }
 
     @Test
     void testReturnType() {
-        CakeImpl randomKuchen= randomProductGenerator.getRandomKuchen();
+        CakeImpl randomKuchen= randomProductGenerator.getRandomProduct();
         assertTrue(randomKuchen instanceof CakeImpl);
     }
 
     @Test
     void getTwoDifferentRandomKuchen(){
-        CakeImpl randomKuchen1= randomProductGenerator.getRandomKuchen();
-        CakeImpl randomKuchen2= randomProductGenerator.getRandomKuchen();
+        CakeImpl randomKuchen1= randomProductGenerator.getRandomProduct();
+        CakeImpl randomKuchen2= randomProductGenerator.getRandomProduct();
         assertNotEquals(randomKuchen2, randomKuchen1);
     }
 }

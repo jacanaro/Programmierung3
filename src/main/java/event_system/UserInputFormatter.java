@@ -12,8 +12,8 @@ public class UserInputFormatter {
     public HashSet formatCommaSeperatedAllergens(String commaSeperatedAllergens){
         HashSet<Allergen> allergens = new HashSet<>();
 
-        String[] arrayOfAllergens = commaSeperatedAllergens.split(",");
-        for (String allergenString : arrayOfAllergens) {
+        String[] allergensArray = commaSeperatedAllergens.split(",");
+        for (String allergenString : allergensArray) {
             StringBuffer stringBuffer = new StringBuffer();
             Matcher matcher = Pattern.compile("([a-z])([a-z]*)", Pattern.CASE_INSENSITIVE).matcher(allergenString);
             while (matcher.find()) {

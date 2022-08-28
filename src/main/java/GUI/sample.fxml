@@ -7,16 +7,16 @@
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="109.0" prefWidth="302.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.ViewModel">
     <children>
         <TextField fx:id="input" text="[Kuchen-Typ] [Herstellername] [Preis] [Nährwert] [Haltbarkeit] [kommaseparierte Allergene] [Obstsorte] [Kremsorte]"/>
-        <Button onAction="#buttonClickHerstellerHinzufuegen" text="Hersteller hinzufuegen" />
-        <Button onAction="#buttonClickHerstellerLöschen" text="Hersteller löschen" />
-        <Button onAction="#buttonClickKuchenHinzufuegen" text="Kuchen hinzufuegen" />
-        <Button onAction="#buttonClickKuchenLoeschen" text="Kuchen loeschen" />
-        <Button onAction="#buttonClickKuchenSortieren" text="Kuchen sortieren" />
-        <Button onAction="#buttonClickKuchenInspizieren" text="Kuchen inspizieren" />
-        <Button onAction="#buttonClickKuchenPersistieren" text="Kuchen persistieren" />
-        <Button onAction="#buttonClickAllergeneAnzeigen" text="Allergene anzeigen" />
-        <Label text="${controller.automatInfo}"/>
-        <Label text="${controller.automatKuchen}"/>
-        <Label text="${controller.automatHersteller}" />
+        <Button onAction="#addManufacturerOnButtonClick" text="Hersteller hinzufuegen" />
+        <Button onAction="#deleteManufacturerOnButtonClick" text="Hersteller löschen" />
+        <Button onAction="#addProductOnButtonClick" text="Kuchen hinzufuegen" />
+        <Button onAction="#deleteProductOnButtonClick" text="Kuchen loeschen" />
+        <Button onAction="#sortProductsOnButtonClick" text="Kuchen sortieren" />
+        <Button onAction="#inspectProductOnButtonClick" text="Kuchen inspizieren" />
+        <Button onAction="#saveVendingMachineToFile" text="Kuchen persistieren" />
+        <Button onAction="#showAllergensOnButtonClick" text="Allergene anzeigen" />
+        <Label text="${controller.vendingMachineInfoProperty}"/>
+        <Label text="${controller.vendingMachineProductsProperty}"/>
+        <Label text="${controller.manufacturerProperty}" />
     </children>
 </VBox>

@@ -7,12 +7,12 @@ public class InputEventListenerListManufacturer implements InputEventListener {
     public void onInputEvent(InputEvent event) {
         if (null != event.getText()) {
             String userInput = event.getText();
-            String modus = userInput.substring(0, 2);
-            if (modus.equals(":r")) {
+            String mode = userInput.substring(0, 2);
+            if (mode.equals(":r")) {
                 try {
                     String[] userInputStrArr = userInput.substring(2).split(" ");
-                    for (String str : userInputStrArr)
-                        if (str.equals("hersteller")) {
+                    for (String userInputString : userInputStrArr)
+                        if (userInputString.equals("hersteller")) {
                             CLI c = (CLI) event.getSource();
                             if (c.getLog() != null)
                                 c.getLog().logger.info("es werden alle Hersteller, die im Automat vertreten sind, mit Anzahl der Kuchen ausgegeben");

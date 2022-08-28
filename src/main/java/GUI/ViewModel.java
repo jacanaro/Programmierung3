@@ -21,165 +21,149 @@ import java.util.regex.Pattern;
 
 public class ViewModel {
     private StringProperty inputProperty = new SimpleStringProperty();
-    private StringProperty automatKuchenProperty = new SimpleStringProperty();
-    private StringProperty automatHerstellerProperty = new SimpleStringProperty();
-    private StringProperty automatInfoProperty = new SimpleStringProperty();
-    private VendingMachine automat;
+    private StringProperty vendingMachineProductsProperty = new SimpleStringProperty();
+    private StringProperty manufacturerProperty = new SimpleStringProperty();
+    private StringProperty vendingMachineInfoProperty = new SimpleStringProperty();
+    private VendingMachine vendingMachine;
     private Log my_log;
 
     public ViewModel() {
-        this.automatInfoProperty.set("");
-        this.automatKuchenProperty.set("Kuchen im Automat:\n");
-        this.automatHerstellerProperty.set("Hersteller im Automat:\n");
+        this.vendingMachineInfoProperty.set("");
+        this.vendingMachineProductsProperty.set("Kuchen im Automat:\n");
+        this.manufacturerProperty.set("Hersteller im Automat:\n");
     }
 
-    public StringProperty inputProperty() {
-        return this.inputProperty;
-    }
-
-    public StringProperty automatKuchenProperty() {
-        return this.automatKuchenProperty;
-    }
-
-    public StringProperty automatHerstellerProperty() {
-        return this.automatHerstellerProperty;
-    }
-
-    public StringProperty automatInfoProperty() {
-        return this.automatInfoProperty;
-    }
-
-    public void buttonClickHerstellerHinzufuegen(ActionEvent actionEvent) {
+    public void addManufacturerOnButtonClick(ActionEvent actionEvent) {
         String userInputStr = this.inputProperty.get();
         if (my_log != null) my_log.logger.info("es wird versucht, dem Automat einen Hersteller hinzuzufügen");
-        boolean herstellerHinzugefügt = this.automat.addManufacturer(new ManufacturerImpl(userInputStr));
-        if (herstellerHinzugefügt && my_log != null) my_log.logger.info("Hersteller wurde hinzugefügt");
+        boolean manufacturerAdded = this.vendingMachine.addManufacturer(new ManufacturerImpl(userInputStr));
+        if (manufacturerAdded && my_log != null) my_log.logger.info("Hersteller wurde hinzugefügt");
         this.updateProperties();
     }
 
-    public void buttonClickKuchenLoeschen(ActionEvent actionEvent) {
+    public void deleteProductOnButtonClick(ActionEvent actionEvent) {
         String userInputStr = this.inputProperty.get();
         try {
             int userInputInt = Integer.parseInt(userInputStr);
             if (my_log != null) my_log.logger.info("es wird versucht, einen Kuchen zu löschen");
-            boolean kuchenGelöscht = this.automat.deleteProduct(userInputInt);
-            if (kuchenGelöscht && my_log != null) my_log.logger.info("Kuchen wurde gelöscht");
+            boolean productDeleted = this.vendingMachine.deleteProduct(userInputInt);
+            if (productDeleted && my_log != null) my_log.logger.info("Kuchen wurde gelöscht");
             this.updateProperties();
         } catch (Exception e) {
             System.out.println(e);
         }
     }
 
-    public void buttonClickKuchenSortieren(ActionEvent actionEvent) {
+    public void sortProductsOnButtonClick(ActionEvent actionEvent) {
         String userInputStr = this.inputProperty.get();
         if (my_log != null) my_log.logger.info("alle Kuchen werden abgerufen");
-        ArrayList<CakeImpl> kuchenliste = this.automat.getProducts();
+        ArrayList<CakeImpl> products = this.vendingMachine.getProducts();
 
         switch (userInputStr) {
             case "Fachnummer":
                 updateProperties();
                 break;
             case "Hersteller":
-                Collections.sort(kuchenliste, new ProductsManufacturerComparator());
+                Collections.sort(products, new ProductsManufacturerComparator());
 
-                String kuchenlisteHerstellerSort = "";
-                for (CakeImpl kuchen : kuchenliste) {
-                    if (kuchen != null) kuchenlisteHerstellerSort += kuchen + "\n";
+                String productsSortedByManufacturer = "";
+                for (CakeImpl product : products) {
+                    if (product != null) productsSortedByManufacturer += product + "\n";
                 }
-                this.automatKuchenProperty.set("Kuchen im Automat:\n" + kuchenlisteHerstellerSort);
+                this.vendingMachineProductsProperty.set("Kuchen im Automat:\n" + productsSortedByManufacturer);
                 break;
             case "Inspektionsdatum":
-                Collections.sort(kuchenliste, (o1, o2) -> {
+                Collections.sort(products, (o1, o2) -> {
                     if (o1.getDateOfInspection() == null || o2.getDateOfInspection() == null)
                         return 0;
                     return o1.getDateOfInspection().compareTo(o2.getDateOfInspection());
                 });
-                String kuchenlisteStringInspektionsdatumSorted = "";
-                for (CakeImpl k : kuchenliste)
-                    if (k != null) kuchenlisteStringInspektionsdatumSorted += k + "\n";
-                this.automatKuchenProperty.set("Kuchen im Automat:\n" + kuchenlisteStringInspektionsdatumSorted);
+                String productsSortedByInspectiondate = "";
+                for (CakeImpl product : products)
+                    if (product != null) productsSortedByInspectiondate += product + "\n";
+                this.vendingMachineProductsProperty.set("Kuchen im Automat:\n" + productsSortedByInspectiondate);
                 break;
             case "Haltbarkeit":
-                Collections.sort(kuchenliste, (o1, o2) -> {
-                    if (o1.getShelfLive() == null || o2.getShelfLive() == null)
+                Collections.sort(products, (o1, o2) -> {
+                    if (o1.getShelfLife() == null || o2.getShelfLife() == null)
                         return 0;
-                    return o1.getShelfLive().compareTo(o2.getShelfLive());
+                    return o1.getShelfLife().compareTo(o2.getShelfLife());
                 });
-                String kuchenlisteStringHaltbarkeitSorted = "";
-                for (CakeImpl k : kuchenliste)
-                    if (k != null) kuchenlisteStringHaltbarkeitSorted += k + "\n";
-                this.automatKuchenProperty.set("Kuchen im Automat:\n" + kuchenlisteStringHaltbarkeitSorted);
+                String productsSortedByShelfLife = "";
+                for (CakeImpl product : products)
+                    if (product != null) productsSortedByShelfLife += product + "\n";
+                this.vendingMachineProductsProperty.set("Kuchen im Automat:\n" + productsSortedByShelfLife);
                 break;
             default:
                 break;
         }
     }
 
-    public void buttonClickKuchenHinzufuegen(ActionEvent actionEvent) {
+    public void addProductOnButtonClick(ActionEvent actionEvent) {
         String userInputStr = this.inputProperty.get();
         String[] userInputStrArr = userInputStr.split(" ");
-        String kremsorte = null;
-        ManufacturerImpl hersteller = null;
-        HashSet<Allergen> allergene = new HashSet<>();
-        int naehrwert = 0;
-        Duration haltbarkeit = null;
-        String obstsorte = null;
-        BigDecimal preis = null;
-        String kuchentyp = null;
+        String creamFlavor = null;
+        ManufacturerImpl manufacturer = null;
+        HashSet<Allergen> allergens = new HashSet<>();
+        int nutritionalScore = 0;
+        Duration shelfLife = null;
+        String typeOfFruit = null;
+        BigDecimal price = null;
+        String typeOfProduct = null;
         try {
-        kuchentyp = userInputStrArr[0];
+        typeOfProduct = userInputStrArr[0];
 
-        hersteller = new ManufacturerImpl(userInputStrArr[1]);
+        manufacturer = new ManufacturerImpl(userInputStrArr[1]);
 
-        String[] vorUndNachkommaStellePreis = userInputStrArr[2].split(",");
-        String preisFormatiert = "";
-        if (vorUndNachkommaStellePreis.length > 1) {
-            preisFormatiert = vorUndNachkommaStellePreis[0] + ".";
-            for (int k = 1; k < vorUndNachkommaStellePreis.length; k++) {
-                preisFormatiert = preisFormatiert + vorUndNachkommaStellePreis[k];
+        String[] preAndPostCommaDigit = userInputStrArr[2].split(",");
+        String formattedPrice = "";
+        if (preAndPostCommaDigit.length > 1) {
+            formattedPrice = preAndPostCommaDigit[0] + ".";
+            for (int k = 1; k < preAndPostCommaDigit.length; k++) {
+                formattedPrice = formattedPrice + preAndPostCommaDigit[k];
             }
         } else {
-            preisFormatiert = vorUndNachkommaStellePreis[0];
+            formattedPrice = preAndPostCommaDigit[0];
         }
 
 
-        preis = new BigDecimal(preisFormatiert);
+        price = new BigDecimal(formattedPrice);
 
-            naehrwert = Integer.parseInt(userInputStrArr[3]);
+            nutritionalScore = Integer.parseInt(userInputStrArr[3]);
 
-            int haltbarkeitInStunden = Integer.parseInt(userInputStrArr[4]);
-            haltbarkeit = Duration.ofHours(haltbarkeitInStunden);
+            int shelfLifeInHours = Integer.parseInt(userInputStrArr[4]);
+            shelfLife = Duration.ofHours(shelfLifeInHours);
 
-        String allergeneKommaSeparriert = userInputStrArr[5];
-        String[] allergeneArray = allergeneKommaSeparriert.split(",");
-        for (String j : allergeneArray) {
-            StringBuffer sb = new StringBuffer();
-            Matcher m = Pattern.compile("([a-z])([a-z]*)", Pattern.CASE_INSENSITIVE).matcher(j);
-            while (m.find()) {
-                m.appendReplacement(sb, m.group(1).toUpperCase() + m.group(2).toLowerCase());
+        String commaSeperatedAllergens = userInputStrArr[5];
+        String[] allergensArray = commaSeperatedAllergens.split(",");
+        for (String allergenString : allergensArray) {
+            StringBuffer stringBuffer = new StringBuffer();
+            Matcher matcher = Pattern.compile("([a-z])([a-z]*)", Pattern.CASE_INSENSITIVE).matcher(allergenString);
+            while (matcher.find()) {
+                matcher.appendReplacement(stringBuffer, matcher.group(1).toUpperCase() + matcher.group(2).toLowerCase());
             }
-            String formattedAllergen = m.appendTail(sb).toString();
-            if (Allergen.valueOf(formattedAllergen) != null) allergene.add(Allergen.valueOf(formattedAllergen));
+            String formattedAllergen = matcher.appendTail(stringBuffer).toString();
+            if (Allergen.valueOf(formattedAllergen) != null) allergens.add(Allergen.valueOf(formattedAllergen));
         }
 
-        switch (kuchentyp) {
+        switch (typeOfProduct) {
             case "Kremkuchen":
-                kremsorte = userInputStrArr[6];
+                creamFlavor = userInputStrArr[6];
                 if (my_log != null) my_log.logger.info("es wird versucht, dem Automat einen Kremkuchen hinzuzufügen");
-                VendingMachineErrorCodes vendingMachineErrorCodes = this.automat.addProduct(new CakeImpl(hersteller, allergene, kremsorte, naehrwert, haltbarkeit, preis));
+                VendingMachineErrorCodes vendingMachineErrorCodes = this.vendingMachine.addProduct(new CakeImpl(manufacturer, allergens, creamFlavor, nutritionalScore, shelfLife, price));
                 if (vendingMachineErrorCodes == null && my_log != null) my_log.logger.info("Kremkuchen wurde hinzugefügt");
                 break;
             case "Obstkuchen":
-                obstsorte = userInputStrArr[6];
+                typeOfFruit = userInputStrArr[6];
                 if (my_log != null) my_log.logger.info("es wird versucht, dem Automat einen Obstkuchen hinzuzufügen");
-                VendingMachineErrorCodes vendingMachineErrorCodes2 = this.automat.addProduct(new CakeImpl(hersteller, allergene, naehrwert, haltbarkeit, obstsorte, preis));
+                VendingMachineErrorCodes vendingMachineErrorCodes2 = this.vendingMachine.addProduct(new CakeImpl(manufacturer, allergens, nutritionalScore, shelfLife, typeOfFruit, price));
                 if (vendingMachineErrorCodes2 == null && my_log != null) my_log.logger.info("Obstkuchen wurde hinzugefügt");
                 break;
             case "Obsttorte":
-                obstsorte = userInputStrArr[6];
-                kremsorte = userInputStrArr[7];
+                typeOfFruit = userInputStrArr[6];
+                creamFlavor = userInputStrArr[7];
                 if (my_log != null) my_log.logger.info("es wird versucht, dem Automat eine Obsttorte hinzuzufügen");
-                VendingMachineErrorCodes vendingMachineErrorCodes3 = this.automat.addProduct(new CakeImpl(kremsorte, hersteller, allergene, naehrwert, haltbarkeit, obstsorte, preis));
+                VendingMachineErrorCodes vendingMachineErrorCodes3 = this.vendingMachine.addProduct(new CakeImpl(creamFlavor, manufacturer, allergens, nutritionalScore, shelfLife, typeOfFruit, price));
                 if (vendingMachineErrorCodes3 == null && my_log != null) my_log.logger.info("Obsttorte wurde hinzugefügt");
                 break;
             default:
@@ -191,44 +175,44 @@ public class ViewModel {
         }
     }
 
-    public void buttonClickKuchenInspizieren(ActionEvent actionEvent) {
+    public void inspectProductOnButtonClick(ActionEvent actionEvent) {
         String userInputStr = this.inputProperty.get();
         try {
-            int fachnummer = Integer.parseInt(userInputStr);
+            int vendingMachineSlot = Integer.parseInt(userInputStr);
             if (my_log != null) my_log.logger.info("es wird versucht, eine Inspektion durchzuführen");
-            CakeImpl kuchenImplementierung = this.automat.doInspection(fachnummer);
-            if (kuchenImplementierung != null && my_log != null) my_log.logger.info("Inspektion wurde durchgeführt");
+            CakeImpl product = this.vendingMachine.doInspection(vendingMachineSlot);
+            if (product != null && my_log != null) my_log.logger.info("Inspektion wurde durchgeführt");
             this.updateProperties();
         } catch (NumberFormatException e) {
             System.out.println(e);
         }
     }
 
-    public void buttonClickKuchenPersistieren(ActionEvent actionEvent) {
+    public void saveVendingMachineToFile(ActionEvent actionEvent) {
         String userInputStr = this.inputProperty.get();
         switch (userInputStr) {
             case "saveJOS":
-                this.automat.serializeVendingMachine("automaten.ser", this.automat);
-                this.automatInfoProperty.set("Der Zustand des Automaten wurde mittels JOS gespeichert");
+                this.vendingMachine.serializeVendingMachine("automaten.ser", this.vendingMachine);
+                this.vendingMachineInfoProperty.set("Der Zustand des Automaten wurde mittels JOS gespeichert");
                 if (my_log != null) my_log.logger.info("Der Zustand des Automaten wurde mittels JOS gespeichert");
                 break;
             case "loadJOS":
-                VendingMachine loadedAutomat = VendingMachine.deserializeVendingMachine("automaten.ser");
-                this.setAutomat(loadedAutomat);
-                this.automatInfoProperty.set("Der Zustand des Automaten wurde mittels JOS geladen");
+                VendingMachine loadedVendingMachine = VendingMachine.deserializeVendingMachine("automaten.ser");
+                this.setVendingMachine(loadedVendingMachine);
+                this.vendingMachineInfoProperty.set("Der Zustand des Automaten wurde mittels JOS geladen");
                 if (my_log != null) my_log.logger.info("Der Zustand des Automaten wurde mittels JOS geladen");
                 break;
             case "saveJBP":
                 JBP jbpObj = new JBP();
-                jbpObj.JBPSave(this.automat);
-                this.automatInfoProperty.set("Der Zustand des Automaten wurde mittels JBP gespeichert");
+                jbpObj.JBPSave(this.vendingMachine);
+                this.vendingMachineInfoProperty.set("Der Zustand des Automaten wurde mittels JBP gespeichert");
                 if (my_log != null) my_log.logger.info("Der Zustand des Automaten wurde mittels JBP gespeichert");
                 break;
             case "loadJBP":
                 JBP jbpObj2 = new JBP();
                 jbpObj2.JBPLoad();
-                this.setAutomat(jbpObj2.JBPLoad());
-                this.automatInfoProperty.set("Der Zustand des Automaten wurde mittels JBP geladen");
+                this.setVendingMachine(jbpObj2.JBPLoad());
+                this.vendingMachineInfoProperty.set("Der Zustand des Automaten wurde mittels JBP geladen");
                 if (my_log != null) my_log.logger.info("Der Zustand des Automaten wurde mittels JBP geladen");
                 break;
             default:
@@ -236,62 +220,63 @@ public class ViewModel {
         }
     }
 
-    public void buttonClickAllergeneAnzeigen(ActionEvent actionEvent) {
+    public void showAllergensOnButtonClick(ActionEvent actionEvent) {
         String userInputStr = this.inputProperty.get();
         String[] userInputStrArr = userInputStr.split(" ");
         if (userInputStrArr[0].equals("allergene")) {
             if (userInputStrArr[1].equals("i")) {
                 if (my_log != null) my_log.logger.info("es werden alle Allergene die im Automat existieren ausgegeben");
-                this.automatInfoProperty.set("Allergene die im Automat vertreten sind: \n" + this.automat.getAllergens(true).toString());
+                this.vendingMachineInfoProperty.set("Allergene die im Automat vertreten sind: \n" + this.vendingMachine.getAllergens(true).toString());
             } else if (userInputStrArr[1].equals("e")) {
                 if (my_log != null)
                     my_log.logger.info("es werden alle Allergene die nicht im Automat existieren ausgegeben");
-                this.automatInfoProperty.set("Allergene die nicht im Automat vertreten sind: \n" + this.automat.getAllergens(false).toString());
+                this.vendingMachineInfoProperty.set("Allergene die nicht im Automat vertreten sind: \n" + this.vendingMachine.getAllergens(false).toString());
             }
         }
     }
 
-    public void buttonClickHerstellerLöschen(ActionEvent actionEvent) {
+    public void deleteManufacturerOnButtonClick(ActionEvent actionEvent) {
         String userInputStr = this.inputProperty.get();
         if (my_log != null) my_log.logger.info("es wird versucht, einen Hersteller zu löschen");
-        boolean herstellerGelöscht = this.automat.deleteManufacturer(userInputStr);
-        if (herstellerGelöscht && my_log != null) my_log.logger.info("Hersteller wurde gelöscht");
+        boolean manufacturerDeleted = this.vendingMachine.deleteManufacturer(userInputStr);
+        if (manufacturerDeleted && my_log != null) my_log.logger.info("Hersteller wurde gelöscht");
         this.updateProperties();
     }
 
     private void updateProperties() {
-        this.automatInfoProperty.set("");
-        String kuchenliste = "";
+        this.vendingMachineInfoProperty.set("");
+        String products = "";
         if (my_log != null) my_log.logger.info("alle Kuchen werden abgerufen");
-        for (CakeImpl kuchen : this.automat.getProducts()) {
-            if (kuchen != null) kuchenliste += kuchen + "\n";
+        for (CakeImpl product : this.vendingMachine.getProducts()) {
+            if (product != null) products += product + "\n";
         }
-        this.automatKuchenProperty.set("Kuchen im Automat:\n" + kuchenliste);
-        this.automatHerstellerProperty.set("Hersteller im Automat:\n" + this.automat.listManufacturersWithProductsCounted());
+        this.vendingMachineProductsProperty.set("Kuchen im Automat:\n" + products);
+        this.manufacturerProperty.set("Hersteller im Automat:\n" + this.vendingMachine.listManufacturersWithProductsCounted());
     }
 
     public String getInput() {
         return this.inputProperty.get();
     }
 
-    public String getAutomatKuchen() {
-        return this.automatKuchenProperty.get();
+    public String getVendingMachineProductsProperty() {
+        return this.vendingMachineProductsProperty.get();
     }
 
-    public String getAutomatHersteller() {
-        return this.automatHerstellerProperty.get();
+    public String getManufacturerProperty() {
+        return this.manufacturerProperty.get();
     }
 
-    public String getAutomatInfo() {
-        return this.automatInfoProperty.get();
+    public String getVendingMachineInfoProperty() {
+        return this.vendingMachineInfoProperty.get();
     }
+
     public void setLogger(String loggingLanguage) throws IOException {
         this.my_log = Log.getInstance("log.txt");
         this.my_log.setLanguage(loggingLanguage);
     }
 
-    public void setAutomat(VendingMachine automat) {
-        this.automat = automat;
+    public void setVendingMachine(VendingMachine vendingMachine) {
+        this.vendingMachine = vendingMachine;
         this.updateProperties();
     }
 

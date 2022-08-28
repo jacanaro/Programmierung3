@@ -33,27 +33,27 @@ class AutomatSimulation1Test {
 
     @Test
     void addVerkaufsobjektWithAutomatHavingEnoughCapacity() {
-        assertNull(automatSimulation1.addProduct(randomProductGenerator.getRandomKuchen()));
+        assertNull(automatSimulation1.addProduct(randomProductGenerator.getRandomProduct()));
     }
 
     @Test
     void testAddVerkaufsobjektNoCapacityAutomat(){
-        automatSimulation1.addProduct(randomProductGenerator.getRandomKuchen());
-        automatSimulation1.addProduct(randomProductGenerator.getRandomKuchen());
-        automatSimulation1.addProduct(randomProductGenerator.getRandomKuchen());
+        automatSimulation1.addProduct(randomProductGenerator.getRandomProduct());
+        automatSimulation1.addProduct(randomProductGenerator.getRandomProduct());
+        automatSimulation1.addProduct(randomProductGenerator.getRandomProduct());
         assertThrows(IllegalStateException.class, ()
-                -> {automatSimulation1.addProduct(randomProductGenerator.getRandomKuchen());} );
+                -> {automatSimulation1.addProduct(randomProductGenerator.getRandomProduct());} );
     }
 
     @Test
     void deleteVerkaufsobjektRandom() {
-        automatSimulation1.addProduct(randomProductGenerator.getRandomKuchen());
-        assertTrue(automatSimulation1.deleteVerkaufsobjektRandom());
+        automatSimulation1.addProduct(randomProductGenerator.getRandomProduct());
+        assertTrue(automatSimulation1.deleteRandomProduct());
     }
 
     @Test
     void deleteVerkaufsobjektRandomWithEmptyAutomat() {
         assertThrows(IllegalStateException.class, ()
-                -> {automatSimulation1.deleteVerkaufsobjektRandom();} );
+                -> {automatSimulation1.deleteRandomProduct();} );
     }
 }

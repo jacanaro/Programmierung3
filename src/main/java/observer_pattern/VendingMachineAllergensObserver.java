@@ -6,20 +6,20 @@ import java.util.HashSet;
 
 public class VendingMachineAllergensObserver implements Observer {
     private ObservableVendingMachine observableVendingMachine;
-    private HashSet<Allergen> allergene;
+    private HashSet<Allergen> allergens;
 
-    public VendingMachineAllergensObserver(ObservableVendingMachine automat) {
-        this.observableVendingMachine = automat;
-        this.allergene = new HashSet<>(automat.getAllergens(true));
+    public VendingMachineAllergensObserver(ObservableVendingMachine observableVendingMachine) {
+        this.observableVendingMachine = observableVendingMachine;
+        this.allergens = new HashSet<>(observableVendingMachine.getAllergens(true));
         this.observableVendingMachine.addObserver(this);
     }
 
     @Override
     public void update(){
-        if(!allergene.equals(observableVendingMachine.getAllergens(true))){
-            System.out.println("Allergene im alten Automat: "+ allergene.toString()+
+        if(!allergens.equals(observableVendingMachine.getAllergens(true))){
+            System.out.println("Allergene im alten Automat: "+ allergens.toString()+
                     "\n Allergene im neuen Automat: "+ observableVendingMachine.getAllergens(true).toString());
-            allergene= observableVendingMachine.getAllergens(true);
+            allergens = observableVendingMachine.getAllergens(true);
         }
     }
 
@@ -27,7 +27,7 @@ public class VendingMachineAllergensObserver implements Observer {
         return observableVendingMachine;
     }
 
-    public HashSet<Allergen> getAllergene() {
-        return allergene;
+    public HashSet<Allergen> getAllergens() {
+        return allergens;
     }
 }

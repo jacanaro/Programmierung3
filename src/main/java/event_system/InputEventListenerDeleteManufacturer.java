@@ -11,24 +11,24 @@ public class InputEventListenerDeleteManufacturer implements InputEventListener 
             String modus = userInput.substring(0, 2);
             if (modus.equals(":d")) {
                 String[] userInputStrArr = userInput.substring(2).split(" ");
-                for (String str : userInputStrArr) {
-                    if (!str.equals("")) {
+                for (String userInputString : userInputStrArr) {
+                    if (!userInputString.equals("")) {
                         CLI c = (CLI) event.getSource();
-                        if (str.matches("[0-9]+")) {
+                        if (userInputString.matches("[0-9]+")) {
                             try {
-                                for (ManufacturerImpl hersteller : c.getObservableVendingMachine().getManufacturers()) {
-                                    if (hersteller.getName().equals(str)) {
-                                        boolean herstellerGelöscht = c.getObservableVendingMachine().deleteManufacturer(str);
-                                        if (herstellerGelöscht && c.getLog() != null)
+                                for (ManufacturerImpl manufacturer : c.getObservableVendingMachine().getManufacturers()) {
+                                    if (manufacturer.getName().equals(userInputString)) {
+                                        boolean manufacturerDeleted = c.getObservableVendingMachine().deleteManufacturer(userInputString);
+                                        if (manufacturerDeleted && c.getLog() != null)
                                             c.getLog().logger.info("Hersteller wurde gelöscht");
-                                        System.out.println("Hersteller mit dem Namen: " + str + " wurde gelöscht" + "\n"
+                                        System.out.println("Hersteller mit dem Namen: " + userInputString + " wurde gelöscht" + "\n"
                                                 + "Wählen Sie Herstellernamen die nicht auschließlich aus Ziffern bestehen!");
                                     }
                                 }
                                 if (c.getLog() != null)
                                     c.getLog().logger.info("es wird versucht, ein Hersteller zu löschen");
-                                boolean herstellerGelöscht = c.getObservableVendingMachine().deleteManufacturer(str);
-                                if (herstellerGelöscht && c.getLog() != null)
+                                boolean manufacturerDeleted = c.getObservableVendingMachine().deleteManufacturer(userInputString);
+                                if (manufacturerDeleted && c.getLog() != null)
                                     c.getLog().logger.info("Hersteller wurde gelöscht");
                             } catch (Exception e) {
                                 System.out.println(e);

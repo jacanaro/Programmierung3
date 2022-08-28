@@ -46,8 +46,8 @@ class VendingMachineAllergensObserverTest {
     void testConstructor(){
         VendingMachineAllergensObserver allergeneObserver= new VendingMachineAllergensObserver(automat);
         assertEquals(automat, allergeneObserver.getObservableAutomat());
-        assertEquals(automat.getAllergens(true), allergeneObserver.getAllergene());
-        assertTrue(automat.getBeobachterList().contains(allergeneObserver));
+        assertEquals(automat.getAllergens(true), allergeneObserver.getAllergens());
+        assertTrue(automat.getObservers().contains(allergeneObserver));
     }
 
     @Test

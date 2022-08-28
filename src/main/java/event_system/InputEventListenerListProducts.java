@@ -7,8 +7,8 @@ public class InputEventListenerListProducts implements InputEventListener{
     public void onInputEvent(InputEvent event) {
         if (null != event.getText()) {
             String userInput = event.getText();
-            String modus = userInput.substring(0, 2);
-            if (modus.equals(":r")) {
+            String mode = userInput.substring(0, 2);
+            if (mode.equals(":r")) {
                 String[] userInputStrArr = userInput.substring(2).split(" ");
                 for(int i=0; i<userInputStrArr.length;i++){
                     if(userInputStrArr[i].equals("kuchen")){

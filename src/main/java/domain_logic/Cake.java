@@ -7,5 +7,5 @@ public interface Cake {
     Manufacturer getManufacturer();
     Collection<Allergen> getAllergens();
     int getNutritionalScore();
-    Duration getShelfLive();
+    Duration getShelfLife();
 }

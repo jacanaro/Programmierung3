@@ -9,31 +9,31 @@ import java.util.ArrayList;
 
 public class ObservableVendingMachine extends VendingMachine implements Observable {
 
-    ArrayList<Observer> beobachterList = new ArrayList<>();
+    ArrayList<Observer> observers = new ArrayList<>();
 
     public ObservableVendingMachine(int capacity) {
         super(capacity);
     }
 
     @Override public boolean addObserver(Observer observer){
-        return this.beobachterList.add(observer);
+        return this.observers.add(observer);
     }
 
     @Override public boolean removeObserver(Observer observer){
-        return this.beobachterList.remove(observer);
+        return this.observers.remove(observer);
     }
 
     @Override public void notifyObservers(){
-        for (Observer observer : beobachterList) {
+        for (Observer observer : observers) {
             observer.update();
         }
     }
 
     @Override
-    public VendingMachineErrorCodes addProduct(CakeImpl cake) {
-        VendingMachineErrorCodes a=super.addProduct(cake);
+    public VendingMachineErrorCodes addProduct(CakeImpl product) {
+        VendingMachineErrorCodes vendingMachineErrorCodes=super.addProduct(product);
         notifyObservers();
-        return a;
+        return vendingMachineErrorCodes;
     }
 
     @Override
@@ -45,12 +45,12 @@ public class ObservableVendingMachine extends VendingMachine implements Observab
 
     @Override
     public CakeImpl doInspection(int vendingMachineSlot) {
-        CakeImpl k=super.doInspection(vendingMachineSlot);
+        CakeImpl product=super.doInspection(vendingMachineSlot);
         notifyObservers();
-        return k;
+        return product;
     }
 
-    public ArrayList<Observer> getBeobachterList() {
-        return beobachterList;
+    public ArrayList<Observer> getObservers() {
+        return observers;
     }
 }

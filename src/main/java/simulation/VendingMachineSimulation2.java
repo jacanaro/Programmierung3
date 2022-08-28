@@ -27,13 +27,13 @@ public class VendingMachineSimulation2 extends VendingMachineSimulation1 {
     }
 
     @Override
-    public VendingMachineErrorCodes addProduct(CakeImpl cake) {
+    public VendingMachineErrorCodes addProduct(CakeImpl product) {
         this.lock.lock();
         try {
             while (this.isFull()) this.oneDeleted.await();
             if (this.getProducts().size() >= getCAPACITY()) throw new IllegalStateException();
 
-            VendingMachineErrorCodes a = super.addProduct(cake);
+            VendingMachineErrorCodes a = super.addProduct(product);
             if (a == null) this.filled.signal();
             return a;
         } catch (InterruptedException e){
@@ -45,7 +45,7 @@ public class VendingMachineSimulation2 extends VendingMachineSimulation1 {
         }
     }
 
-    public boolean deleteVerkaufsobjektWithOldestDate() {
+    public boolean deleteProductWithOldestInspectionDate() {
         this.lock.lock();
         try {
             while (getProducts().size() == 0) this.filled.await();
@@ -54,17 +54,17 @@ public class VendingMachineSimulation2 extends VendingMachineSimulation1 {
 
             Date oldestDate = new SimpleDateFormat("dd/MM/yyyy").parse("99/99/9999");
             CakeImpl oldestCake = null;
-            ArrayList<CakeImpl> k = getProducts();
+            ArrayList<CakeImpl> products = getProducts();
 
-            for (int i = 0; i < k.size(); i++) {
-                Date d = k.get(i).getDateOfInspection();
+            for (int i = 0; i < products.size(); i++) {
+                Date dateOfInspection = products.get(i).getDateOfInspection();
 
-                if (d.compareTo(oldestDate) == 0) {
+                if (dateOfInspection.compareTo(oldestDate) == 0) {
                     continue;
-                } else if (d.compareTo(oldestDate) < 0) {
-                    oldestDate = d;
-                    oldestCake = k.get(i);
-                } else if (d.compareTo(oldestDate) > 0) {
+                } else if (dateOfInspection.compareTo(oldestDate) < 0) {
+                    oldestDate = dateOfInspection;
+                    oldestCake = products.get(i);
+                } else if (dateOfInspection.compareTo(oldestDate) > 0) {
                     continue;
                 }
             }
@@ -88,12 +88,12 @@ public class VendingMachineSimulation2 extends VendingMachineSimulation1 {
         this.lock.lock();
         try {
             if (this.getProducts().size() != 0){
-                ArrayList<CakeImpl> kListe = getProducts();
+                ArrayList<CakeImpl> products = getProducts();
                 Random random = new Random();
-                int randomIndexOfVerkaufsobjektliste = random.nextInt(kListe.size());
+                int randomIndex = random.nextInt(products.size());
 
-                CakeImpl k = kListe.get(randomIndexOfVerkaufsobjektliste);
-                inspectedItem=super.doInspection(k.getVendingMachineSlot());
+                CakeImpl randomProduct = products.get(randomIndex);
+                inspectedItem=super.doInspection(randomProduct.getVendingMachineSlot());
             }
         } finally {
             this.lock.unlock();

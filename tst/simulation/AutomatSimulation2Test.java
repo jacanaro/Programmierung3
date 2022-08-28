@@ -39,12 +39,12 @@ class AutomatSimulation2Test {
 
     @Test
     void addVerkaufsobjektHappyPath() {
-        assertNull(automatSimulation2.addProduct(randomProductGenerator.getRandomKuchen()));
+        assertNull(automatSimulation2.addProduct(randomProductGenerator.getRandomProduct()));
     }
 
     @Test
     void testIfLockGetsUnlockedAfterAddVerkaufsobjekt(){
-        automatSimulation2.addProduct(randomProductGenerator.getRandomKuchen());
+        automatSimulation2.addProduct(randomProductGenerator.getRandomProduct());
         assertTrue(automatSimulation2.getLock().tryLock());
     }
 
@@ -53,7 +53,7 @@ class AutomatSimulation2Test {
         CakeImpl alterKuchen=new CakeImpl(new ManufacturerImpl("Gooseberryland"), new HashSet<>(),
                 1270, Duration.ofHours(230), "Himihbeere", new BigDecimal("3.27"));
         automatSimulation2.addProduct(alterKuchen);
-        automatSimulation2.deleteVerkaufsobjektWithOldestDate();
+        automatSimulation2.deleteProductWithOldestInspectionDate();
         assertFalse(automatSimulation2.getProducts().contains(alterKuchen));
     }
 
@@ -65,7 +65,7 @@ class AutomatSimulation2Test {
                 1270, Duration.ofHours(230), "Himihbeere", new BigDecimal("3.27"));
         automatSimulation2.addProduct(alterKuchen);
         automatSimulation2.addProduct(jungerKuchen);
-        automatSimulation2.deleteVerkaufsobjektWithOldestDate();
+        automatSimulation2.deleteProductWithOldestInspectionDate();
         assertEquals(jungerKuchen, automatSimulation2.getProducts().get(0));
     }
 
@@ -80,20 +80,20 @@ class AutomatSimulation2Test {
         automatSimulation2.addProduct(alterKuchen);
         automatSimulation2.addProduct(jungerKuchen);
         automatSimulation2.addProduct(juengsterKuchen);
-        automatSimulation2.deleteVerkaufsobjektWithOldestDate();
+        automatSimulation2.deleteProductWithOldestInspectionDate();
         assertFalse(automatSimulation2.getProducts().contains(alterKuchen));
     }
 
     @Test
     void testIfLockGetsUnlockedAfterDeleteVerkaufsobjektWithOldestDate(){
-        automatSimulation2.addProduct(randomProductGenerator.getRandomKuchen());
-        automatSimulation2.deleteVerkaufsobjektWithOldestDate();
+        automatSimulation2.addProduct(randomProductGenerator.getRandomProduct());
+        automatSimulation2.deleteProductWithOldestInspectionDate();
         assertTrue(automatSimulation2.getLock().tryLock());
     }
 
     @Test
     void doRandomInspectionOneItem() {
-        automatSimulation2.addProduct(randomProductGenerator.getRandomKuchen());
+        automatSimulation2.addProduct(randomProductGenerator.getRandomProduct());
         Date oldDate= automatSimulation2.getProducts().get(0).getDateOfInspection();
         automatSimulation2.doRandomInspection();
         Date newDate= automatSimulation2.getProducts().get(0).getDateOfInspection();

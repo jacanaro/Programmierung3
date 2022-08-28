@@ -1,20 +1,20 @@
 package IO;
 
 public class ManufacturerPojo {
-    public String herstellerName;
+    public String manufacturerName;
 
-    public void setHerstellerName(String herstellerName) {
-        this.herstellerName = herstellerName;
+    public void setManufacturerName(String manufacturerName) {
+        this.manufacturerName = manufacturerName;
     }
 
-    public String getHerstellerName() {
-        return herstellerName;
+    public String getManufacturerName() {
+        return manufacturerName;
     }
 
     @Override
     public String toString() {
         return "HerstellerImplementierungPojo{" +
-                "herstellerName='" + herstellerName + '\'' +
+                "herstellerName='" + manufacturerName + '\'' +
                 '}';
     }
 }

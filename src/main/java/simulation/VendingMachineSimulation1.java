@@ -14,23 +14,23 @@ public class VendingMachineSimulation1 extends ObservableVendingMachine {
     }
 
     @Override
-    public VendingMachineErrorCodes addProduct(CakeImpl cake) {
+    public VendingMachineErrorCodes addProduct(CakeImpl product) {
             if (this.getProducts().size() >= this.getCAPACITY()) throw new IllegalStateException();
 
-            VendingMachineErrorCodes a = super.addProduct(cake);
+            VendingMachineErrorCodes a = super.addProduct(product);
             return a;
     }
 
-    public boolean deleteVerkaufsobjektRandom() {
+    public boolean deleteRandomProduct() {
             if (this.getProducts().size() == 0) throw new IllegalStateException();
 
-            ArrayList<CakeImpl> kListe = getProducts();
+            ArrayList<CakeImpl> products = getProducts();
             Random random = new Random();
-            int randomIndexOfVerkaufsobjektliste = random.nextInt(kListe.size());
+            int randomIndex = random.nextInt(products.size());
 
-            CakeImpl k = kListe.get(randomIndexOfVerkaufsobjektliste);
+            CakeImpl product = products.get(randomIndex);
             boolean success = false;
-            if (k != null) success = super.deleteProduct(k.getVendingMachineSlot());
+            if (product != null) success = super.deleteProduct(product.getVendingMachineSlot());
             return success;
     }
 }

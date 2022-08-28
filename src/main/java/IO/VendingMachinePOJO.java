@@ -5,16 +5,16 @@ import java.util.Collection;
 import java.util.HashSet;
 
 public class VendingMachinePOJO {
-    public Collection<CakePojo> verkaufsobjektListe=new ArrayList<>();
-    public Collection<ManufacturerPojo> herstellerSet=new HashSet<>();
+    public Collection<CakePojo> productPojos =new ArrayList<>();
+    public Collection<ManufacturerPojo> manufacturerPojos =new HashSet<>();
     public int capacity;
 
-    public Collection<CakePojo> getVerkaufsobjektListe() {
-        return verkaufsobjektListe;
+    public Collection<CakePojo> getProductPojos() {
+        return productPojos;
     }
 
-    public Collection<ManufacturerPojo> getHerstellerSet() {
-        return herstellerSet;
+    public Collection<ManufacturerPojo> getManufacturerPojos() {
+        return manufacturerPojos;
     }
 
     public int getCapacity() {
@@ -28,8 +28,8 @@ public class VendingMachinePOJO {
     @Override
     public String toString() {
         return "AutomatPOJO{" +
-                "verkaufsobjektListe=" + verkaufsobjektListe +
-                ", herstellerSet=" + herstellerSet +
+                "verkaufsobjektListe=" + productPojos +
+                ", herstellerSet=" + manufacturerPojos +
                 ", capacity=" + capacity +
                 '}';
     }

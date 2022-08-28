@@ -1,12 +1,12 @@
 import domain_logic.ManufacturerImpl;
-import observer_pattern.AutomatSimulationObserver;
+import observer_pattern.VendingMachineSimulationObserver;
 import simulation.*;
 
 public class Simulation2Main {
     public static void main(String[] args) {
         try{
         VendingMachineSimulation2 automat = new VendingMachineSimulation2(Integer.parseInt(args[0]));
-        new AutomatSimulationObserver(automat);
+        new VendingMachineSimulationObserver(automat);
         automat.addManufacturer(new ManufacturerImpl("Blueberryland"));
         automat.addManufacturer(new ManufacturerImpl("Gooseberryland"));
         new Consumer2(automat).start();

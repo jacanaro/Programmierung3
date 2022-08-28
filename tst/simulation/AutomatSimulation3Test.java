@@ -39,7 +39,7 @@ class AutomatSimulation3Test {
         CakeImpl alterKuchen=new CakeImpl(new ManufacturerImpl("Gooseberryland"), new HashSet<>(),
                 1270, Duration.ofHours(230), "Himihbeere", new BigDecimal("3.27"));
         automatSimulation3.addProduct(alterKuchen);
-        automatSimulation3.deleteVerkaufsobjekteWithOldestDateXTimes();
+        automatSimulation3.deleteRandomAmountOfOldestProducts();
         assertEquals(0, automatSimulation3.getProducts().size());
     }
 
@@ -51,7 +51,7 @@ class AutomatSimulation3Test {
                 1270, Duration.ofHours(230), "Himihbeere", new BigDecimal("3.27"));
         automatSimulation3.addProduct(alterKuchen);
         automatSimulation3.addProduct(jungerKuchen);
-        automatSimulation3.deleteVerkaufsobjekteWithOldestDateXTimes();
+        automatSimulation3.deleteRandomAmountOfOldestProducts();
         assertNotEquals(2, automatSimulation3.getProducts().size());
     }
 
@@ -63,7 +63,7 @@ class AutomatSimulation3Test {
                 1270, Duration.ofHours(230), "Himihbeere", new BigDecimal("3.27"));
         automatSimulation3.addProduct(alterKuchen);
         automatSimulation3.addProduct(jungerKuchen);
-        automatSimulation3.deleteVerkaufsobjekteWithOldestDateXTimes();
+        automatSimulation3.deleteRandomAmountOfOldestProducts();
         assertFalse(automatSimulation3.getProducts().contains(alterKuchen));
     }
 
@@ -78,7 +78,7 @@ class AutomatSimulation3Test {
         automatSimulation3.addProduct(alterKuchen);
         automatSimulation3.addProduct(jungerKuchen);
         automatSimulation3.addProduct(juengsterKuchen);
-        automatSimulation3.deleteVerkaufsobjekteWithOldestDateXTimes();
+        automatSimulation3.deleteRandomAmountOfOldestProducts();
         assertNotEquals(3,automatSimulation3.getProducts().size());
     }
 
@@ -90,14 +90,14 @@ class AutomatSimulation3Test {
                 1270, Duration.ofHours(230), "Himihbeere", new BigDecimal("3.27"));
         automatSimulation3.addProduct(alterKuchen);
         automatSimulation3.addProduct(jungerKuchen);
-        automatSimulation3.deleteVerkaufsobjekteWithOldestDateXTimes();
+        automatSimulation3.deleteRandomAmountOfOldestProducts();
         assertFalse(automatSimulation3.getProducts().contains(alterKuchen));
     }
 
     @Test
     void testIfLockGetsUnlockedAfterDeleteVerkaufsobjektWithOldestDateXTimes(){
-        automatSimulation3.addProduct(randomProductGenerator.getRandomKuchen());
-        automatSimulation3.deleteVerkaufsobjekteWithOldestDateXTimes();
+        automatSimulation3.addProduct(randomProductGenerator.getRandomProduct());
+        automatSimulation3.deleteRandomAmountOfOldestProducts();
         assertTrue(automatSimulation3.getLock().tryLock());
     }
 }

@@ -119,7 +119,7 @@ public class TestCLIAbläufe {
                 Duration.ofHours(24), "Apfel", new BigDecimal("7.50"));
         assertEquals(expectedObstTorte.getTypeOfProduct(), actualObstTorte.getTypeOfProduct());
         assertEquals(expectedObstTorte.getManufacturer().getName(), actualObstTorte.getManufacturer().getName());
-        assertEquals(expectedObstTorte.getShelfLive(), actualObstTorte.getShelfLive());
+        assertEquals(expectedObstTorte.getShelfLife(), actualObstTorte.getShelfLife());
         assertEquals(expectedObstTorte.getAllergens(), actualObstTorte.getAllergens());
         assertEquals(expectedObstTorte.getPrice(), actualObstTorte.getPrice());
         assertEquals(expectedObstTorte.getCreamFlavor(), actualObstTorte.getCreamFlavor());
@@ -130,7 +130,7 @@ public class TestCLIAbläufe {
                 Duration.ofHours(20), "Erdbeere", new BigDecimal("2.50"));
         assertEquals(expectedObstKuchen.getTypeOfProduct(), actualObstKuchen.getTypeOfProduct());
         assertEquals(expectedObstKuchen.getManufacturer().getName(), actualObstKuchen.getManufacturer().getName());
-        assertEquals(expectedObstKuchen.getShelfLive(), actualObstKuchen.getShelfLive());
+        assertEquals(expectedObstKuchen.getShelfLife(), actualObstKuchen.getShelfLife());
         assertEquals(expectedObstKuchen.getAllergens(), actualObstKuchen.getAllergens());
         assertEquals(expectedObstKuchen.getPrice(), actualObstKuchen.getPrice());
         assertEquals(expectedObstKuchen.getTypeOfFruit(), actualObstKuchen.getTypeOfFruit());

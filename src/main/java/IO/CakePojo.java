@@ -8,110 +8,110 @@ import java.util.Date;
 import java.util.HashSet;
 
 public class CakePojo {
-    public String kremsorte;
-    public String herstellerName;
-    public HashSet<Allergen> allergene = new HashSet<>();
-    public int naehrwert;
-    public String haltbarkeit;
-    public String obstsorte;
-    public String preis;
-    public Date inspektionsdatum;
-    public int fachnummer;
-    public String kuchentyp;
+    public String creamFlavor;
+    public String manufacturer;
+    public HashSet<Allergen> allergens = new HashSet<>();
+    public int nutritionalScore;
+    public String shelfLife;
+    public String typeOfFruit;
+    public String price;
+    public Date dateOfInspection;
+    public int vendingMachineSlot;
+    public String typeOfProduct;
 
-    public String getKremsorte() {
-        return kremsorte;
+    public String getCreamFlavor() {
+        return creamFlavor;
     }
 
-    public String getHerstellerName() {
-        return herstellerName;
+    public String getManufacturer() {
+        return manufacturer;
     }
 
-    public HashSet<Allergen> getAllergene() {
-        return allergene;
+    public HashSet<Allergen> getAllergens() {
+        return allergens;
     }
 
-    public int getNaehrwert() {
-        return naehrwert;
+    public int getNutritionalScore() {
+        return nutritionalScore;
     }
 
-    public String getHaltbarkeit() {
-        return haltbarkeit;
+    public String getShelfLife() {
+        return shelfLife;
     }
 
-    public String getObstsorte() {
-        return obstsorte;
+    public String getTypeOfFruit() {
+        return typeOfFruit;
     }
 
-    public String getPreis() {
-        return preis;
+    public String getPrice() {
+        return price;
     }
 
-    public String getKuchentyp() {
-        return kuchentyp;
+    public String getTypeOfProduct() {
+        return typeOfProduct;
     }
 
-    public int getFachnummer() {
-        return fachnummer;
+    public int getVendingMachineSlot() {
+        return vendingMachineSlot;
     }
 
-    public Date getInspektionsdatum() {
-        return inspektionsdatum;
+    public Date getDateOfInspection() {
+        return dateOfInspection;
     }
 
-    public void setKremsorte(String kremsorte) {
-        this.kremsorte = kremsorte;
+    public void setCreamFlavor(String creamFlavor) {
+        this.creamFlavor = creamFlavor;
     }
 
     public void setHersteller(String herstellerName) {
-        this.herstellerName = herstellerName;
+        this.manufacturer = herstellerName;
     }
 
-    public void setAllergene(HashSet<Allergen> allergene) {
-        this.allergene = allergene;
+    public void setAllergens(HashSet<Allergen> allergens) {
+        this.allergens = allergens;
     }
 
-    public void setNaehrwert(int naehrwert) {
-        this.naehrwert = naehrwert;
+    public void setNutritionalScore(int nutritionalScore) {
+        this.nutritionalScore = nutritionalScore;
     }
 
-    public void setHaltbarkeit(String haltbarkeit) {
-        this.haltbarkeit = haltbarkeit;
+    public void setShelfLife(String shelfLife) {
+        this.shelfLife = shelfLife;
     }
 
-    public void setObstsorte(String obstsorte) {
-        this.obstsorte = obstsorte;
+    public void setTypeOfFruit(String typeOfFruit) {
+        this.typeOfFruit = typeOfFruit;
     }
 
-    public void setPreis(String preis) {
-        this.preis = preis;
+    public void setPrice(String price) {
+        this.price = price;
     }
 
-    public void setInspektionsdatum(Date inspektionsdatum) {
-        this.inspektionsdatum = inspektionsdatum;
+    public void setDateOfInspection(Date dateOfInspection) {
+        this.dateOfInspection = dateOfInspection;
     }
 
-    public void setFachnummer(int fachnummer) {
-        this.fachnummer = fachnummer;
+    public void setVendingMachineSlot(int vendingMachineSlot) {
+        this.vendingMachineSlot = vendingMachineSlot;
     }
 
-    public void setKuchentyp(String kuchentyp) {
-        this.kuchentyp = kuchentyp;
+    public void setTypeOfProduct(String typeOfProduct) {
+        this.typeOfProduct = typeOfProduct;
     }
 
     @Override
     public String toString() {
         return "KuchenImplementierungPojo{" +
-                "kremsorte='" + kremsorte + '\'' +
-                ", hersteller=" + herstellerName +
-                ", allergene=" + allergene +
-                ", naehrwert=" + naehrwert +
-                ", haltbarkeit=" + haltbarkeit +
-                ", obstsorte='" + obstsorte + '\'' +
-                ", preis=" + preis +
-                ", inspektionsdatum=" + inspektionsdatum +
-                ", fachnummer=" + fachnummer +
-                ", kuchentyp='" + kuchentyp + '\'' +
+                "kremsorte='" + creamFlavor + '\'' +
+                ", hersteller=" + manufacturer +
+                ", allergene=" + allergens +
+                ", naehrwert=" + nutritionalScore +
+                ", haltbarkeit=" + shelfLife +
+                ", obstsorte='" + typeOfFruit + '\'' +
+                ", preis=" + price +
+                ", inspektionsdatum=" + dateOfInspection +
+                ", fachnummer=" + vendingMachineSlot +
+                ", kuchentyp='" + typeOfProduct + '\'' +
                 '}';
     }
 }

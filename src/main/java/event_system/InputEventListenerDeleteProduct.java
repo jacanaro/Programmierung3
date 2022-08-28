@@ -7,17 +7,17 @@ public class InputEventListenerDeleteProduct implements InputEventListener{
     public void onInputEvent(InputEvent event) throws InterruptedException {
         if (null != event.getText()) {
             String userInput = event.getText();
-            String modus = userInput.substring(0, 2);
-            if (modus.equals(":d")) {
+            String mode = userInput.substring(0, 2);
+            if (mode.equals(":d")) {
                 String[] userInputStrArr = userInput.substring(2).split(" ");
-                for(String str: userInputStrArr){
-                    if(str.matches("[0-9]+")){
+                for(String userInputString: userInputStrArr){
+                    if(userInputString.matches("[0-9]+")){
                         try{
                         CLI c = (CLI) event.getSource();
-                        int fachnummer=Integer.parseInt(str);
+                        int vendingMachineSlot=Integer.parseInt(userInputString);
                             if(c.getLog()!=null)c.getLog().logger.info("es wird versucht, ein Kuchen zu löschen");
-                            boolean kucheGelöscht=c.getObservableVendingMachine().deleteProduct(fachnummer);
-                            if(kucheGelöscht && c.getLog()!=null)c.getLog().logger.info("Kuchen wurde gelöscht");
+                            boolean productDeleted=c.getObservableVendingMachine().deleteProduct(vendingMachineSlot);
+                            if(productDeleted && c.getLog()!=null)c.getLog().logger.info("Kuchen wurde gelöscht");
                         }catch (IndexOutOfBoundsException e){
                             System.out.println(e);
                         }

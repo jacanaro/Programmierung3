@@ -12,26 +12,26 @@ public class InputEventListenerSafeAndLoad implements InputEventListener {
     public void onInputEvent(InputEvent event) throws InterruptedException {
         if (null != event.getText()) {
             String userInput = event.getText();
-            String modus = userInput.substring(0, 2);
-            if (modus.equals(":p")) {
+            String mode = userInput.substring(0, 2);
+            if (mode.equals(":p")) {
                 String[] userInputStrArr = userInput.substring(2).split(" ");
-                for (String str : userInputStrArr) {
-                    switch (str) {
+                for (String userInputString : userInputStrArr) {
+                    switch (userInputString) {
                         case "saveJOS":
                             CLI c = (CLI) event.getSource();
                             System.out.println("Serialisiert: " + c.getObservableVendingMachine());
-                            ObservableVendingMachine oAutomat=c.getObservableVendingMachine();
-                            oAutomat.removeObserver(c.getAllergensObserver());
-                            oAutomat.removeObserver(c.getCapacityObserver());
-                            VendingMachine automat=oAutomat;
-                            automat.serializeVendingMachine("automaten.ser", automat);
+                            ObservableVendingMachine observableVendingMachine=c.getObservableVendingMachine();
+                            observableVendingMachine.removeObserver(c.getAllergensObserver());
+                            observableVendingMachine.removeObserver(c.getCapacityObserver());
+                            VendingMachine vendingMachine=observableVendingMachine;
+                            vendingMachine.serializeVendingMachine("automaten.ser", vendingMachine);
                             if(c.getLog()!=null)c.getLog().logger.info("Der Zustand des Automaten wurde mittels JOS gespeichert");
                             break;
                         case "loadJOS":
-                            VendingMachine loadedAutomat = VendingMachine.deserializeVendingMachine("automaten.ser");
-                            System.out.println("Deserialisiert: " + loadedAutomat);
+                            VendingMachine loadedVendingMachine = VendingMachine.deserializeVendingMachine("automaten.ser");
+                            System.out.println("Deserialisiert: " + loadedVendingMachine);
                             CLI c2 = (CLI) event.getSource();
-                            ObservableVendingMachine o = (ObservableVendingMachine) loadedAutomat;
+                            ObservableVendingMachine o = (ObservableVendingMachine) loadedVendingMachine;
                             c2.setObservableAutomat(o);
                             c2.setVendingMachineAllergensObserver(new VendingMachineAllergensObserver(o));
                             c2.setVendingMachineCapacityObserver(new VendingMachineCapacityObserver(o));

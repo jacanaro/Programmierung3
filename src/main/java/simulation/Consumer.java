@@ -1,18 +1,18 @@
 package simulation;
 
 public class Consumer extends Thread {
-    private VendingMachineSimulation1 automat;
+    private VendingMachineSimulation1 vendingMachineSimulation1;
 
-    public Consumer(VendingMachineSimulation1 automat) {
-        this.automat = automat;
+    public Consumer(VendingMachineSimulation1 vendingMachineSimulation1) {
+        this.vendingMachineSimulation1 = vendingMachineSimulation1;
     }
 
     public void run() {
         while (true) {
-            synchronized (this.automat) {
-                if (this.automat.getProducts().size() != 0) {
+            synchronized (this.vendingMachineSimulation1) {
+                if (this.vendingMachineSimulation1.getProducts().size() != 0) {
                     System.out.println(this.getName() + " versucht Kuchen zu loeschen");
-                    this.automat.deleteVerkaufsobjektRandom();
+                    this.vendingMachineSimulation1.deleteRandomProduct();
                 }
             }
         }

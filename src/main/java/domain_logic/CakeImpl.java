@@ -11,44 +11,44 @@ public class CakeImpl implements FruitFlan, Serializable {
     private ManufacturerImpl manufacturer;
     private HashSet<Allergen> allergens;
     private int nutritionalScore;
-    private Duration shelfLive;
+    private Duration shelfLife;
     private String typeOfFruit;
     private BigDecimal price;
     private Date dateOfInspection;
     private int vendingMachineSlot;
     private String typeOfProduct;
 
-    public CakeImpl(String creamFlavor, ManufacturerImpl manufacturer, HashSet<Allergen> allergens, int nutritionalScore, Duration shelfLive,
+    public CakeImpl(String creamFlavor, ManufacturerImpl manufacturer, HashSet<Allergen> allergens, int nutritionalScore, Duration shelfLife,
                     String typeOfFruit, BigDecimal price){
         this.typeOfProduct ="Obsttorte";
         this.creamFlavor = creamFlavor;
         this.manufacturer = manufacturer;
         this.allergens = allergens;
         this.nutritionalScore = nutritionalScore;
-        this.shelfLive = shelfLive;
+        this.shelfLife = shelfLife;
         this.typeOfFruit = typeOfFruit;
         this.price = price;
     }
 
-    public CakeImpl(ManufacturerImpl manufacturer, HashSet<Allergen> allergens, int nutritionalScore, Duration shelfLive,
+    public CakeImpl(ManufacturerImpl manufacturer, HashSet<Allergen> allergens, int nutritionalScore, Duration shelfLife,
                     String typeOfFruit, BigDecimal price){
         this.typeOfProduct ="Obstkuchen";
         this.manufacturer = manufacturer;
         this.allergens = allergens;
         this.nutritionalScore = nutritionalScore;
-        this.shelfLive = shelfLive;
+        this.shelfLife = shelfLife;
         this.typeOfFruit = typeOfFruit;
         this.price = price;
     }
 
     public CakeImpl(ManufacturerImpl manufacturer, HashSet<Allergen> allergens,
-                    String creamFlavor, int nutritionalScore, Duration shelfLive,
+                    String creamFlavor, int nutritionalScore, Duration shelfLife,
                     BigDecimal price){
         this.typeOfProduct ="Kremkuchen";
         this.manufacturer = manufacturer;
         this.allergens = allergens;
         this.nutritionalScore = nutritionalScore;
-        this.shelfLive = shelfLive;
+        this.shelfLife = shelfLife;
         this.creamFlavor = creamFlavor;
         this.price = price;
     }
@@ -78,8 +78,8 @@ public class CakeImpl implements FruitFlan, Serializable {
     }
 
     @Override
-    public Duration getShelfLive() {
-        return shelfLive;
+    public Duration getShelfLife() {
+        return shelfLife;
     }
 
     @Override
@@ -118,7 +118,7 @@ public class CakeImpl implements FruitFlan, Serializable {
                 ", hersteller=" + getManufacturer().getName() +
                 ", allergen=" + allergens +'\'' +
                 ", naehrwert=" + nutritionalScore +'\'' +
-                ", haltbarkeit=" + shelfLive +'\'' +
+                ", haltbarkeit=" + shelfLife +'\'' +
                 ", obstsorte='" + typeOfFruit + '\'' +
                 ", preis=" + price +'\'' +
                 ", inspektionsdatum=" + dateOfInspection +'\'' +

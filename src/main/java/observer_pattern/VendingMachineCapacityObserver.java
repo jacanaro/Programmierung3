@@ -6,19 +6,19 @@ import java.util.ArrayList;
 
 public class VendingMachineCapacityObserver implements Observer {
     private ObservableVendingMachine observableVendingMachine;
-    private ArrayList<CakeImpl> verkaufsobjektListe;
+    private ArrayList<CakeImpl> products;
 
-    public VendingMachineCapacityObserver(ObservableVendingMachine automat) {
-        this.observableVendingMachine = automat;
-        this.verkaufsobjektListe= new ArrayList<>(automat.getProducts());
+    public VendingMachineCapacityObserver(ObservableVendingMachine observableVendingMachine) {
+        this.observableVendingMachine = observableVendingMachine;
+        this.products = new ArrayList<>(observableVendingMachine.getProducts());
         this.observableVendingMachine.addObserver(this);
     }
 
     @Override
     public void update(){
-        verkaufsobjektListe= observableVendingMachine.getProducts();
-        if(verkaufsobjektListe.size()> observableVendingMachine.getCAPACITY()*0.9) {
-            System.out.println(verkaufsobjektListe.size()+" von "+ observableVendingMachine.getCAPACITY()+" Fächern sind belegt!");
+        products = observableVendingMachine.getProducts();
+        if(products.size()> observableVendingMachine.getCAPACITY()*0.9) {
+            System.out.println(products.size()+" von "+ observableVendingMachine.getCAPACITY()+" Fächern sind belegt!");
         }
     }
 
@@ -26,7 +26,7 @@ public class VendingMachineCapacityObserver implements Observer {
         return observableVendingMachine;
     }
 
-    public ArrayList<CakeImpl> getVerkaufsobjektListe() {
-        return verkaufsobjektListe;
+    public ArrayList<CakeImpl> getProducts() {
+        return products;
     }
 }

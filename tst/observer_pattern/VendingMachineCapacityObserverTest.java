@@ -57,8 +57,8 @@ class VendingMachineCapacityObserverTest {
     void testConstructor(){
         VendingMachineCapacityObserver capacityObserver= new VendingMachineCapacityObserver(automat);
         assertEquals(automat, capacityObserver.getObservableAutomat());
-        assertEquals(automat.getProducts(), capacityObserver.getVerkaufsobjektListe());
-        assertTrue(automat.getBeobachterList().contains(capacityObserver));
+        assertEquals(automat.getProducts(), capacityObserver.getProducts());
+        assertTrue(automat.getObservers().contains(capacityObserver));
     }
 
     @Test
